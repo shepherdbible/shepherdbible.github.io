@@ -1,4 +1,5 @@
 npm run build
+npm run preview
 npm run dev -- --host
 
 tree /F /A

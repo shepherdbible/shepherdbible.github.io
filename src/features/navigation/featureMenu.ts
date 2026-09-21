@@ -6,6 +6,6 @@ export const featureMenu: FeatureMenuItem[] = [
     icon: "🎨",
     title: "Verse Image Creator",
     description: "Create beautiful Scripture images",
-    route: "#/editor",
+    route: "/editor",
   },
 ];

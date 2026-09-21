@@ -194,34 +194,8 @@ export const Navbar = {
       dropdown?.classList.toggle("open", !isOpen);
     });
 
-    /*
-     * ---------------------------------------------------------
-     * Desktop hover
-     * ---------------------------------------------------------
-     */
-
-    dropdown?.addEventListener("mouseenter", () => {
-      if (window.innerWidth > 768) {
-        dropdown.classList.add("open");
-
-        dropdownTrigger?.setAttribute(
-          "aria-expanded",
-          "true",
-        );
-      }
-    });
-
-    dropdown?.addEventListener("mouseleave", () => {
-      if (window.innerWidth > 768) {
-        dropdown.classList.remove("open");
-
-        dropdownTrigger?.setAttribute(
-          "aria-expanded",
-          "false",
-        );
-      }
-    });
-
+    
+    
     /*
      * ---------------------------------------------------------
      * Close Features menu outside click

@@ -1196,6 +1196,7 @@
           >
             Privacy
           </a>
+          <a href="mailto:shepherdbiblecommunity@gmail.com" style="color: inherit;">Contact</a>
         </div>
       </div>
     `),R()}document.addEventListener(`DOMContentLoaded`,z);

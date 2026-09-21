@@ -11,18 +11,11 @@ function initializeApp(): void {
 
   const savedTheme = localStorage.getItem("sb-theme");
 
-  const prefersDark = window.matchMedia(
-    "(prefers-color-scheme: dark)",
-  ).matches;
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-  const initialTheme =
-    savedTheme ||
-    (prefersDark ? "dark" : "light");
+  const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
 
-  document.documentElement.setAttribute(
-    "data-theme",
-    initialTheme,
-  );
+  document.documentElement.setAttribute("data-theme", initialTheme);
 
   // ---------------------------------------------------------
   // Header
@@ -98,6 +91,7 @@ function initializeApp(): void {
           >
             Privacy
           </a>
+          <a href="mailto:shepherdbiblecommunity@gmail.com" style="color: inherit;">Contact</a>
         </div>
       </div>
     `;
@@ -110,7 +104,4 @@ function initializeApp(): void {
   initRouter();
 }
 
-document.addEventListener(
-  "DOMContentLoaded",
-  initializeApp,
-);
+document.addEventListener("DOMContentLoaded", initializeApp);

@@ -1,0 +1,49 @@
+npm run build
+npm run dev -- --host
+
+tree /F /A
+
+
+
+
+shepherd-bible-community/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+├── public/
+│   ├── favicon.svg
+│   └── icons.svg
+├── src/
+│   ├── assets/
+│   │   ├── hero.png
+│   │   ├── typescript.svg
+│   │   └── vite.svg
+│   ├── components/
+│   │   └── Navbar.ts
+│   ├── data/
+│   │   └── mockData.ts
+│   ├── pages/
+│   │   ├── AboutPage.ts
+│   │   ├── ChangelogPage.ts
+│   │   ├── CommunityPage.ts
+│   │   ├── FaqPage.ts
+│   │   ├── HomePage.ts
+│   │   └── PrivacyPage.ts
+│   ├── router/
+│   │   └── router.ts
+│   ├── styles/
+│   │   ├── global.css
+│   │   ├── homepage.css
+│   │   └── themes/
+│   │       ├── theme_green.css
+│   │       └── theme_red.css
+│   ├── types/
+│   │   └── index.ts
+│   ├── counter.ts
+│   ├── main.ts
+│   └── style.css
+├── .gitignore
+├── cmd.txt
+├── index.html
+├── package.json
+└── tsconfig.json

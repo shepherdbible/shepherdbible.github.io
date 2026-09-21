@@ -1,0 +1,71 @@
+:root {
+  /* ========================================
+     Bible - Multi Version — Light Theme
+     ======================================== */
+
+  /* Brand */
+  --color-primary: #7A2E2E;
+  --color-primary-dark: #5A2020;
+  --color-primary-light: #984848;
+
+  /* Backgrounds */
+  --color-background: #F7F2E8;
+  --color-surface: #FFFFFF;
+  --color-surface-muted: #EEE6D8;
+
+  /* Text */
+  --color-text: #332624;
+  --color-text-muted: #746965;
+
+  /* Gold / Scripture Accent */
+  --color-accent: #C29A55;
+  --color-accent-light: #E3CEA2;
+  --color-accent-dark: #987338;
+
+  /* Borders */
+  --color-border: #DED3C4;
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Merriweather", Georgia, serif;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(90, 32, 32, 0.06);
+  --shadow-md: 0 8px 24px rgba(90, 32, 32, 0.10);
+
+  /* Radius */
+  --radius-md: 12px;
+  --radius-lg: 24px;
+}
+
+[data-theme="dark"] {
+  /* ========================================
+     Bible - Multi Version — Dark Theme
+     ======================================== */
+
+  /* Brand */
+  --color-primary: #C87570;
+  --color-primary-dark: #D9938D;
+  --color-primary-light: #E0AAA5;
+
+  /* Backgrounds */
+  --color-background: #171211;
+  --color-surface: #241B1A;
+  --color-surface-muted: #302321;
+
+  /* Text */
+  --color-text: #F1E9DF;
+  --color-text-muted: #B9AAA2;
+
+  /* Gold / Scripture Accent */
+  --color-accent: #D5B36A;
+  --color-accent-light: #E5CE99;
+  --color-accent-dark: #B58F4D;
+
+  /* Borders */
+  --color-border: #443332;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+}

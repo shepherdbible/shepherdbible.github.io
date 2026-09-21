@@ -30,8 +30,8 @@ export function initRouter(): void {
   }
 
   const renderRoute = (): void => {
-    const hash = window.location.hash.slice(1) || "/";
-    const createPage = routes[hash] ?? routes["/"];
+    const path = window.location.pathname;
+    const createPage = routes[path] ?? routes["/"];
     const page = createPage();
 
     window.scrollTo(0, 0);
@@ -49,7 +49,27 @@ export function initRouter(): void {
     page.mount?.();
   };
 
-  window.addEventListener("hashchange", renderRoute);
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement;
+    const link = target.closest<HTMLAnchorElement>("a[data-route]");
+
+    if (!link) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const href = link.getAttribute("href");
+
+    if (!href) {
+      return;
+    }
+
+    history.pushState({}, "", href);
+    renderRoute();
+  });
+
+  window.addEventListener("popstate", renderRoute);
 
   renderRoute();
 }

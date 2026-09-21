@@ -13,6 +13,8 @@ git push -u origin main
 
 
 npm run build
+Copy-Item "404.html" "docs/404.html" -Force
+
 git add .
 git commit -m "Update"
 git branch -M main

@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Redirecting...</title>
-    <script type="text/javascript">
-      // Set pathSegmentsToKeep:
-      // Use 1 if hosted at username.github.io/repo-name/
-      // Use 0 if hosted on a custom domain (e.g., example.com)
-      var pathSegmentsToKeep = 1;
 
-      var l = window.location;
-      l.replace(
-        l.protocol + '//' + l.host +
-        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?' +
-        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
-    </script>
-  </head>
-  <body>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    (function () {
+      var redirect = window.location.search;
+
+      if (redirect.startsWith("?/")) {
+        var decoded = redirect
+          .slice(1)
+          .replace(/~and~/g, "&");
+
+        var parts = decoded.split("&");
+        var path = parts.shift();
+
+        var query = parts.length
+          ? "?" + parts.join("&")
+          : "";
+
+        window.history.replaceState(
+          null,
+          "",
+          path + query + window.location.hash
+        );
+      }
+    })();
+  </script>
+</head>
+
+<body>
+</body>
+
 </html>

@@ -1,7 +1,7 @@
-import type { Page } from '../types';
+import type { Page } from "../types";
 
 export const CommunityPage: Page = {
-  render: () => /* html */  `
+  render: () => /* html */ `
     <div class="section">
       <div class="container">
         <div class="text-center" style="margin-bottom: 64px;">
@@ -23,7 +23,7 @@ export const CommunityPage: Page = {
             </div>
             <h3>Finding peace in the Psalms</h3>
             <p>"Reading through Psalm 91 this morning using the new highlight feature really helped center my day..."</p>
-            <div class="author">— Daniel Reyes <em>(Sample User)</em></div>
+            <div class="author">— User1 <em></em></div>
           </div>
 
           <!-- Sample Demo Post 2 -->
@@ -34,7 +34,7 @@ export const CommunityPage: Page = {
             </div>
             <h3>Audio Bible Support</h3>
             <p>"It would be incredible to have text-to-speech or integrated audio bibles for commuting."</p>
-            <div class="author">— Hannah Grace <em>(Sample User)</em></div>
+            <div class="author">— User2 <em></em></div>
           </div>
         </div>
       </div>
@@ -48,5 +48,5 @@ export const CommunityPage: Page = {
       .date { color: var(--color-text-muted); }
       .author { margin-top: auto; font-size: 0.875rem; color: var(--color-text-muted); font-style: italic; }
     </style>
-  `
+  `,
 };

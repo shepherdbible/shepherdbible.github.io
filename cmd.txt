@@ -13,9 +13,10 @@ git push -u origin main
 
 
 
-git add docs
+git add .
 git commit -m "Update"
-git push origin main
+git branch -M main
+git push -u origin main
 
 
 shepherd-bible-community/

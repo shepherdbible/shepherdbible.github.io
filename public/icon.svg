@@ -1,0 +1,27 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="url(#shepherd-gradient)"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  <defs>
+    <linearGradient
+      id="shepherd-gradient"
+      x1="4"
+      y1="2"
+      x2="20"
+      y2="22"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop offset="0%" stop-color="#7A2E2E" />
+      <stop offset="55%" stop-color="#6B3028" />
+      <stop offset="100%" stop-color="#4A2B24" />
+    </linearGradient>
+  </defs>
+
+  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+</svg>

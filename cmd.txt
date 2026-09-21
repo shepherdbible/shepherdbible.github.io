@@ -12,6 +12,12 @@ git branch -M main
 git push -u origin main
 
 
+
+git add docs
+git commit -m "Update"
+git push origin main
+
+
 shepherd-bible-community/
 ├── .github/
 │   └── workflows/

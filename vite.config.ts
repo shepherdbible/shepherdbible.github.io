@@ -9,6 +9,8 @@ export default defineConfig({
   ],
 
   build: {
+    outDir: "docs",
+    emptyOutDir: true,
     assetsInlineLimit: 100000000,
     cssCodeSplit: false,
     assetsDir: "",

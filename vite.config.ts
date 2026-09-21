@@ -1,23 +1,11 @@
 import { defineConfig } from "vite";
-import { viteSingleFile } from "vite-plugin-singlefile";
 
 export default defineConfig({
-  base: "./",
-
-  plugins: [
-    viteSingleFile(),
-  ],
+  base: "/",
 
   build: {
     outDir: "docs",
-    emptyOutDir: false,
-    assetsInlineLimit: 100000000,
-    cssCodeSplit: false,
-    assetsDir: "",
-    rollupOptions: {
-      output: {
-        inlineDynamicImports: true,
-      },
-    },
+    emptyOutDir: true,
+    assetsDir: "assets",
   },
 });

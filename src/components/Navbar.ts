@@ -8,9 +8,13 @@ function renderFeatureMenu(): string {
         <a
           href="${item.route}"
           class="feature-item"
+          data-route
           data-feature-id="${item.id}"
         >
-          <span class="feature-item-icon" aria-hidden="true">
+          <span
+            class="feature-item-icon"
+            aria-hidden="true"
+          >
             ${item.icon}
           </span>
 
@@ -19,7 +23,7 @@ function renderFeatureMenu(): string {
             <small>${item.description}</small>
           </span>
         </a>
-      `
+      `,
     )
     .join("");
 }
@@ -32,8 +36,9 @@ export const Navbar = {
 
         <!-- Logo -->
         <a
-          href="#/"
+          href="/"
           class="logo"
+          data-route
           aria-label="Shepherd Bible Home"
         >
           <svg
@@ -78,9 +83,7 @@ export const Navbar = {
           id="main-navigation"
         >
 
-          <a href="#/">Home</a>
-
-          <!-- <a href="#/bible">Bible</a> -->
+          <a href="/" data-route>Home</a>
 
           <!-- Features -->
           <div class="nav-dropdown">
@@ -118,9 +121,9 @@ export const Navbar = {
 
           </div>
 
-          <a href="#/community">Community</a>
+          <a href="/community" data-route>Community</a>
 
-          <a href="#/changelog">Changelog</a>
+          <a href="/changelog" data-route>Changelog</a>
 
           <!-- Theme -->
           <button
@@ -142,15 +145,16 @@ export const Navbar = {
     const mobileMenuButton =
       document.querySelector<HTMLButtonElement>(".mobile-menu-btn");
 
-    const navLinks = document.querySelector<HTMLElement>("#main-navigation");
+    const navLinks =
+      document.querySelector<HTMLElement>("#main-navigation");
 
-    const dropdown = document.querySelector<HTMLElement>(".nav-dropdown");
+    const dropdown =
+      document.querySelector<HTMLElement>(".nav-dropdown");
 
-    const dropdownTrigger = document.querySelector<HTMLButtonElement>(
-      ".nav-dropdown-trigger",
-    );
-
-    const featuresMenu = document.querySelector<HTMLElement>("#features-menu");
+    const dropdownTrigger =
+      document.querySelector<HTMLButtonElement>(
+        ".nav-dropdown-trigger",
+      );
 
     /*
      * ---------------------------------------------------------
@@ -159,9 +163,13 @@ export const Navbar = {
      */
 
     mobileMenuButton?.addEventListener("click", () => {
-      const isOpen = mobileMenuButton.getAttribute("aria-expanded") === "true";
+      const isOpen =
+        mobileMenuButton.getAttribute("aria-expanded") === "true";
 
-      mobileMenuButton.setAttribute("aria-expanded", String(!isOpen));
+      mobileMenuButton.setAttribute(
+        "aria-expanded",
+        String(!isOpen),
+      );
 
       navLinks?.classList.toggle("active", !isOpen);
     });
@@ -175,26 +183,31 @@ export const Navbar = {
     dropdownTrigger?.addEventListener("click", (event) => {
       event.stopPropagation();
 
-      const isOpen = dropdownTrigger.getAttribute("aria-expanded") === "true";
+      const isOpen =
+        dropdownTrigger.getAttribute("aria-expanded") === "true";
 
-      dropdownTrigger.setAttribute("aria-expanded", String(!isOpen));
+      dropdownTrigger.setAttribute(
+        "aria-expanded",
+        String(!isOpen),
+      );
 
       dropdown?.classList.toggle("open", !isOpen);
     });
 
     /*
-     * Desktop hover support
-     *
-     * Hover works naturally with a mouse.
-     * Click support above also makes it usable
-     * on touch devices.
+     * ---------------------------------------------------------
+     * Desktop hover
+     * ---------------------------------------------------------
      */
 
     dropdown?.addEventListener("mouseenter", () => {
       if (window.innerWidth > 768) {
         dropdown.classList.add("open");
 
-        dropdownTrigger?.setAttribute("aria-expanded", "true");
+        dropdownTrigger?.setAttribute(
+          "aria-expanded",
+          "true",
+        );
       }
     });
 
@@ -202,13 +215,16 @@ export const Navbar = {
       if (window.innerWidth > 768) {
         dropdown.classList.remove("open");
 
-        dropdownTrigger?.setAttribute("aria-expanded", "false");
+        dropdownTrigger?.setAttribute(
+          "aria-expanded",
+          "false",
+        );
       }
     });
 
     /*
      * ---------------------------------------------------------
-     * Close Features menu when clicking outside
+     * Close Features menu outside click
      * ---------------------------------------------------------
      */
 
@@ -218,25 +234,34 @@ export const Navbar = {
       if (dropdown && !dropdown.contains(target)) {
         dropdown.classList.remove("open");
 
-        dropdownTrigger?.setAttribute("aria-expanded", "false");
+        dropdownTrigger?.setAttribute(
+          "aria-expanded",
+          "false",
+        );
       }
     });
 
     /*
      * ---------------------------------------------------------
-     * Close mobile navigation after selecting a link
+     * Close mobile navigation after navigation
      * ---------------------------------------------------------
      */
 
-    navLinks?.querySelectorAll("a").forEach((link) => {
+    navLinks?.querySelectorAll("a[data-route]").forEach((link) => {
       link.addEventListener("click", () => {
         navLinks.classList.remove("active");
 
-        mobileMenuButton?.setAttribute("aria-expanded", "false");
+        mobileMenuButton?.setAttribute(
+          "aria-expanded",
+          "false",
+        );
 
         dropdown?.classList.remove("open");
 
-        dropdownTrigger?.setAttribute("aria-expanded", "false");
+        dropdownTrigger?.setAttribute(
+          "aria-expanded",
+          "false",
+        );
       });
     });
 
@@ -246,29 +271,42 @@ export const Navbar = {
      * ---------------------------------------------------------
      */
 
-    const themeButton = document.getElementById("theme-toggle");
+    const themeButton =
+      document.getElementById("theme-toggle");
 
-    const savedTheme = localStorage.getItem("sb-theme");
+    const savedTheme =
+      localStorage.getItem("sb-theme");
 
-    if (savedTheme === "dark" || savedTheme === "light") {
-      document.documentElement.setAttribute("data-theme", savedTheme);
+    if (
+      savedTheme === "dark" ||
+      savedTheme === "light"
+    ) {
+      document.documentElement.setAttribute(
+        "data-theme",
+        savedTheme,
+      );
     }
 
     themeButton?.addEventListener("click", () => {
-      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const currentTheme =
+        document.documentElement.getAttribute(
+          "data-theme",
+        );
 
-      const newTheme = currentTheme === "dark" ? "light" : "dark";
+      const newTheme =
+        currentTheme === "dark"
+          ? "light"
+          : "dark";
 
-      document.documentElement.setAttribute("data-theme", newTheme);
+      document.documentElement.setAttribute(
+        "data-theme",
+        newTheme,
+      );
 
-      localStorage.setItem("sb-theme", newTheme);
+      localStorage.setItem(
+        "sb-theme",
+        newTheme,
+      );
     });
-
-    /*
-     * Prevent unused reference warnings in some
-     * strict configurations while keeping the
-     * element available for future enhancements.
-     */
-    void featuresMenu;
   },
 };

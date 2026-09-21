@@ -11,17 +11,27 @@ type PageInstance = {
   mount?(): void;
 };
 
-const routes: Record<string, () => PageInstance> = {
+type PageFactory = () => PageInstance;
+
+const routes: Record<string, PageFactory> = {
   "/": () => HomePage,
   "/about": () => AboutPage,
   "/faq": () => FaqPage,
   "/community": () => CommunityPage,
   "/changelog": () => ChangelogPage,
   "/privacy": () => PrivacyPage,
-  "/editor": () => new VerseImagePage()
+  "/editor": () => new VerseImagePage(),
 };
 
-export function initRouter(): void {
+function normalizePath(pathname: string): string {
+  if (pathname.length > 1 && pathname.endsWith("/")) {
+    return pathname.slice(0, -1);
+  }
+
+  return pathname || "/";
+}
+
+function renderRoute(): void {
   const contentDiv = document.getElementById("app-content");
 
   if (!contentDiv) {
@@ -29,45 +39,74 @@ export function initRouter(): void {
     return;
   }
 
-  const renderRoute = (): void => {
-    const path = window.location.pathname;
-    const createPage = routes[path] ?? routes["/"];
-    const page = createPage();
+  const path = normalizePath(window.location.pathname);
+  const createPage = routes[path] ?? routes["/"];
+  const page = createPage();
 
-    window.scrollTo(0, 0);
-
-    const rendered = page.render();
-
-    contentDiv.innerHTML = "";
-
-    if (typeof rendered === "string") {
-      contentDiv.innerHTML = rendered;
-    } else {
-      contentDiv.appendChild(rendered);
-    }
-
-    page.mount?.();
-  };
-
-  document.addEventListener("click", (event) => {
-    const target = event.target as HTMLElement;
-    const link = target.closest<HTMLAnchorElement>("a[data-route]");
-
-    if (!link) {
-      return;
-    }
-
-    event.preventDefault();
-
-    const href = link.getAttribute("href");
-
-    if (!href) {
-      return;
-    }
-
-    history.pushState({}, "", href);
-    renderRoute();
+  window.scrollTo({
+    top: 0,
+    behavior: "auto",
   });
+
+  const rendered = page.render();
+
+  contentDiv.innerHTML = "";
+
+  if (typeof rendered === "string") {
+    contentDiv.innerHTML = rendered;
+  } else {
+    contentDiv.appendChild(rendered);
+  }
+
+  page.mount?.();
+}
+
+function handleNavigation(event: MouseEvent): void {
+  if (
+    event.defaultPrevented ||
+    event.button !== 0 ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.shiftKey ||
+    event.altKey
+  ) {
+    return;
+  }
+
+  const target = event.target as HTMLElement | null;
+
+  if (!target) {
+    return;
+  }
+
+  const link = target.closest<HTMLAnchorElement>("a[data-route]");
+
+  if (!link) {
+    return;
+  }
+
+  const href = link.getAttribute("href");
+
+  if (!href || !href.startsWith("/")) {
+    return;
+  }
+
+  event.preventDefault();
+
+  const currentPath = normalizePath(window.location.pathname);
+  const nextPath = normalizePath(href);
+
+  if (currentPath === nextPath) {
+    return;
+  }
+
+  history.pushState({}, "", nextPath);
+
+  renderRoute();
+}
+
+export function initRouter(): void {
+  document.addEventListener("click", handleNavigation);
 
   window.addEventListener("popstate", renderRoute);
 

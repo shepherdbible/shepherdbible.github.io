@@ -3,7 +3,13 @@ npm run dev -- --host
 
 tree /F /A
 
+cd "C:\Users\Robel\Documents\GitHub\shepherdbible.github.io"
 
+git status
+git add .
+git commit -m "Configure single-file Vite deployment"
+git branch -M main
+git push -u origin main
 
 
 shepherd-bible-community/

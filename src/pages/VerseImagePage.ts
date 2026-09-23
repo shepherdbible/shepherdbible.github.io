@@ -19,11 +19,11 @@ export class VerseImagePage {
     this.container.className = "verse-image-editor-page";
   }
 
-  public render(): HTMLElement {
-    this.container.innerHTML = `
+  public render(): HTMLElement  {
+    this.container.innerHTML = /* html */`
       <header class="editor-header">
         <div class="editor-title">
-          <h1>Verse Image Creator</h1>
+          
           <p>Design and share God's Word beautifully.</p>
         </div>
         <div class="editor-actions">
@@ -32,7 +32,7 @@ export class VerseImagePage {
           <button id="btn-export-png" class="panel-btn panel-btn-primary">💾 Save PNG</button>
         </div>
       </header>
-
+      
       <main class="editor-body">
         <aside class="editor-sidebar">
           <nav class="tab-nav" id="editor-tabs">

@@ -3,12 +3,15 @@ import { CanvasBackground } from "./CanvasBackground";
 import { CanvasText } from "./CanvasText";
 import { CanvasEffects } from "./CanvasEffects";
 import { fontLoader } from "../fonts/fontLoader";
+import { CanvasSelectionHandles } from "./CanvasSelectionHandles";
 
 export class CanvasRenderer {
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
   private backgroundRenderer = new CanvasBackground();
   private textRenderer = new CanvasText();
+  private selectionHandles =
+  new CanvasSelectionHandles();
   private showSelectionControls = true;
 
   constructor(canvas: HTMLCanvasElement) {
@@ -108,45 +111,14 @@ export class CanvasRenderer {
     );
   }
 
-  private renderSelectionOverlay(element: VerseImageElement): void {
-    this.ctx.save();
-
-    const centerX = element.x + element.width / 2;
-    const centerY = element.y + element.height / 2;
-
-    this.ctx.translate(centerX, centerY);
-    if (element.rotation !== 0) {
-      this.ctx.rotate((element.rotation * Math.PI) / 180);
-    }
-    this.ctx.translate(-centerX, -centerY);
-
-    // Bounding Box
-    this.ctx.strokeStyle = "#D4AF37";
-    this.ctx.lineWidth = 2;
-    this.ctx.setLineDash([6, 6]);
-    this.ctx.strokeRect(element.x - 4, element.y - 4, element.width + 8, element.height + 8);
-    this.ctx.setLineDash([]);
-
-    // Corner Handles
-    const handleSize = 12;
-    this.ctx.fillStyle = "#FAF7F2";
-    this.ctx.strokeStyle = "#3D1E18";
-    this.ctx.lineWidth = 2;
-
-    const corners = [
-      { x: element.x - 4, y: element.y - 4 },
-      { x: element.x + element.width + 4, y: element.y - 4 },
-      { x: element.x - 4, y: element.y + element.height + 4 },
-      { x: element.x + element.width + 4, y: element.y + element.height + 4 }
-    ];
-
-    corners.forEach((c) => {
-      this.ctx.fillRect(c.x - handleSize / 2, c.y - handleSize / 2, handleSize, handleSize);
-      this.ctx.strokeRect(c.x - handleSize / 2, c.y - handleSize / 2, handleSize, handleSize);
-    });
-
-    this.ctx.restore();
-  }
+ private renderSelectionOverlay(
+  element: VerseImageElement
+): void {
+  this.selectionHandles.render(
+    this.ctx,
+    element
+  );
+}
 
   public getCanvas(): HTMLCanvasElement {
     return this.canvas;

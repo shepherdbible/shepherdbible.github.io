@@ -303,3 +303,8 @@
     padding: 12px;
   }
 }
+@media (min-width: 769px) {
+  .mobile-editor-toolbar {
+    display: none;
+  }
+}

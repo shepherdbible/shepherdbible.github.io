@@ -1610,28 +1610,62 @@
       `,n.addEventListener(`click`,()=>{this.editor.applyTemplate(t.id)}),e.appendChild(n)})}},P=class{container;editor;constructor(){this.container=document.createElement(`div`),this.container.className=`verse-image-editor-page`}render(){return this.container.innerHTML=`
       <header class="editor-header">
         <div class="editor-title">
-          
+          <h1>Verse Image Creator</h1>
           <p>Design and share God's Word beautifully.</p>
         </div>
+
         <div class="editor-actions">
-          <button id="btn-undo" class="panel-btn" title="Undo">↩ Undo</button>
-          <button id="btn-redo" class="panel-btn" title="Redo">↪ Redo</button>
-          <button id="btn-export-png" class="panel-btn panel-btn-primary">💾 Save PNG</button>
+          <button id="btn-undo" class="panel-btn" title="Undo">
+            ↩ Undo
+          </button>
+
+          <button id="btn-redo" class="panel-btn" title="Redo">
+            ↪ Redo
+          </button>
+
+          <button id="btn-export-png" class="panel-btn panel-btn-primary">
+            💾 Save PNG
+          </button>
         </div>
       </header>
-      
+
       <main class="editor-body">
+
         <aside class="editor-sidebar">
           <nav class="tab-nav" id="editor-tabs">
-            <button class="tab-btn active" data-tab="text">Text</button>
-            <button class="tab-btn" data-tab="fonts">Fonts</button>
-            <button class="tab-btn" data-tab="color">Color</button>
-            <button class="tab-btn" data-tab="bg">Background</button>
-            <button class="tab-btn" data-tab="layout">Layout</button>
-            <button class="tab-btn" data-tab="effects">Effects</button>
-            <button class="tab-btn" data-tab="templates">Templates</button>
+            <button class="tab-btn active" data-tab="text">
+              Text
+            </button>
+
+            <button class="tab-btn" data-tab="fonts">
+              Fonts
+            </button>
+
+            <button class="tab-btn" data-tab="color">
+              Color
+            </button>
+
+            <button class="tab-btn" data-tab="bg">
+              Background
+            </button>
+
+            <button class="tab-btn" data-tab="layout">
+              Layout
+            </button>
+
+            <button class="tab-btn" data-tab="effects">
+              Effects
+            </button>
+
+            <button class="tab-btn" data-tab="templates">
+              Templates
+            </button>
           </nav>
-          <div class="panel-container" id="active-panel-slot"></div>
+
+          <div
+            class="panel-container"
+            id="active-panel-slot">
+          </div>
         </aside>
 
         <section class="editor-stage">
@@ -1639,8 +1673,116 @@
             <canvas id="verse-editor-canvas"></canvas>
           </div>
         </section>
+
       </main>
-    `,setTimeout(()=>this.initEditor(),0),this.container}initEditor(){let e=this.container.querySelector(`#verse-editor-canvas`);if(!e)return;this.editor=new E(e);let t={text:new D(this.editor).getElement(),fonts:new O(this.editor).getElement(),color:new k(this.editor).getElement(),bg:new A(this.editor).getElement(),layout:new j(this.editor).getElement(),effects:new M(this.editor).getElement(),templates:new N(this.editor).getElement()},n=this.container.querySelector(`#active-panel-slot`);n.appendChild(t.text);let r=this.container.querySelectorAll(`.tab-btn`);r.forEach(e=>{e.addEventListener(`click`,()=>{r.forEach(e=>e.classList.remove(`active`)),e.classList.add(`active`);let i=e.getAttribute(`data-tab`)||`text`;n.innerHTML=``,t[i]&&n.appendChild(t[i])})});let i=this.container.querySelector(`#btn-undo`),a=this.container.querySelector(`#btn-redo`),o=this.container.querySelector(`#btn-export-png`);i?.addEventListener(`click`,()=>this.editor.undo()),a?.addEventListener(`click`,()=>this.editor.redo()),o?.addEventListener(`click`,()=>this.editor.exportImage({format:`png`})),this.editor.getEvents().on(`history_changed`,({canUndo:e,canRedo:t})=>{i&&(i.disabled=!e),a&&(a.disabled=!t)})}},F={"/":()=>r,"/about":()=>l,"/faq":()=>a,"/community":()=>o,"/changelog":()=>c,"/privacy":()=>u,"/editor":()=>new P};function I(e){return e.length>1&&e.endsWith(`/`)?e.slice(0,-1):e||`/`}function L(){let e=document.getElementById(`app-content`);if(!e){console.error(`Router: #app-content was not found.`);return}let t=(F[I(window.location.pathname)]??F[`/`])();window.scrollTo({top:0,behavior:`auto`});let n=t.render();e.innerHTML=``,typeof n==`string`?e.innerHTML=n:e.appendChild(n),t.mount?.()}function R(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;let t=e.target;if(!t)return;let n=t.closest(`a[data-route]`);if(!n)return;let r=n.getAttribute(`href`);if(!r||!r.startsWith(`/`))return;e.preventDefault();let i=I(window.location.pathname),a=I(r);i!==a&&(history.pushState({},``,a),L())}function z(){document.addEventListener(`click`,R),window.addEventListener(`popstate`,L),L()}function B(){let e=localStorage.getItem(`sb-theme`),t=window.matchMedia(`(prefers-color-scheme: dark)`).matches,r=e||(t?`dark`:`light`);document.documentElement.setAttribute(`data-theme`,r);let i=document.getElementById(`app-header`);i&&(i.innerHTML=n.render(),n.mount());let a=document.getElementById(`app-footer`);a&&(a.innerHTML=`
+
+      <!-- MOBILE ONLY -->
+
+      <nav
+        class="mobile-editor-toolbar"
+        id="mobile-editor-toolbar">
+
+        <button
+          type="button"
+          class="mobile-tool-btn active"
+          data-tab="text">
+
+          <span class="mobile-tool-icon">T</span>
+          <span>Text</span>
+
+        </button>
+
+        <button
+          type="button"
+          class="mobile-tool-btn"
+          data-tab="fonts">
+
+          <span class="mobile-tool-icon">Aa</span>
+          <span>Fonts</span>
+
+        </button>
+
+        <button
+          type="button"
+          class="mobile-tool-btn"
+          data-tab="color">
+
+          <span class="mobile-tool-icon">●</span>
+          <span>Color</span>
+
+        </button>
+
+        <button
+          type="button"
+          class="mobile-tool-btn"
+          data-tab="bg">
+
+          <span class="mobile-tool-icon">▧</span>
+          <span>Background</span>
+
+        </button>
+
+        <button
+          type="button"
+          class="mobile-tool-btn"
+          data-tab="layout">
+
+          <span class="mobile-tool-icon">⌗</span>
+          <span>Layout</span>
+
+        </button>
+
+        <button
+          type="button"
+          class="mobile-tool-btn"
+          data-tab="effects">
+
+          <span class="mobile-tool-icon">✦</span>
+          <span>Effects</span>
+
+        </button>
+
+        <button
+          type="button"
+          class="mobile-tool-btn"
+          data-tab="templates">
+
+          <span class="mobile-tool-icon">▦</span>
+          <span>Templates</span>
+
+        </button>
+
+      </nav>
+
+      <section
+        class="mobile-editor-sheet"
+        id="mobile-editor-sheet">
+
+        <div class="mobile-sheet-header">
+
+          <strong id="mobile-sheet-title">
+            Text
+          </strong>
+
+          <button
+            type="button"
+            class="mobile-sheet-close"
+            id="mobile-sheet-close"
+            aria-label="Close">
+
+            ×
+
+          </button>
+
+        </div>
+
+        <div
+          class="mobile-sheet-content"
+          id="mobile-panel-slot">
+        </div>
+
+      </section>
+    `,setTimeout(()=>this.initEditor(),0),this.container}initEditor(){let e=this.container.querySelector(`#verse-editor-canvas`);if(!e)return;this.editor=new E(e);let t={text:new D(this.editor).getElement(),fonts:new O(this.editor).getElement(),color:new k(this.editor).getElement(),bg:new A(this.editor).getElement(),layout:new j(this.editor).getElement(),effects:new M(this.editor).getElement(),templates:new N(this.editor).getElement()},n=this.container.querySelector(`#active-panel-slot`);n.appendChild(t.text);let r=this.container.querySelectorAll(`.tab-btn`);r.forEach(e=>{e.addEventListener(`click`,()=>{r.forEach(e=>e.classList.remove(`active`)),e.classList.add(`active`);let i=e.getAttribute(`data-tab`)||`text`;n.innerHTML=``,t[i]&&n.appendChild(t[i])})});let i=this.container.querySelector(`#mobile-editor-toolbar`),a=this.container.querySelector(`#mobile-editor-sheet`),o=this.container.querySelector(`#mobile-panel-slot`),s=this.container.querySelector(`#mobile-sheet-title`),c=this.container.querySelector(`#mobile-sheet-close`),l={text:`Text`,fonts:`Fonts`,color:`Color`,bg:`Background`,layout:`Layout`,effects:`Effects`,templates:`Templates`},u={text:new D(this.editor).getElement(),fonts:new O(this.editor).getElement(),color:new k(this.editor).getElement(),bg:new A(this.editor).getElement(),layout:new j(this.editor).getElement(),effects:new M(this.editor).getElement(),templates:new N(this.editor).getElement()},d=e=>{let t=u[e];t&&(s.textContent=l[e]||e,o.innerHTML=``,o.appendChild(t),a.classList.add(`open`))},f=()=>{a.classList.remove(`open`)},p=i.querySelectorAll(`.mobile-tool-btn`);p.forEach(e=>{e.addEventListener(`click`,()=>{let t=e.getAttribute(`data-tab`)||`text`,n=e.classList.contains(`active`)&&a.classList.contains(`open`);if(p.forEach(e=>e.classList.remove(`active`)),e.classList.add(`active`),n){f();return}d(t)})}),c?.addEventListener(`click`,f),d(`text`);let m=this.container.querySelector(`#btn-undo`),h=this.container.querySelector(`#btn-redo`),g=this.container.querySelector(`#btn-export-png`);m?.addEventListener(`click`,()=>this.editor.undo()),h?.addEventListener(`click`,()=>this.editor.redo()),g?.addEventListener(`click`,()=>this.editor.exportImage({format:`png`})),this.editor.getEvents().on(`history_changed`,({canUndo:e,canRedo:t})=>{m&&(m.disabled=!e),h&&(h.disabled=!t)})}},F={"/":()=>r,"/about":()=>l,"/faq":()=>a,"/community":()=>o,"/changelog":()=>c,"/privacy":()=>u,"/editor":()=>new P};function I(e){return e.length>1&&e.endsWith(`/`)?e.slice(0,-1):e||`/`}function L(){let e=document.getElementById(`app-content`);if(!e){console.error(`Router: #app-content was not found.`);return}let t=(F[I(window.location.pathname)]??F[`/`])();window.scrollTo({top:0,behavior:`auto`});let n=t.render();e.innerHTML=``,typeof n==`string`?e.innerHTML=n:e.appendChild(n),t.mount?.()}function R(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;let t=e.target;if(!t)return;let n=t.closest(`a[data-route]`);if(!n)return;let r=n.getAttribute(`href`);if(!r||!r.startsWith(`/`))return;e.preventDefault();let i=I(window.location.pathname),a=I(r);i!==a&&(history.pushState({},``,a),L())}function z(){document.addEventListener(`click`,R),window.addEventListener(`popstate`,L),L()}function B(){let e=localStorage.getItem(`sb-theme`),t=window.matchMedia(`(prefers-color-scheme: dark)`).matches,r=e||(t?`dark`:`light`);document.documentElement.setAttribute(`data-theme`,r);let i=document.getElementById(`app-header`);i&&(i.innerHTML=n.render(),n.mount());let a=document.getElementById(`app-footer`);a&&(a.innerHTML=`
       <div
         class="container text-center"
         style="

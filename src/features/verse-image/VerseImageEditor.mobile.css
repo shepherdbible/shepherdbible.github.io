@@ -1,0 +1,660 @@
+@media (max-width: 768px) {
+
+    /* =========================================================
+       MOBILE ROOT
+       ========================================================= */
+
+    .verse-image-editor-page {
+        position: fixed;
+        inset: 0;
+
+        width: 100%;
+        height: 100dvh;
+        min-height: 0;
+
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        overflow: hidden;
+
+        background-color:
+            var(--color-background, #121212);
+
+        color:
+            var(--color-text, #FAF7F2);
+
+        font-family:
+            system-ui,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            sans-serif;
+    }
+
+
+    /* =========================================================
+       MOBILE APP BAR
+       ========================================================= */
+
+    .verse-image-editor-page .editor-header {
+        position: relative;
+
+        flex: 0 0 56px;
+
+        width: 100%;
+        height: 56px;
+        min-height: 56px;
+
+        margin: 0;
+        padding: 0 12px;
+
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        background-color:
+            var(--color-surface, #1E1E1E);
+
+        border-bottom:
+            1px solid
+            var(--color-border, #333);
+
+        z-index: 100;
+    }
+
+
+    /* Title */
+
+    .verse-image-editor-page .editor-title {
+        min-width: 0;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .verse-image-editor-page .editor-title h1 {
+        display: block;
+
+        margin: 0;
+
+        font-size: 1rem;
+        line-height: 1.2;
+
+        font-family:
+            "Cinzel",
+            "Merriweather",
+            serif;
+
+        color:
+            var(--color-accent, var(--shepherd-gold));
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .verse-image-editor-page .editor-title p {
+        display: none;
+
+        margin: 0;
+    }
+
+
+    /* Header buttons */
+
+    .verse-image-editor-page .editor-actions {
+        flex: 0 0 auto;
+
+        display: flex;
+        align-items: center;
+
+        gap: 6px;
+    }
+
+    .verse-image-editor-page .editor-actions .panel-btn {
+        box-sizing: border-box;
+    }
+
+    /* Hide desktop undo / redo */
+
+    .verse-image-editor-page #btn-undo,
+    .verse-image-editor-page #btn-redo {
+        display: none;
+    }
+
+    /* Save button */
+
+    .verse-image-editor-page #btn-export-png {
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        min-height: 38px;
+
+        margin: 0;
+        padding: 8px 12px;
+
+        border-radius:
+            var(--radius-md, 6px);
+
+        border:
+            1px solid
+            var(--shepherd-burgundy);
+
+        background-color:
+            var(--shepherd-burgundy);
+
+        color: #FFF;
+
+        font-size: 0.8rem;
+        font-weight: 500;
+
+        white-space: nowrap;
+
+        cursor: pointer;
+    }
+
+
+    /* =========================================================
+       MOBILE EDITOR BODY
+       ========================================================= */
+
+    .verse-image-editor-page .editor-body {
+        position: relative;
+
+        flex: 1 1 0;
+
+        width: 100%;
+        min-height: 0;
+
+        margin: 0;
+        padding: 0;
+
+        display: block;
+
+        overflow: hidden;
+    }
+
+
+    /* =========================================================
+       DESKTOP SIDEBAR HIDDEN
+       ========================================================= */
+
+    .verse-image-editor-page .editor-sidebar {
+        display: none;
+    }
+
+
+    /* =========================================================
+       CANVAS STAGE
+       ========================================================= */
+
+    .verse-image-editor-page .editor-stage {
+        position: absolute;
+
+        inset: 0;
+
+        width: 100%;
+        height: 100%;
+
+        margin: 0;
+        padding: 12px;
+
+        box-sizing: border-box;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: #0A0A0A;
+
+        overflow: hidden;
+    }
+
+
+    /* Canvas wrapper */
+
+    .verse-image-editor-page .canvas-wrapper {
+        width: auto;
+        height: auto;
+
+        max-width: 100%;
+        max-height: 100%;
+
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, 0.7);
+
+        border-radius:
+            var(--radius-lg, 8px);
+
+        overflow: hidden;
+    }
+
+
+    .verse-image-editor-page .canvas-wrapper canvas {
+        display: block;
+
+        width: auto;
+        height: auto;
+
+        max-width: 100%;
+        max-height: 100%;
+
+        object-fit: contain;
+    }
+
+
+    /* =========================================================
+       MOBILE BOTTOM TOOLBAR
+       ========================================================= */
+
+    .verse-image-editor-page .mobile-editor-toolbar {
+        position: relative;
+
+        flex: 0 0 64px;
+
+        width: 100%;
+        height: 64px;
+        min-height: 64px;
+
+        margin: 0;
+        padding: 0;
+
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+
+        background-color:
+            var(--color-surface, #1E1E1E);
+
+        border-top:
+            1px solid
+            var(--color-border, #333);
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        z-index: 10000;
+
+        scrollbar-width: none;
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .verse-image-editor-page
+    .mobile-editor-toolbar::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    /* =========================================================
+       MOBILE TOOL BUTTON
+       ========================================================= */
+
+    .verse-image-editor-page .mobile-tool-btn {
+        flex: 0 0 72px;
+
+        width: 72px;
+        height: 64px;
+
+        margin: 0;
+        padding: 4px;
+
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 4px;
+
+        border: 0;
+        border-radius: 0;
+
+        background: transparent;
+
+        color:
+            var(--color-text-muted, #AAA);
+
+        font-family: inherit;
+
+        font-size: 0.65rem;
+        font-weight: 500;
+
+        line-height: 1;
+
+        text-align: center;
+
+        cursor: pointer;
+
+        white-space: nowrap;
+
+        appearance: none;
+        -webkit-appearance: none;
+
+        -webkit-tap-highlight-color: transparent;
+    }
+
+
+    .verse-image-editor-page .mobile-tool-btn:hover {
+        background-color:
+            rgba(255, 255, 255, 0.04);
+    }
+
+
+    .verse-image-editor-page .mobile-tool-btn.active {
+        color: var(--shepherd-gold);
+
+        background-color:
+            rgba(212, 175, 55, 0.05);
+    }
+
+
+    .verse-image-editor-page .mobile-tool-icon {
+        display: block;
+
+        width: auto;
+        height: auto;
+
+        margin: 0;
+        padding: 0;
+
+        font-size: 1.1rem;
+        font-weight: 600;
+
+        line-height: 1;
+    }
+
+
+    /* =========================================================
+       MOBILE BOTTOM SHEET
+       ========================================================= */
+
+    .verse-image-editor-page .mobile-editor-sheet {
+        position: absolute;
+
+        left: 0;
+        right: 0;
+        bottom: 64px;
+
+        width: 100%;
+        height: min(55dvh, 520px);
+
+        margin: 0;
+        padding: 0;
+
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: column;
+
+        background-color:
+            var(--color-surface, #1E1E1E);
+
+        border-top:
+            1px solid
+            var(--color-border, #333);
+
+        border-radius:
+            16px 16px 0 0;
+
+        box-shadow:
+            0 -8px 30px rgba(0, 0, 0, 0.4);
+
+        overflow: hidden;
+
+        transform: translateY(100%);
+
+        transition:
+            transform 0.25s ease;
+
+        z-index: 2000;
+    }
+
+
+    .verse-image-editor-page .mobile-editor-sheet.open {
+        transform: translateY(0);
+    }
+
+
+    /* =========================================================
+       SHEET HEADER
+       ========================================================= */
+
+    .verse-image-editor-page .mobile-sheet-header {
+        flex: 0 0 52px;
+
+        width: 100%;
+        height: 52px;
+        min-height: 52px;
+
+        margin: 0;
+        padding: 0 16px;
+
+        box-sizing: border-box;
+
+        display: flex;
+        flex-direction: row;
+
+        align-items: center;
+        justify-content: space-between;
+
+        background-color:
+            var(--color-surface, #1E1E1E);
+
+        border-bottom:
+            1px solid
+            var(--color-border, #333);
+    }
+
+
+    .verse-image-editor-page .mobile-sheet-header strong {
+        display: block;
+
+        margin: 0;
+        padding: 0;
+
+        color:
+            var(--color-text, #FFF);
+
+        font-family: inherit;
+
+        font-size: 0.95rem;
+        font-weight: 600;
+
+        line-height: 1;
+    }
+
+
+    /* =========================================================
+       SHEET CLOSE BUTTON
+       ========================================================= */
+
+    .verse-image-editor-page .mobile-sheet-close {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        min-height: 36px;
+
+        margin: 0;
+        padding: 0;
+
+        box-sizing: border-box;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border: 0;
+        border-radius: 50%;
+
+        background-color:
+            var(--color-surface-muted, #292929);
+
+        color:
+            var(--color-text, #FFF);
+
+        font-family: inherit;
+
+        font-size: 1.4rem;
+        font-weight: 400;
+
+        line-height: 1;
+
+        cursor: pointer;
+
+        appearance: none;
+        -webkit-appearance: none;
+
+        -webkit-tap-highlight-color: transparent;
+    }
+
+
+    .verse-image-editor-page .mobile-sheet-close:hover {
+        background-color: #383838;
+    }
+
+
+    /* =========================================================
+       SHEET CONTENT
+       ========================================================= */
+
+    .verse-image-editor-page .mobile-sheet-content {
+        flex: 1 1 auto;
+
+        width: 100%;
+        min-height: 0;
+
+        margin: 0;
+        padding: 16px;
+
+        box-sizing: border-box;
+
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    /* Existing panel styles remain available */
+
+    .verse-image-editor-page
+    .mobile-sheet-content .editor-panel {
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 18px;
+    }
+
+
+    .verse-image-editor-page
+    .mobile-sheet-content .panel-section {
+        display: flex;
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+
+    .verse-image-editor-page
+    .mobile-sheet-content .panel-input,
+    .verse-image-editor-page
+    .mobile-sheet-content .panel-textarea {
+        width: 100%;
+
+        box-sizing: border-box;
+
+        font-family: inherit;
+    }
+
+
+    .verse-image-editor-page
+    .mobile-sheet-content .panel-btn {
+        font-family: inherit;
+
+        appearance: none;
+        -webkit-appearance: none;
+    }
+
+
+    /* =========================================================
+       MOBILE COLOR CONTROLS
+       ========================================================= */
+
+    .verse-image-editor-page
+    .mobile-sheet-content .color-input-native {
+        width: 42px;
+        height: 42px;
+
+        padding: 0;
+
+        border: none;
+        border-radius: 4px;
+
+        background: transparent;
+    }
+
+
+    .verse-image-editor-page
+    .mobile-sheet-content .color-swatch {
+        height: 40px;
+
+        border-radius: 6px;
+    }
+
+
+    /* =========================================================
+       MOBILE FONT CARDS
+       ========================================================= */
+
+    .verse-image-editor-page
+    .mobile-sheet-content .font-item-card {
+        width: 100%;
+
+        box-sizing: border-box;
+
+        font-family: inherit;
+    }
+
+
+    /* =========================================================
+       MOBILE TEMPLATE CARDS
+       ========================================================= */
+
+    .verse-image-editor-page
+    .mobile-sheet-content .template-card {
+        width: 100%;
+
+        box-sizing: border-box;
+
+        font-family: inherit;
+    }
+}
+/* Hidden on desktop */
+.mobile-editor-toolbar,
+.mobile-editor-sheet {
+    display: none;
+}

@@ -225,10 +225,14 @@
               </svg>
             </div>
             <h3>Android</h3>
-            <span class="status-badge preview">In Active Testing</span>
+            <span class="status-badge live">Live on the Play Store</span>
             <p>Lightweight mobile app with quick verse navigation, audio options, and daily devotions on the go.</p>
-            <span class="platform-link-disabled">Google Play (Coming Soon)</span>
+            
+            <a href="https://play.google.com/store/apps/details?id=com.nxtccode.biblenotebook" target="_blank" rel="noopener noreferrer" class="platform-link">
+              Download from Store &rarr;
+            </a>
           </div>
+          
 
           <!-- macOS -->
           <div class="card platform-card">

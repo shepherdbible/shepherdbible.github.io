@@ -432,6 +432,12 @@
     }
 
 
+    /* Keep canvas visible above the open sheet */
+    .verse-image-editor-page.sheet-open .editor-stage {
+        padding-bottom: calc(min(55dvh, 520px) + 76px);
+        transition: padding-bottom 0.25s ease;
+    }
+
     .verse-image-editor-page .mobile-editor-sheet.open {
         transform: translateY(0);
     }

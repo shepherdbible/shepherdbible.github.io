@@ -20,6 +20,45 @@ export class CanvasText {
     );
   }
 
+  // Resizes the box to hug the wrapped text (height always, width optionally).
+  public fitToText(
+    ctx: CanvasRenderingContext2D,
+    element: TextElement,
+    fitWidth: boolean
+  ): void {
+    const padding = element.padding ?? 0;
+    const styleStr = element.fontStyle === "italic" ? "italic " : "";
+
+    ctx.save();
+    ctx.font =
+      `${styleStr}${element.fontWeight || "400"} ` +
+      `${element.fontSize}px "${element.fontFamily}", serif, sans-serif`;
+    if ("letterSpacing" in ctx) {
+      (ctx as unknown as { letterSpacing: string }).letterSpacing =
+        `${element.letterSpacing || 0}px`;
+    }
+
+    const text = this.applyTextTransform(element.text, element.textTransform);
+    const lines = this.wrapText(ctx, text, Math.max(1, element.width - padding * 2));
+    const widest = lines.length
+      ? Math.max(...lines.map((l) => ctx.measureText(l).width))
+      : 0;
+    ctx.restore();
+
+    const lineSpacing = element.fontSize * (element.lineHeight || 1.3);
+    const newHeight = Math.max(1, lines.length) * lineSpacing + padding * 2;
+    const cy = element.y + element.height / 2;
+    element.height = newHeight;
+    element.y = cy - newHeight / 2;
+
+    if (fitWidth && widest > 0) {
+      const newWidth = Math.min(element.width, widest + padding * 2 + 4);
+      const cx = element.x + element.width / 2;
+      element.width = newWidth;
+      element.x = cx - newWidth / 2;
+    }
+  }
+
   private drawTextContent(
     ctx: CanvasRenderingContext2D,
     element: TextElement
@@ -567,35 +606,26 @@ export class CanvasText {
 
         let currentLine = "";
 
-        for (
-          let n = 0;
-          n < words.length;
-          n++
-        ) {
-          const testLine =
-            currentLine
-              ? `${currentLine} ${words[n]}`
-              : words[n];
+        for (let n = 0; n < words.length; n++) {
+          const testLine = currentLine
+            ? `${currentLine} ${words[n]}`
+            : words[n];
 
-          const metrics =
-            ctx.measureText(
-              testLine
-            );
-
-          if (
-            metrics.width >
-              maxWidth &&
-            n > 0
-          ) {
-            resultLines.push(
-              currentLine
-            );
-
-            currentLine =
-              words[n];
+          if (ctx.measureText(testLine).width > maxWidth && currentLine) {
+            resultLines.push(currentLine);
+            currentLine = words[n];
           } else {
-            currentLine =
-              testLine;
+            currentLine = testLine;
+          }
+
+          // Break words that are wider than the box.
+          while (ctx.measureText(currentLine).width > maxWidth && currentLine.length > 1) {
+            let cut = currentLine.length - 1;
+            while (cut > 1 && ctx.measureText(currentLine.slice(0, cut)).width > maxWidth) {
+              cut--;
+            }
+            resultLines.push(currentLine.slice(0, cut));
+            currentLine = currentLine.slice(cut);
           }
         }
 

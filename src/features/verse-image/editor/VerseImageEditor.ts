@@ -42,6 +42,7 @@ export class VerseImageEditor {
   private elementInitialWidth = 0;
   private elementInitialHeight = 0;
   private elementInitialRotation = 0;
+  private elementInitialFontSize = 0;
 
   private operationHistoryStarted = false;
 
@@ -221,6 +222,16 @@ export class VerseImageEditor {
     this.events.emit("element_selected", { elementId: newId });
   }
 
+  public deleteElement(elementId: string): void {
+    this.updateState((state) => {
+      state.elements = state.elements.filter((e) => e.id !== elementId);
+      if (state.selected_element_id === elementId) {
+        state.selected_element_id = null;
+      }
+    });
+    this.events.emit("element_selected", { elementId: null });
+  }
+
   public selectElement(elementId: string | null): void {
     this.state.selected_element_id = elementId;
     this.events.emit("element_selected", { elementId });
@@ -319,7 +330,15 @@ export class VerseImageEditor {
           );
 
           if (handle) {
+            if (handle === "delete") {
+              this.deleteElement(selected.id);
+              return;
+            }
+
             this.activeHandle = handle;
+            this.elementInitialFontSize =
+              selected.type === "text" ? selected.fontSize : 0;
+            this.renderer.fitWidth = false;
             this.isTransforming = true;
 
             this.dragStartX = point.x;
@@ -454,6 +473,8 @@ export class VerseImageEditor {
       this.isDragging = false;
       this.isTransforming = false;
       this.activeHandle = null;
+      this.renderer.fitWidth = true;
+      this.requestRender();
 
       if (wasOperating) {
         try {
@@ -613,6 +634,40 @@ export class VerseImageEditor {
     element.width = Math.max(minWidth, right - left);
 
     element.height = Math.max(minHeight, bottom - top);
+
+    // Text font size follows the box size (min 12px).
+    if (element.type === "text" && this.elementInitialFontSize > 0) {
+      const isCorner = handle.includes("-");
+      const wRatio = (right - left) / this.elementInitialWidth;
+      const hRatio = (bottom - top) / this.elementInitialHeight;
+      const isHorizontal = handle === "left" || handle === "right";
+      const scale = isCorner
+        ? Math.max(wRatio, hRatio)
+        : isHorizontal
+          ? wRatio
+          : hRatio;
+      const fontSize = Math.min(
+        400,
+        Math.max(12, this.elementInitialFontSize * scale),
+      );
+      (element as TextElement).fontSize = fontSize;
+
+      if (isCorner) {
+        const s = fontSize / this.elementInitialFontSize;
+        const w = this.elementInitialWidth * s;
+        const h = this.elementInitialHeight * s;
+        const initRight = this.elementInitialX + this.elementInitialWidth;
+        const initBottom = this.elementInitialY + this.elementInitialHeight;
+
+        // Anchor the corner opposite to the dragged handle.
+        element.x = handle.includes("left") ? initRight - w : this.elementInitialX;
+        element.y = handle.includes("top") ? initBottom - h : this.elementInitialY;
+        element.width = w;
+        element.height = h;
+        element.rotation = this.elementInitialRotation;
+        return;
+      }
+    }
 
     element.rotation = this.elementInitialRotation;
   }

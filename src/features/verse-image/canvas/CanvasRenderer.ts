@@ -10,6 +10,8 @@ export class CanvasRenderer {
   private ctx: CanvasRenderingContext2D;
   private backgroundRenderer = new CanvasBackground();
   private textRenderer = new CanvasText();
+  public fitWidth = true;
+  public autoFit = true;
   private selectionHandles =
   new CanvasSelectionHandles();
   private showSelectionControls = true;
@@ -48,6 +50,9 @@ export class CanvasRenderer {
     // 2. Draw Elements in Order
     state.elements.forEach((element) => {
       if (element.type === "text") {
+        if (this.autoFit) {
+          this.textRenderer.fitToText(this.ctx, element as TextElement, this.fitWidth);
+        }
         this.textRenderer.render(this.ctx, element as TextElement);
       } else if (element.type === "shape") {
         this.renderShape(element as ShapeElement);
@@ -114,6 +119,9 @@ export class CanvasRenderer {
  private renderSelectionOverlay(
   element: VerseImageElement
 ): void {
+  const rect = this.canvas.getBoundingClientRect();
+  this.selectionHandles.uiScale =
+    rect.width > 0 ? Math.max(1, this.canvas.width / rect.width) : 1;
   this.selectionHandles.render(
     this.ctx,
     element

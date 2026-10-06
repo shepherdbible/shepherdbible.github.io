@@ -323,6 +323,7 @@ export class VerseImagePage {
       mobileSlot.appendChild(panel);
 
       mobileSheet.classList.add("open");
+      this.container.classList.add("sheet-open");
     };
 
     const closeMobilePanel = (): void => {

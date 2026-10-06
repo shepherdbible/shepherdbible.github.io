@@ -9,7 +9,8 @@ export type SelectionHandle =
   | "bottom"
   | "bottom-left"
   | "left"
-  | "rotate";
+  | "rotate"
+  | "delete";
 
 export interface HandlePoint {
   x: number;
@@ -17,8 +18,19 @@ export interface HandlePoint {
 }
 
 export class CanvasSelectionHandles {
-  private readonly handleSize = 12;
-  private readonly rotateDistance = 34;
+  private readonly baseHandleSize = 12;
+  private readonly baseRotateDistance = 34;
+
+  // Canvas units per CSS pixel; keeps handles usable on scaled-down canvases.
+  public uiScale = 1;
+
+  private get handleSize(): number {
+    return this.baseHandleSize * this.uiScale;
+  }
+
+  private get rotateDistance(): number {
+    return this.baseRotateDistance * this.uiScale;
+  }
 
   public render(
     ctx: CanvasRenderingContext2D,
@@ -61,8 +73,8 @@ export class CanvasSelectionHandles {
     // ==========================================
 
     ctx.strokeStyle = "#D4AF37";
-    ctx.lineWidth = 2;
-    ctx.setLineDash([6, 6]);
+    ctx.lineWidth = 2 * this.uiScale;
+    ctx.setLineDash([6 * this.uiScale, 6 * this.uiScale]);
 
     ctx.strokeRect(
       left,
@@ -99,6 +111,9 @@ export class CanvasSelectionHandles {
       );
     });
 
+    // Delete button
+    this.drawDeleteHandle(ctx, right + 14 * this.uiScale, top - 14 * this.uiScale);
+
     // ==========================================
     // Rotation handle
     // ==========================================
@@ -119,7 +134,7 @@ export class CanvasSelectionHandles {
     );
 
     ctx.strokeStyle = "#D4AF37";
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 2 * this.uiScale;
     ctx.stroke();
 
     this.drawRotateHandle(
@@ -142,7 +157,7 @@ export class CanvasSelectionHandles {
 
     ctx.fillStyle = "#FAF7F2";
     ctx.strokeStyle = "#3D1E18";
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 2 * this.uiScale;
 
     ctx.fillRect(
       x - size / 2,
@@ -161,12 +176,32 @@ export class CanvasSelectionHandles {
     ctx.restore();
   }
 
+  private drawDeleteHandle(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+    const r = 11 * this.uiScale;
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = "#D93025";
+    ctx.fill();
+    ctx.strokeStyle = "#FFFFFF";
+    ctx.lineWidth = 2 * this.uiScale;
+    ctx.stroke();
+    const d = r * 0.45;
+    ctx.beginPath();
+    ctx.moveTo(x - d, y - d);
+    ctx.lineTo(x + d, y + d);
+    ctx.moveTo(x + d, y - d);
+    ctx.lineTo(x - d, y + d);
+    ctx.stroke();
+    ctx.restore();
+  }
+
   private drawRotateHandle(
     ctx: CanvasRenderingContext2D,
     x: number,
     y: number
   ): void {
-    const radius = 8;
+    const radius = 8 * this.uiScale;
 
     ctx.save();
 
@@ -183,7 +218,7 @@ export class CanvasSelectionHandles {
     ctx.fill();
 
     ctx.strokeStyle = "#3D1E18";
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 2 * this.uiScale;
     ctx.stroke();
 
     // Rotation arrow
@@ -266,6 +301,12 @@ export class CanvasSelectionHandles {
       case "left":
         return { x: left, y: middleY };
 
+      case "delete":
+        return {
+          x: right + 14 * this.uiScale,
+          y: top - 14 * this.uiScale,
+        };
+
       case "rotate":
         return {
           x: middleX,
@@ -289,6 +330,7 @@ export class CanvasSelectionHandles {
       "bottom-left",
       "left",
       "rotate",
+      "delete",
     ];
 
     const centerX =
@@ -315,7 +357,7 @@ export class CanvasSelectionHandles {
       dy * Math.cos(angle) +
       centerY;
 
-    const hitRadius = 12;
+    const hitRadius = 12 * Math.max(this.uiScale, 1) + (this.uiScale > 1 ? 6 * this.uiScale : 0);
 
     for (const handle of handles) {
       const point =
@@ -359,6 +401,9 @@ export class CanvasSelectionHandles {
 
       case "rotate":
         return "grab";
+
+      case "delete":
+        return "pointer";
 
       default:
         return "default";

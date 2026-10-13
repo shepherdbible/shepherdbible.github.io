@@ -19,7 +19,10 @@ export interface HandlePoint {
 
 export class CanvasSelectionHandles {
   private readonly baseHandleSize = 12;
-  private readonly baseRotateDistance = 34;
+  private readonly baseRotateDistance = 50;
+
+  private readonly baseRotateRadius = 12;
+  private readonly baseRotateHitRadius = 24;
 
   // Canvas units per CSS pixel; keeps handles usable on scaled-down canvases.
   public uiScale = 1;
@@ -28,45 +31,41 @@ export class CanvasSelectionHandles {
     return this.baseHandleSize * this.uiScale;
   }
 
+  private get rotateRadius(): number {
+    return this.baseRotateRadius * this.uiScale;
+  }
+
   private get rotateDistance(): number {
     return this.baseRotateDistance * this.uiScale;
   }
 
   public render(
     ctx: CanvasRenderingContext2D,
-    element: VerseImageElement
+    element: VerseImageElement,
   ): void {
     ctx.save();
 
-    const centerX =
-      element.x + element.width / 2;
+    const centerX = element.x + element.width / 2;
 
-    const centerY =
-      element.y + element.height / 2;
+    const centerY = element.y + element.height / 2;
 
     ctx.translate(centerX, centerY);
 
     if (element.rotation !== 0) {
-      ctx.rotate(
-        (element.rotation * Math.PI) / 180
-      );
+      ctx.rotate((element.rotation * Math.PI) / 180);
     }
 
     ctx.translate(-centerX, -centerY);
 
     const left = element.x - 4;
-    const right =
-      element.x + element.width + 4;
+    const right = element.x + element.width + 4;
 
     const top = element.y - 4;
-    const bottom =
-      element.y + element.height + 4;
+    const bottom = element.y + element.height + 4;
 
-    const middleX =
-      element.x + element.width / 2;
+    const middleX = element.x + element.width / 2;
 
-    const middleY =
-      element.y + element.height / 2;
+    const middleY = element.y + element.height / 2;
 
     // ==========================================
     // Bounding box
@@ -76,12 +75,7 @@ export class CanvasSelectionHandles {
     ctx.lineWidth = 2 * this.uiScale;
     ctx.setLineDash([6 * this.uiScale, 6 * this.uiScale]);
 
-    ctx.strokeRect(
-      left,
-      top,
-      right - left,
-      bottom - top
-    );
+    ctx.strokeRect(left, top, right - left, bottom - top);
 
     ctx.setLineDash([]);
 
@@ -104,44 +98,33 @@ export class CanvasSelectionHandles {
     ];
 
     handles.forEach((handle) => {
-      this.drawHandle(
-        ctx,
-        handle.x,
-        handle.y
-      );
+      this.drawHandle(ctx, handle.x, handle.y);
     });
 
     // Delete button
-    this.drawDeleteHandle(ctx, right + 14 * this.uiScale, top - 14 * this.uiScale);
+    this.drawDeleteHandle(
+      ctx,
+      right + 14 * this.uiScale,
+      top - 14 * this.uiScale,
+    );
 
     // ==========================================
     // Rotation handle
     // ==========================================
 
-    const rotateY =
-      top - this.rotateDistance;
+    const rotateY = top - this.rotateDistance;
 
     ctx.beginPath();
 
-    ctx.moveTo(
-      middleX,
-      top
-    );
+    ctx.moveTo(middleX, top);
 
-    ctx.lineTo(
-      middleX,
-      rotateY + 7
-    );
+    ctx.lineTo(middleX, rotateY + 7);
 
     ctx.strokeStyle = "#D4AF37";
     ctx.lineWidth = 2 * this.uiScale;
     ctx.stroke();
 
-    this.drawRotateHandle(
-      ctx,
-      middleX,
-      rotateY
-    );
+    this.drawRotateHandle(ctx, middleX, rotateY);
 
     ctx.restore();
   }
@@ -149,7 +132,7 @@ export class CanvasSelectionHandles {
   private drawHandle(
     ctx: CanvasRenderingContext2D,
     x: number,
-    y: number
+    y: number,
   ): void {
     const size = this.handleSize;
 
@@ -159,24 +142,18 @@ export class CanvasSelectionHandles {
     ctx.strokeStyle = "#3D1E18";
     ctx.lineWidth = 2 * this.uiScale;
 
-    ctx.fillRect(
-      x - size / 2,
-      y - size / 2,
-      size,
-      size
-    );
+    ctx.fillRect(x - size / 2, y - size / 2, size, size);
 
-    ctx.strokeRect(
-      x - size / 2,
-      y - size / 2,
-      size,
-      size
-    );
+    ctx.strokeRect(x - size / 2, y - size / 2, size, size);
 
     ctx.restore();
   }
 
-  private drawDeleteHandle(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+  private drawDeleteHandle(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+  ): void {
     const r = 11 * this.uiScale;
     ctx.save();
     ctx.beginPath();
@@ -199,60 +176,49 @@ export class CanvasSelectionHandles {
   private drawRotateHandle(
     ctx: CanvasRenderingContext2D,
     x: number,
-    y: number
+    y: number,
   ): void {
-    const radius = 8 * this.uiScale;
+    const radius = this.rotateRadius;
 
     ctx.save();
 
+    // Outer gold ring
     ctx.beginPath();
-    ctx.arc(
-      x,
-      y,
-      radius,
-      0,
-      Math.PI * 2
-    );
-
-    ctx.fillStyle = "#FAF7F2";
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fillStyle = "#D4AF37";
     ctx.fill();
 
     ctx.strokeStyle = "#3D1E18";
     ctx.lineWidth = 2 * this.uiScale;
     ctx.stroke();
 
+    // Inner circle
+    ctx.beginPath();
+    ctx.arc(x, y, radius * 0.72, 0, Math.PI * 2);
+    ctx.fillStyle = "#FAF7F2";
+    ctx.fill();
+
     // Rotation arrow
     ctx.beginPath();
-
-    ctx.arc(
-      x,
-      y,
-      4,
-      -Math.PI * 0.75,
-      Math.PI * 0.75
-    );
+    ctx.arc(x, y, radius * 0.42, -Math.PI * 0.8, Math.PI * 0.8);
 
     ctx.strokeStyle = "#3D1E18";
-    ctx.lineWidth = 1.5;
+    ctx.lineWidth = 2 * this.uiScale;
+    ctx.lineCap = "round";
     ctx.stroke();
 
+    // Arrowhead
+    const arrowX = x + radius * 0.3;
+    const arrowY = y - radius * 0.3;
+
     ctx.beginPath();
+    ctx.moveTo(arrowX - radius * 0.12, arrowY - radius * 0.08);
+    ctx.lineTo(arrowX + radius * 0.12, arrowY - radius * 0.08);
+    ctx.lineTo(arrowX + radius * 0.06, arrowY + radius * 0.14);
 
-    ctx.moveTo(
-      x + 3,
-      y - 3
-    );
-
-    ctx.lineTo(
-      x + 5,
-      y - 3
-    );
-
-    ctx.lineTo(
-      x + 4,
-      y - 1
-    );
-
+    ctx.strokeStyle = "#3D1E18";
+    ctx.lineWidth = 2 * this.uiScale;
+    ctx.lineJoin = "round";
     ctx.stroke();
 
     ctx.restore();
@@ -260,21 +226,17 @@ export class CanvasSelectionHandles {
 
   public getHandlePoint(
     element: VerseImageElement,
-    handle: SelectionHandle
+    handle: SelectionHandle,
   ): HandlePoint {
     const left = element.x - 4;
-    const right =
-      element.x + element.width + 4;
+    const right = element.x + element.width + 4;
 
     const top = element.y - 4;
-    const bottom =
-      element.y + element.height + 4;
+    const bottom = element.y + element.height + 4;
 
-    const middleX =
-      element.x + element.width / 2;
+    const middleX = element.x + element.width / 2;
 
-    const middleY =
-      element.y + element.height / 2;
+    const middleY = element.y + element.height / 2;
 
     switch (handle) {
       case "top-left":
@@ -318,7 +280,7 @@ export class CanvasSelectionHandles {
   public hitTest(
     element: VerseImageElement,
     x: number,
-    y: number
+    y: number,
   ): SelectionHandle | null {
     const handles: SelectionHandle[] = [
       "top-left",
@@ -333,44 +295,45 @@ export class CanvasSelectionHandles {
       "delete",
     ];
 
-    const centerX =
-      element.x + element.width / 2;
+    const centerX = element.x + element.width / 2;
 
-    const centerY =
-      element.y + element.height / 2;
+    const centerY = element.y + element.height / 2;
 
     // Convert pointer coordinates into
     // the element's unrotated coordinate system.
-    const angle =
-      -(element.rotation * Math.PI) / 180;
+    const angle = -(element.rotation * Math.PI) / 180;
 
     const dx = x - centerX;
     const dy = y - centerY;
 
-    const localX =
-      dx * Math.cos(angle) -
-      dy * Math.sin(angle) +
-      centerX;
+    const localX = dx * Math.cos(angle) - dy * Math.sin(angle) + centerX;
 
-    const localY =
-      dx * Math.sin(angle) +
-      dy * Math.cos(angle) +
-      centerY;
+    const localY = dx * Math.sin(angle) + dy * Math.cos(angle) + centerY;
 
-    const hitRadius = 12 * Math.max(this.uiScale, 1) + (this.uiScale > 1 ? 6 * this.uiScale : 0);
+    const hitRadius =
+      12 * Math.max(this.uiScale, 1) +
+      (this.uiScale > 1 ? 6 * this.uiScale : 0);
+    // Check the rotation circle first so other handles
+    // cannot intercept the pointer.
+    const rotatePoint = this.getHandlePoint(element, "rotate");
 
+    const rotateHitRadius = Math.max(
+      this.baseRotateHitRadius * this.uiScale,
+      24,
+    );
+
+    if (
+      Math.hypot(localX - rotatePoint.x, localY - rotatePoint.y) <=
+      rotateHitRadius
+    ) {
+      return "rotate";
+    }
     for (const handle of handles) {
-      const point =
-        this.getHandlePoint(
-          element,
-          handle
-        );
+      const point = this.getHandlePoint(element, handle);
 
       if (
-        Math.abs(localX - point.x) <=
-          hitRadius &&
-        Math.abs(localY - point.y) <=
-          hitRadius
+        Math.abs(localX - point.x) <= hitRadius &&
+        Math.abs(localY - point.y) <= hitRadius
       ) {
         return handle;
       }
@@ -379,9 +342,7 @@ export class CanvasSelectionHandles {
     return null;
   }
 
-  public getCursor(
-    handle: SelectionHandle
-  ): string {
+  public getCursor(handle: SelectionHandle): string {
     switch (handle) {
       case "left":
       case "right":

@@ -1,0 +1,43 @@
+
+$root = "C:\Users\Robel\Documents\GitHub\shepherdbible.github.io\src\features\verse-image"
+$output = "$env:USERPROFILE\Desktop\verse-image-source.txt"
+
+if (-not (Test-Path $root)) {
+    Write-Host "Folder not found: $root" -ForegroundColor Red
+    return
+}
+
+$extensions = @(".ts", ".tsx", ".js", ".jsx", ".css", ".scss", ".html", ".json", ".md")
+$excluded = '\\(node_modules|\.git|dist|build|coverage|\.vite)\\'
+
+$files = Get-ChildItem -Path $root -Recurse -File |
+    Where-Object {
+        $_.Extension.ToLower() -in $extensions -and
+        $_.FullName -notmatch $excluded
+    } |
+    Sort-Object FullName
+
+$writer = [System.IO.StreamWriter]::new(
+    $output,
+    $false,
+    [System.Text.UTF8Encoding]::new($false)
+)
+
+try {
+    foreach ($file in $files) {
+        $relativePath = $file.FullName.Substring($root.Length).TrimStart('\')
+
+        $writer.WriteLine("")
+        $writer.WriteLine("==================================================")
+        $writer.WriteLine("FILE: $relativePath")
+        $writer.WriteLine("==================================================")
+        $writer.WriteLine([System.IO.File]::ReadAllText($file.FullName))
+    }
+}
+finally {
+    $writer.Dispose()
+}
+
+Write-Host "`nExport complete!" -ForegroundColor Green
+Write-Host "Files included: $($files.Count)"
+Write-Host "Output: $output"

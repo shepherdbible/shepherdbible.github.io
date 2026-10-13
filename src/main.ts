@@ -11,7 +11,7 @@ function initializeApp(): void {
 
   const savedTheme = localStorage.getItem("sb-theme");
 
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const prefersDark = window.matchMedia("(prefers-color-scheme: light)").matches;
 
   const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
 

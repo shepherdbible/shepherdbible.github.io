@@ -1,6 +1,6 @@
 
-$root = "C:\Users\Robel\Documents\GitHub\shepherdbible.github.io\src\features\verse-image"
-$output = "$env:USERPROFILE\Desktop\verse-image-source.txt"
+$root = "C:\Users\Robel\Documents\GitHub\shepherdbible.github.io\src\features\standard"
+$output = "$env:USERPROFILE\Desktop\source_code.txt"
 
 if (-not (Test-Path $root)) {
     Write-Host "Folder not found: $root" -ForegroundColor Red

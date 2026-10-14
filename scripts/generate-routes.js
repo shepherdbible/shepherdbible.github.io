@@ -11,6 +11,7 @@ const routes = [
   "changelog",
   "privacy",
   "editor",
+  "books",
 ];
 
 if (!fs.existsSync(sourceFile)) {

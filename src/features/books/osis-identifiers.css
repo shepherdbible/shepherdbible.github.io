@@ -1,0 +1,286 @@
+
+.osis-page {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  line-height: 1.6;
+  background-color: var(--color-background);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+/* Hero */
+.osis-hero {
+  background-color: var(--color-surface-muted);
+  padding: 4rem 2rem;
+  border-bottom: 4px solid var(--color-primary);
+  text-align: center;
+}
+
+.osis-hero h1 {
+  color: var(--color-primary);
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  margin: 0 0 1rem;
+}
+
+.osis-hero .subtitle {
+  color: var(--color-text);
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.osis-hero p {
+  color: var(--color-text-muted);
+}
+
+/* Main content */
+.osis-section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.osis-statement {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  padding: 2rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-size: 1.125rem;
+  font-style: italic;
+  margin-bottom: 3rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Section headings */
+.osis-heading {
+  color: var(--color-primary);
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  border-bottom: 2px solid var(--color-accent);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Feature cards */
+.osis-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.osis-card {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  border-top: 4px solid var(--color-accent);
+  box-shadow: var(--shadow-sm);
+}
+
+.osis-card h3 {
+  color: var(--color-primary);
+  margin-top: 0;
+}
+
+.osis-card p {
+  color: var(--color-text-muted);
+  margin-bottom: 0;
+}
+
+/* Tables */
+.osis-table-container {
+  overflow-x: auto;
+  margin-bottom: 4rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+}
+
+.osis-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  color: var(--color-text);
+}
+
+.osis-table th {
+  background-color: var(--color-surface-muted);
+  color: var(--color-text);
+  padding: 1rem;
+  border-bottom: 2px solid var(--color-border);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.osis-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+}
+
+.osis-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.osis-table tbody tr:hover td {
+  background-color: var(--color-surface-muted);
+}
+
+.osis-id-text {
+  font-family: monospace;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* Search and filters */
+.osis-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  background-color: var(--color-surface-muted);
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+}
+
+.osis-search,
+.osis-filter {
+  font: inherit;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  padding: 0.625rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  min-height: 42px;
+}
+
+.osis-search {
+  flex: 1;
+  min-width: 200px;
+}
+
+.osis-search::placeholder {
+  color: var(--color-text-muted);
+  opacity: 1;
+}
+
+.osis-search:focus,
+.osis-filter:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-color: var(--color-primary);
+}
+
+/* Export button */
+.osis-btn {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border: 1px solid var(--color-primary);
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.osis-btn:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.osis-btn:focus-visible,
+.osis-copy-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Copy button */
+.osis-copy-btn {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-accent);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.875rem;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.osis-copy-btn:hover {
+  background-color: var(--color-surface-muted);
+}
+
+.osis-copy-btn.copied {
+  background-color: var(--color-accent);
+  color: #241B1A;
+  border-color: var(--color-accent);
+}
+
+/* Testament badges */
+.tag-ot {
+  display: inline-block;
+  background-color: var(--color-surface-muted);
+  color: var(--color-primary);
+  border: 1px solid var(--color-border);
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tag-nt {
+  display: inline-block;
+  background-color: var(--color-accent-light);
+  color: #332624;
+  border: 1px solid var(--color-accent);
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .osis-hero {
+    padding: 3rem 1.25rem;
+  }
+
+  .osis-section {
+    padding: 1.25rem;
+  }
+
+  .osis-statement {
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .osis-heading {
+    font-size: 1.625rem;
+  }
+
+  .osis-controls {
+    flex-direction: column;
+  }
+
+  .osis-search,
+  .osis-filter,
+  .osis-btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

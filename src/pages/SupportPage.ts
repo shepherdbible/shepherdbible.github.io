@@ -2,9 +2,9 @@ import type { Page } from "../types";
 import "../styles/SupportPage.css";
 
 const CONFIG = {
-  gcashQrPath:
-    import.meta.env.VITE_GCASH_QR_PATH || "/assets/images/support/gcash-qr.png",
-  gcashUrl: import.meta.env.VITE_GCASH_URL || "",
+  phQrPath:
+    import.meta.env.VITE_PH_QR_PATH || "/assets/images/support/gcash-qr.png",
+  phUrl: import.meta.env.VITE_PH_URL || "",
 
   paypalQrPath:
     import.meta.env.VITE_PAYPAL_QR_PATH ||
@@ -135,12 +135,12 @@ export class SupportPage implements Page {
 
           <div class="grid payments-grid">
             ${paymentCard({
-              id: "gcash-card",
+              id: "ph-card",
               title: "GCash (Philippines)",
               description: "Support locally using GCash.",
-              qrPath: CONFIG.gcashQrPath,
+              qrPath: CONFIG.phQrPath,
               qrAlt: "GCash payment QR code",
-              url: CONFIG.gcashUrl,
+              url: CONFIG.phUrl,
               linkLabel: "Open GCash payment link",
             })}
 
@@ -189,7 +189,7 @@ export class SupportPage implements Page {
 
     if (!page) return;
 
-    const gcashCard = document.getElementById("gcash-card");
+    const phCard = document.getElementById("ph-card");
     const paypalCard = document.getElementById("paypal-card");
     const bmcCard = document.getElementById("bmc-card");
 
@@ -210,9 +210,9 @@ export class SupportPage implements Page {
 
       if (country === "PH") {
         // Philippines: show and highlight GCash.
-        if (gcashCard) gcashCard.hidden = false;
+        if (phCard) phCard.hidden = false;
 
-        gcashCard?.classList.add("payment-preferred");
+        phCard?.classList.add("payment-preferred");
 
         if (recommendation) {
           recommendation.textContent =
@@ -220,7 +220,7 @@ export class SupportPage implements Page {
         }
       } else {
         // Outside the Philippines: hide GCash.
-        if (gcashCard) gcashCard.hidden = true;
+        if (phCard) phCard.hidden = true;
 
         paypalCard?.classList.add("payment-preferred");
         bmcCard?.classList.add("payment-preferred");

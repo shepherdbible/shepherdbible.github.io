@@ -6,6 +6,8 @@ import { AboutPage } from "../pages/AboutPage";
 import { PrivacyPage } from "../pages/PrivacyPage";
 import { VerseImagePage } from "../pages/VerseImagePage";
 import { OsisIdentifiersPage } from "../pages/OsisIdentifiersPage";
+import { SupportPage } from "../pages/SupportPage";
+
 
 type PageInstance = {
   render(): string | HTMLElement;
@@ -23,6 +25,7 @@ const routes: Record<string, PageFactory> = {
   "/privacy": () => PrivacyPage,
   "/editor": () => new VerseImagePage(),
   "/books": () => new OsisIdentifiersPage(),
+  "/support": () => new SupportPage(),
 };
 
 function normalizePath(pathname: string): string {

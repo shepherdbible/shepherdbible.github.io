@@ -12,6 +12,7 @@ const routes = [
   "privacy",
   "editor",
   "books",
+  "support",
 ];
 
 if (!fs.existsSync(sourceFile)) {

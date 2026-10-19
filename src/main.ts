@@ -3,6 +3,7 @@ import { initRouter } from "./router/router";
 
 import "./styles/themes/theme_red.css";
 import "./styles/global.css";
+import "./styles/footer_support.css";
 
 function initializeApp(): void {
   // ---------------------------------------------------------
@@ -38,73 +39,42 @@ function initializeApp(): void {
 
   if (footer) {
     footer.innerHTML = /* html */ `
-      <div
-        class="container text-center"
-        style="
-          padding: 40px 0;
-          border-top: 1px solid var(--color-border);
-          margin-top: 40px;
-          color: var(--color-text-muted);
-          font-size: 0.875rem;
-        "
+  <div class="container text-center site-footer">
+    <div class="footer-support">
+      <p class="footer-support-title">
+        Help Shepherd Bible grow
+      </p>
+      <p class="footer-support-description">
+        Your voluntary support helps us maintain and improve
+        free Bible-reading tools and our community.
+      </p>
+      <a
+        href="/support"
+        data-route
+        class="support-project-button"
       >
-        <p>
-          &copy; ${new Date().getFullYear()} Shepherd Bible.
-          "Share a piece of your journey to inspire another."
-        </p>
+        <span aria-hidden="true">♥</span>
+        Support the Project
+      </a>
+    </div>
 
-        <div
-          style="
-            margin-top: 16px;
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-          "
-        >
-          <a
-            href="/changelog"
-            data-route
-            style="color: inherit;"
-          >
-            Changelog
-          </a>
+    <p class="footer-copyright">
+      &copy; ${new Date().getFullYear()} Shepherd Bible.
+      Share a piece of your journey to inspire another.
+    </p>
 
-          <a
-            href="/faq"
-            data-route
-            style="color: inherit;"
-          >
-            FAQ
-          </a>
-
-           <a
-            href="/books"
-            data-route
-            style="color: inherit;"
-          >
-            Books
-          </a>
-
-          <a
-            href="/about"
-            data-route
-            style="color: inherit;"
-          >
-            About
-          </a>
-
-          <a
-            href="/privacy"
-            data-route
-            style="color: inherit;"
-          >
-            Privacy
-          </a>
-          <a href="mailto:shepherdbiblecommunity@gmail.com" style="color: inherit;">Contact</a>
-        </div>
-      </div>
-    `;
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/changelog" data-route>Changelog</a>
+      <a href="/faq" data-route>FAQ</a>
+      <a href="/books" data-route>Books</a>
+      <a href="/about" data-route>About</a>
+      <a href="/privacy" data-route>Privacy</a>
+      <a href="mailto:shepherdbiblecommunity@gmail.com">
+        Contact
+      </a>
+    </nav>
+  </div>
+`;
   }
 
   // ---------------------------------------------------------

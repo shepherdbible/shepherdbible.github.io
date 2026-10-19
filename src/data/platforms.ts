@@ -1,4 +1,3 @@
-
 export interface Platform {
   id: string;
   name: string;
@@ -9,6 +8,8 @@ export interface Platform {
   description: string;
   storeName: string;
   storeUrl?: string;
+  installerUrl?: string;
+  installerName?: string;
   available: boolean;
 }
 
@@ -24,6 +25,9 @@ export const platforms: Platform[] = [
       "Fast, offline-first Bible study with multi-translation support.",
     storeName: "Microsoft Store",
     storeUrl: "https://apps.microsoft.com/detail/9pprws532n91",
+    installerUrl:
+      "https://get.microsoft.com/installer/download/9pprws532n91?referrer=appbadge",
+    installerName: "Windows Installer (.exe)",
     available: true,
   },
   {
@@ -45,11 +49,11 @@ export const platforms: Platform[] = [
     name: "macOS",
     icon: "apple",
     iconClass: "mac-icon",
-    status: "In Active Testing",
+    status: "Planned",
     statusClass: "preview",
     description:
-      "A desktop reading experience planned for Apple Silicon and Intel Macs.",
-    storeName: "Mac App Store",
+      "A desktop Bible reading experience planned for Apple Silicon and Intel Macs.",
+    storeName: "Coming in the future",
     available: false,
   },
   {
@@ -57,11 +61,23 @@ export const platforms: Platform[] = [
     name: "iOS & iPadOS",
     icon: "apple",
     iconClass: "ios-icon",
-    status: "In Active Testing",
+    status: "Planned",
     statusClass: "preview",
     description:
-      "A focused reading experience planned for iPhone and iPad.",
+      "A focused Bible reading experience planned for iPhone and iPad.",
     storeName: "App Store",
+    available: false,
+  },
+  {
+    id: "linux",
+    name: "Linux",
+    icon: "terminal",
+    iconClass: "linux-icon",
+    status: "Planned",
+    statusClass: "preview",
+    description:
+      "A desktop Bible study experience planned for Linux distributions.",
+    storeName: "Coming in the future",
     available: false,
   },
 ];

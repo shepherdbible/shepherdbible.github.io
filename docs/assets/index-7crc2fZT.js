@@ -134,7 +134,7 @@ Make sure your charset is UTF-8`);n=(n>>>8&255)*192+(n&255),e.put(n,13)}},t.expo
 The chosen QR Code version cannot contain this amount of data.
 Minimum version required to store current data is: `+c+`.
 `);let l=ne(n,r,o),d=new i(t.getSymbolSize(n));return S(d,n),w(d),T(d,n),O(d,r,0),n>=7&&D(d,n),k(d,l),isNaN(a)&&(a=s.getBestMask(d,O.bind(null,d,r))),s.applyMask(a,d),O(d,r,a),{modules:d,version:n,errorCorrectionLevel:r,maskPattern:a,segments:o}}e.create=function(e,r){if(e===void 0||e===``)throw Error(`No input text`);let i=n.M,a,o;return r!==void 0&&(i=n.from(r.errorCorrectionLevel,n.M),a=u.from(r.version),o=s.from(r.maskPattern),r.toSJISFunc&&t.setToSJISFunction(r.toSJISFunc)),A(e,a,i,o)}})),j=o((e=>{function t(e){if(typeof e==`number`&&(e=e.toString()),typeof e!=`string`)throw Error(`Color should be defined as hex string`);let t=e.slice().replace(`#`,``).split(``);if(t.length<3||t.length===5||t.length>8)throw Error(`Invalid hex color: `+e);(t.length===3||t.length===4)&&(t=Array.prototype.concat.apply([],t.map(function(e){return[e,e]}))),t.length===6&&t.push(`F`,`F`);let n=parseInt(t.join(``),16);return{r:n>>24&255,g:n>>16&255,b:n>>8&255,a:n&255,hex:`#`+t.slice(0,6).join(``)}}e.getOptions=function(e){e||={},e.color||(e.color={});let n=e.margin===void 0||e.margin===null||e.margin<0?4:e.margin,r=e.width&&e.width>=21?e.width:void 0,i=e.scale||4;return{width:r,scale:r?4:i,margin:n,color:{dark:t(e.color.dark||`#000000ff`),light:t(e.color.light||`#ffffffff`)},type:e.type,rendererOpts:e.rendererOpts||{}}},e.getScale=function(e,t){return t.width&&t.width>=e+t.margin*2?t.width/(e+t.margin*2):t.scale},e.getImageWidth=function(t,n){let r=e.getScale(t,n);return Math.floor((t+n.margin*2)*r)},e.qrToImageData=function(t,n,r){let i=n.modules.size,a=n.modules.data,o=e.getScale(i,r),s=Math.floor((i+r.margin*2)*o),c=r.margin*o,l=[r.color.light,r.color.dark];for(let e=0;e<s;e++)for(let n=0;n<s;n++){let u=(e*s+n)*4,d=r.color.light;if(e>=c&&n>=c&&e<s-c&&n<s-c){let t=Math.floor((e-c)/o),r=Math.floor((n-c)/o);d=l[+!!a[t*i+r]]}t[u++]=d.r,t[u++]=d.g,t[u++]=d.b,t[u]=d.a}}})),ae=o((e=>{var t=j();function n(e,t,n){e.clearRect(0,0,t.width,t.height),t.style||={},t.height=n,t.width=n,t.style.height=n+`px`,t.style.width=n+`px`}function r(){try{return document.createElement(`canvas`)}catch{throw Error(`You need to specify a canvas element`)}}e.render=function(e,i,a){let o=a,s=i;o===void 0&&(!i||!i.getContext)&&(o=i,i=void 0),i||(s=r()),o=t.getOptions(o);let c=t.getImageWidth(e.modules.size,o),l=s.getContext(`2d`),u=l.createImageData(c,c);return t.qrToImageData(u.data,e,o),n(l,s,c),l.putImageData(u,0,0),s},e.renderToDataURL=function(t,n,r){let i=r;i===void 0&&(!n||!n.getContext)&&(i=n,n=void 0),i||={};let a=e.render(t,n,i),o=i.type||`image/png`,s=i.rendererOpts||{};return a.toDataURL(o,s.quality)}})),oe=o((e=>{var t=j();function n(e,t){let n=e.a/255,r=t+`="`+e.hex+`"`;return n<1?r+` `+t+`-opacity="`+n.toFixed(2).slice(1)+`"`:r}function r(e,t,n){let r=e+t;return n!==void 0&&(r+=` `+n),r}function i(e,t,n){let i=``,a=0,o=!1,s=0;for(let c=0;c<e.length;c++){let l=Math.floor(c%t),u=Math.floor(c/t);!l&&!o&&(o=!0),e[c]?(s++,c>0&&l>0&&e[c-1]||(i+=o?r(`M`,l+n,.5+u+n):r(`m`,a,0),a=0,o=!1),l+1<t&&e[c+1]||(i+=r(`h`,s),s=0)):a++}return i}e.render=function(e,r,a){let o=t.getOptions(r),s=e.modules.size,c=e.modules.data,l=s+o.margin*2,u=o.color.light.a?`<path `+n(o.color.light,`fill`)+` d="M0 0h`+l+`v`+l+`H0z"/>`:``,d=`<path `+n(o.color.dark,`stroke`)+` d="`+i(c,s,o.margin)+`"/>`,f=`viewBox="0 0 `+l+` `+l+`"`,p=`<svg xmlns="http://www.w3.org/2000/svg" `+(o.width?`width="`+o.width+`" height="`+o.width+`" `:``)+f+` shape-rendering="crispEdges">`+u+d+`</svg>
-`;return typeof a==`function`&&a(null,p),p}})),se=c(o((e=>{var t=f(),n=A(),r=ae(),i=oe();function a(e,r,i,a,o){let s=[].slice.call(arguments,1),c=s.length,l=typeof s[c-1]==`function`;if(!l&&!t())throw Error(`Callback required as last argument`);if(l){if(c<2)throw Error(`Too few arguments provided`);c===2?(o=i,i=r,r=a=void 0):c===3&&(r.getContext&&o===void 0?(o=a,a=void 0):(o=a,a=i,i=r,r=void 0))}else{if(c<1)throw Error(`Too few arguments provided`);return c===1?(i=r,r=a=void 0):c===2&&!r.getContext&&(a=i,i=r,r=void 0),new Promise(function(t,o){try{t(e(n.create(i,a),r,a))}catch(e){o(e)}})}try{let t=n.create(i,a);o(null,e(t,r,a))}catch(e){o(e)}}e.create=n.create,e.toCanvas=a.bind(null,r.render),e.toDataURL=a.bind(null,r.renderToDataURL),e.toString=a.bind(null,function(e,t,n){return i.render(e,n)})}))(),1),M=[{id:`windows`,name:`Windows PC`,icon:`windows`,iconClass:`windows-icon`,status:`Live on Windows 10/11`,statusClass:`live`,description:`Fast, offline-first Bible study with multi-translation support.`,storeName:`Microsoft Store`,storeUrl:`https://apps.microsoft.com/detail/9pprws532n91`,available:!0},{id:`android`,name:`Android`,icon:`android`,iconClass:`android-icon`,status:`Live on the Play Store`,statusClass:`live`,description:`Bible reading, quick verse navigation, audio options, and daily devotions.`,storeName:`Google Play`,storeUrl:`https://play.google.com/store/apps/details?id=com.nxtccode.biblenotebook`,available:!0},{id:`macos`,name:`macOS`,icon:`apple`,iconClass:`mac-icon`,status:`In Active Testing`,statusClass:`preview`,description:`A desktop reading experience planned for Apple Silicon and Intel Macs.`,storeName:`Mac App Store`,available:!1},{id:`ios`,name:`iOS & iPadOS`,icon:`apple`,iconClass:`ios-icon`,status:`In Active Testing`,statusClass:`preview`,description:`A focused reading experience planned for iPhone and iPad.`,storeName:`App Store`,available:!1}],N={windows:`
+`;return typeof a==`function`&&a(null,p),p}})),se=c(o((e=>{var t=f(),n=A(),r=ae(),i=oe();function a(e,r,i,a,o){let s=[].slice.call(arguments,1),c=s.length,l=typeof s[c-1]==`function`;if(!l&&!t())throw Error(`Callback required as last argument`);if(l){if(c<2)throw Error(`Too few arguments provided`);c===2?(o=i,i=r,r=a=void 0):c===3&&(r.getContext&&o===void 0?(o=a,a=void 0):(o=a,a=i,i=r,r=void 0))}else{if(c<1)throw Error(`Too few arguments provided`);return c===1?(i=r,r=a=void 0):c===2&&!r.getContext&&(a=i,i=r,r=void 0),new Promise(function(t,o){try{t(e(n.create(i,a),r,a))}catch(e){o(e)}})}try{let t=n.create(i,a);o(null,e(t,r,a))}catch(e){o(e)}}e.create=n.create,e.toCanvas=a.bind(null,r.render),e.toDataURL=a.bind(null,r.renderToDataURL),e.toString=a.bind(null,function(e,t,n){return i.render(e,n)})}))(),1),M=[{id:`windows`,name:`Windows PC`,icon:`windows`,iconClass:`windows-icon`,status:`Live on Windows 10/11`,statusClass:`live`,description:`Fast, offline-first Bible study with multi-translation support.`,storeName:`Microsoft Store`,storeUrl:`https://apps.microsoft.com/detail/9pprws532n91`,installerUrl:`https://get.microsoft.com/installer/download/9pprws532n91?referrer=appbadge`,installerName:`Windows Installer (.exe)`,available:!0},{id:`android`,name:`Android`,icon:`android`,iconClass:`android-icon`,status:`Live on the Play Store`,statusClass:`live`,description:`Bible reading, quick verse navigation, audio options, and daily devotions.`,storeName:`Google Play`,storeUrl:`https://play.google.com/store/apps/details?id=com.nxtccode.biblenotebook`,available:!0},{id:`macos`,name:`macOS`,icon:`apple`,iconClass:`mac-icon`,status:`Planned`,statusClass:`preview`,description:`A desktop Bible reading experience planned for Apple Silicon and Intel Macs.`,storeName:`Coming in the future`,available:!1},{id:`ios`,name:`iOS & iPadOS`,icon:`apple`,iconClass:`ios-icon`,status:`Planned`,statusClass:`preview`,description:`A focused Bible reading experience planned for iPhone and iPad.`,storeName:`App Store`,available:!1},{id:`linux`,name:`Linux`,icon:`terminal`,iconClass:`linux-icon`,status:`Planned`,statusClass:`preview`,description:`A desktop Bible study experience planned for Linux distributions.`,storeName:`Coming in the future`,available:!1}],N={windows:`
     <svg viewBox="0 0 24 24" fill="#0078D4" aria-hidden="true">
       <path d="M0 3.449L9.75 2.1v9.451H0m9.75 1.35V22.35L0 20.9v-8zm1.05-20.1L24 0v11.25H10.8m13.2 1.35V24l-13.2-1.8v-9.45"/>
     </svg>`,android:`
@@ -143,7 +143,47 @@ Minimum version required to store current data is: `+c+`.
     </svg>`,apple:`
     <svg viewBox="0 0 24 24" fill="#A3AAAE" aria-hidden="true">
       <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.32c.68-.82 1.14-1.97 1.01-3.12-1 .04-2.21.67-2.92 1.5-.63.73-1.18 1.9-1.03 3.03 1.12.09 2.26-.59 2.94-1.41z"/>
-    </svg>`};function ce(e){let t=e.available&&e.storeUrl?`
+    </svg>`,linux:`
+  <svg viewBox="0 0 24 24" fill="#FCC624" aria-hidden="true">
+    <path d="M12 2.2c-2.7 0-4.4 2.1-4.4 5.1v3.2c-1.5 1.3-2.5 3.2-2.5 5.1 0 1.1.6 2 1.6 2.5l-.6 2c-.2.7.2 1.3.9 1.5l2.4.6c.7.2 1.3-.2 1.6-.8l1-2.1 1 2.1c.3.6.9 1 1.6.8l2.4-.6c.7-.2 1.1-.8.9-1.5l-.6-2c1-.5 1.6-1.4 1.6-2.5 0-1.9-1-3.8-2.5-5.1V7.3c0-3-1.7-5.1-4.4-5.1zm-2 5.1a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8zm4 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8z"/>
+  </svg>`,terminal:`
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <!-- Penguin body -->
+    <path
+      d="M12 2.5C7.8 2.5 6 6 6 10v5.5
+         C6 19 8.5 22 12 22s6-3 6-6.5V10
+         c0-4-1.8-7.5-6-7.5Z"
+      fill="#242424"
+    />
+
+    <!-- Wings -->
+    <path
+      d="M6.5 11 4.5 15.5c-.5 1.2.4 2.3 1.7 2.2L8 17"
+      fill="#242424"
+    />
+    <path
+      d="M17.5 11 19.5 15.5c.5 1.2-.4 2.3-1.7 2.2L16 17"
+      fill="#242424"
+    />
+
+    <!-- White face and belly -->
+    <path
+      d="M8.2 10.5c0-3 1.3-4.5 3.8-4.5s3.8 1.5 3.8 4.5v5
+         c0 3-1.5 4.5-3.8 4.5s-3.8-1.5-3.8-4.5Z"
+      fill="#FFFFFF"
+    />
+
+    <!-- Eyes -->
+    <circle cx="10" cy="8.5" r=".8" fill="#242424"/>
+    <circle cx="14" cy="8.5" r=".8" fill="#242424"/>
+
+    <!-- Beak -->
+    <path d="m10.5 10 1.5 1.5 1.5-1.5Z" fill="#FCC624"/>
+
+    <!-- Feet -->
+    <path d="M8.5 20.5 6 22h4l1-1.2ZM15.5 20.5 18 22h-4l-1-1.2Z"
+      fill="#FCC624"/>
+  </svg>`};function ce(e){let t=e.available&&e.storeUrl?`
       <div class="platform-actions">
         <a
           href="${e.storeUrl}"
@@ -151,8 +191,20 @@ Minimum version required to store current data is: `+c+`.
           rel="noopener noreferrer"
           class="platform-link"
         >
-          Download from Store &rarr;
+          Download from ${e.storeName} &rarr;
         </a>
+
+        ${e.installerUrl?`
+              <a
+                href="${e.installerUrl}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="platform-link platform-installer-link"
+              >
+                ${e.installerName??`Windows Installer (.exe)`} &darr;
+              </a>
+            `:``}
+
         <button
           type="button"
           class="platform-qr-button"
@@ -160,15 +212,23 @@ Minimum version required to store current data is: `+c+`.
           aria-label="View QR code for ${e.name}"
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM15 13h2v2h-2zM19 13h2v5h-2zM13 17h4v4h-4zM17 19h2v2h-2z"
-              fill="none" stroke="currentColor"
-              stroke-width="1.8" stroke-linejoin="round"/>
+            <path
+              d="M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM15 13h2v2h-2zM19 13h2v5h-2zM13 17h4v4h-4zM17 19h2v2h-2z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linejoin="round"
+            />
           </svg>
           View QR Code
         </button>
-      </div>`:`<span class="platform-link-disabled">${e.storeName} (Coming Soon)</span>`;return`
+      </div>
+    `:`
+      <span class="platform-link-disabled">
+        ${e.storeName} (Coming Soon)
+      </span>
+    `;return`
     <article class="card platform-card ${e.id===`windows`?`featured-platform`:``}">
-      <!-- Floating Top Icon -->
       <div class="card-top-icon platform-${e.id}">
         ${N[e.icon]??``}
       </div>
@@ -184,7 +244,8 @@ Minimum version required to store current data is: `+c+`.
 
         ${t}
       </div>
-    </article>`}function P(){return`
+    </article>
+  `}function P(){return`
     <section class="section platforms-section">
       <div class="container text-center">
         <h2>Available Everywhere You Are</h2>

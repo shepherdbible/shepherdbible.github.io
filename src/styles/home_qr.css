@@ -345,6 +345,26 @@ body.qr-modal-open {
   overflow: hidden;
 }
 
+
+.platform-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.platform-actions .platform-link,
+.platform-actions .platform-qr-button {
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+.platform-installer-link {
+  border: 1px solid var(--border-color, #ddd);
+}
+
 /* =========================================
    Media Queries
    ========================================= */

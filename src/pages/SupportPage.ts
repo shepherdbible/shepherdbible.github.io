@@ -1,11 +1,9 @@
-
 import type { Page } from "../types";
 import "../styles/SupportPage.css";
 
 const CONFIG = {
   gcashQrPath:
-    import.meta.env.VITE_GCASH_QR_PATH ||
-    "/assets/images/support/gcash-qr.png",
+    import.meta.env.VITE_GCASH_QR_PATH || "/assets/images/support/gcash-qr.png",
   gcashUrl: import.meta.env.VITE_GCASH_URL || "",
 
   paypalQrPath:
@@ -16,17 +14,13 @@ const CONFIG = {
   buyMeACoffeeQrPath:
     import.meta.env.VITE_BUY_ME_A_COFFEE_QR_PATH ||
     "/assets/images/support/buymeacoffee-qr.png",
-  buyMeACoffeeUrl:
-    import.meta.env.VITE_BUY_ME_A_COFFEE_URL || "",
+  buyMeACoffeeUrl: import.meta.env.VITE_BUY_ME_A_COFFEE_URL || "",
 };
 
 function isValidDonationUrl(url: string): boolean {
   try {
     const parsed = new URL(url);
-    return (
-      parsed.protocol === "https:" &&
-      url.trim().length > 0
-    );
+    return parsed.protocol === "https:" && url.trim().length > 0;
   } catch {
     return false;
   }
@@ -195,26 +189,46 @@ export class SupportPage implements Page {
 
     if (!page) return;
 
+    const gcashCard = document.getElementById("gcash-card");
+    const paypalCard = document.getElementById("paypal-card");
+    const bmcCard = document.getElementById("bmc-card");
+
     void detectCountry().then((country) => {
-      if (!country) return;
+      if (!country) {
+        // Country detection failed: keep all options visible.
+        page.dataset.country = "unknown";
+
+        if (recommendation) {
+          recommendation.textContent =
+            "Choose the payment option that works best for you.";
+        }
+
+        return;
+      }
 
       page.dataset.country = country;
 
-      const gcashCard = document.getElementById("gcash-card");
-      const paypalCard = document.getElementById("paypal-card");
-      const bmcCard = document.getElementById("bmc-card");
-
       if (country === "PH") {
-        recommendation && (recommendation.textContent =
-          "GCash is highlighted for supporters in the Philippines.");
+        // Philippines: show and highlight GCash.
+        if (gcashCard) gcashCard.hidden = false;
 
         gcashCard?.classList.add("payment-preferred");
+
+        if (recommendation) {
+          recommendation.textContent =
+            "GCash is available for supporters in the Philippines.";
+        }
       } else {
-        recommendation && (recommendation.textContent =
-          "PayPal and Buy Me a Coffee are highlighted for international supporters.");
+        // Outside the Philippines: hide GCash.
+        if (gcashCard) gcashCard.hidden = true;
 
         paypalCard?.classList.add("payment-preferred");
         bmcCard?.classList.add("payment-preferred");
+
+        if (recommendation) {
+          recommendation.textContent =
+            "Choose PayPal or Buy Me a Coffee to support Shepherd Bible.";
+        }
       }
     });
   }

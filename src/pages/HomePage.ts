@@ -33,8 +33,8 @@ export const HomePage: Page = {
             </div>
           </a>
 
-          <a href="/community" class="btn btn-secondary">
-            Visit Community
+          <a href="/store" class="btn btn-secondary">
+            Visit Store
           </a>
         </div>
 

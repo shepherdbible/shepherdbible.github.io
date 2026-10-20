@@ -1,5 +1,5 @@
 
-$root = "C:\Users\Robel\Documents\GitHub\shepherdbible.github.io\src\features\standard"
+$root = "C:\Users\Robel\Documents\GitHub\shepherdbible.github.io\src\features\store"
 $output = "$env:USERPROFILE\Desktop\source_code.txt"
 
 if (-not (Test-Path $root)) {

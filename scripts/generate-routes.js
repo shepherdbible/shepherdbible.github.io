@@ -13,6 +13,7 @@ const routes = [
   "editor",
   "books",
   "support",
+  "store",
 ];
 
 if (!fs.existsSync(sourceFile)) {

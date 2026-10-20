@@ -1,0 +1,88 @@
+[
+  
+  {
+    "id": "kjv-bible-amazon",
+    "title": "KJV Holy Bible: Personal Size Giant Print with 43,000 Cross References, Black Bonded Leather, Red Letter, Comfort Print: King James Version",
+    "version": "KJV",
+    "description": "A reference Bible for everyday use containing giant print type in an easy-to-carry format. This edition is published in large KJV Comfort Print type, which was designed exclusively for Thomas Nelson to be the most readable at any size. The literary beauty of the King James Version with the readability of Thomas Nelson's custom KJV font, plus essential study resources, words of Christ in red, and an easy-to-read type size, all in a package that’s convenient to take anywhere. That’s the KJV Personal Size Giant Print Reference Bible. The giant print format and beautifully designed layout of this edition will add to your comfort as you dig deep into God’s Word. Additional features include an attractive end-of-page reference system, book introductions, a concordance, and full-color maps.",
+    "format": "Hardcover",
+    "images": [
+      "https://m.media-amazon.com/images/I/71HMcQa2erL._SY466_.jpg",
+      "https://m.media-amazon.com/images/I/61asmCht3AL._SL1200_.jpg",
+      "https://m.media-amazon.com/images/I/81PFudpN5xL._SL1500_.jpg"
+    ],
+    "offers": [
+      {
+        "country": "US",
+        "currency": "USD",
+        "price": 23,
+        "retailer": "Thomas Nelson (Amazon) ",
+        "productUrl": "https://link.amazon/B0iBoIjvk"
+      }
+    ]
+  },
+  {
+    "id": "esv-study-bible",
+    "title": "ESV Study Bible",
+    "version": "ESV",
+    "description": "The ESV Study Bible was designed to help you understand the Bible in a deeper way. Created by a diverse team of 95 leading Bible scholars and teachers―from 9 countries, nearly 20 denominations, and 50 seminaries, colleges, and universities―the ESV Study Bible features a wide array of study tools, including extensive study notes, 200 full-color maps, 40 full-color illustrations, charts, timelines, articles, and introductions, making it a valuable resource for serious readers, students, and teachers of God’s Word.",
+    "format": "Leather-bound",
+    "images": [
+      "https://m.media-amazon.com/images/I/51ljyhBsGcL._SL1500_.jpg",
+      "https://m.media-amazon.com/images/I/81sgs33IPxL._SL1500_.jpg",
+      "https://m.media-amazon.com/images/I/81odmehclbL._SL1500_.jpg"
+    ],
+    "offers": [
+      {
+        "country": "US",
+        "currency": "USD",
+        "price": 24,
+        "retailer": "ESV Bibles",
+        "productUrl": "https://link.amazon/B0gWsF5iv"
+      }
+    ]
+  },
+  {
+    "id": "niv-study-bible",
+    "title": "NIV Study Bible, Fully Revised Edition (Study Deeply. Believe Wholeheartedly.), Hardcover, Red Letter, Comfort Print",
+    "version": "NIV",
+
+    "description": "This stunning, full-color study Bible answers your pressing questions with just the right amount of information, placed in just the right location.\n\nWith a decades-long legacy of helping readers understand the Bible's meaning, the NIV Study Bible reflects the mission of the New International Version (NIV): to provide an accurate, readable, and clear guide to Scripture. Designed specifically to complement the NIV translation, its editorial team brings the same accuracy and clarity to every study note.\n\nFeatures:\n\n• Complete text of the accurate, readable, and clear New International Version (NIV)\n• 21,000+ study notes, with icons that make important information easy to identify\n• Extensive study resources, including 125+ topical articles, 16 pages of full-color maps, a comprehensive NIV concordance with nearly 4,800 entries, and a subject note index\n• Book introductions and outlines for all 66 books, plus six section introductions providing valuable background information\n• In-text visual aids, including maps, charts, diagrams, and illustrations that clarify biblical events and narratives\n• Words of Jesus printed in red\n• Exclusive Zondervan NIV Comfort Print® typeface\n• Print size: 9-point\n\nNow fully revised and updated, this trusted study Bible offers an even richer learning experience. A committee of leading biblical scholars, including current and former NIV translators, has reviewed every note, article, chart, and essay to make the Bible's meaning clearer. Thousands of newly written or revised notes and articles, together with hundreds of full-color maps, charts, photographs, and illustrations, provide an extensive collection of study resources designed to deepen your understanding of Scripture and its application to daily life.",
+
+    "format": "Leather-bound",
+    "images": [
+      "https://m.media-amazon.com/images/I/71GKX8FKjHL._SL1500_.jpg",
+      "https://m.media-amazon.com/images/I/71yUztmiRIL._SL1200_.jpg",
+      "https://m.media-amazon.com/images/I/71EthwaC-sL._SL1500_.jpg"
+    ],
+    "offers": [
+      {
+        "country": "US",
+        "currency": "USD",
+        "price": 26,
+        "retailer": "Kenneth L. Barker",
+        "productUrl": "https://link.amazon/B0eSQ28f1"
+      }
+    ]
+  },
+  {
+    "id": "kjv-classic-hardcover",
+    "title": "KJV 1611 BIBLE DIGLOT ENGLISH-TAGALOG ANG BIBLIA",
+    "version": "KJV 1611 BIBLE DIGLOT ENGLISH-TAGALOG ANG BIBLIA",
+    "description": "Parallel Bible English–Tagalog\n\n- Gold edge\n- Very readable in both English and Tagalog\n- Length: 8.5 inches\n- Width: 5.75 inches\n- Thickness: 1.25 inches\n- Weight: 0.8 kg\n- Old and New Testaments\n- KJV 1611\n- Soft leatherette cover\n- For bilingual readers\n- With thumb index\n- Available in brown and black",
+    "format": "Hardcover",
+    "images": [
+      "https://down-ph.img.susercontent.com/file/ph-11134207-7r990-lvzdvy34yp29e2.webp",
+      "https://down-ph.img.susercontent.com/file/ph-11134207-81zth-mkrqcxyjsfeu4e.webp"
+    ],
+    "offers": [
+      {
+        "country": "PH",
+        "currency": "PHP",
+        "price": 849,
+        "retailer": "CONQUERORS BOOK SHOP",
+        "productUrl": "https://s.shopee.ph/8V9r4p3xyx"
+      }
+    ]
+  }
+]

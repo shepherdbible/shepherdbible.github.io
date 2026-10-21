@@ -47,7 +47,9 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .product-card:hover {
@@ -66,7 +68,7 @@
 .product-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .product-info {
@@ -82,7 +84,7 @@
   font-weight: 600;
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
-  background: var(--color-primary-light, #fee2e2);
+  background: var(--color-surface-muted, #fee2e2);
   color: var(--color-primary, #991b1b);
   margin-bottom: 0.5rem;
 }
@@ -97,7 +99,7 @@
   font-size: 0.875rem;
   color: var(--color-text-muted, #64748b);
   margin-bottom: 1rem;
-  
+
   /* Truncate text after 3 lines */
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -188,4 +190,51 @@
 
 .gallery-thumb.active {
   border-color: var(--color-primary, #991b1b);
+}
+
+.store-header {
+  text-align: center;
+
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.store-header h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-text-heading, var(--color-primary, #800020));
+
+  letter-spacing: -0.02em;
+}
+
+.store-subtitle {
+  font-size: 1.05rem;
+  color: var(--color-text-muted, #64748b);
+}
+
+.store-motto {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-text, #1e293b);
+  letter-spacing: 0.01em;
+}
+
+.store-quote {
+  margin: 1rem auto 0 auto;
+  max-width: 580px;
+
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--color-text-muted, #475569);
+
+  border-radius: 0 var(--radius-md, 8px) var(--radius-md, 8px) 0;
+  text-align: center;
+}
+
+.store-quote-author {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-text, #334155);
+  display: block;
 }

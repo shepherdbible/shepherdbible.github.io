@@ -1,5 +1,4 @@
 [
-  
   {
     "id": "kjv-bible-amazon",
     "title": "KJV Holy Bible: Personal Size Giant Print with 43,000 Cross References, Black Bonded Leather, Red Letter, Comfort Print: King James Version",
@@ -18,6 +17,27 @@
         "price": 23,
         "retailer": "Thomas Nelson (Amazon) ",
         "productUrl": "https://link.amazon/B0iBoIjvk"
+      }
+    ]
+  },
+  {
+    "id": "kjv-bible-large-print-amazon",
+    "title": "KJV, Pew Bible, Large Print, Hardcover, Black, Red Letter, Comfort Print: Holy Bible, King James Version",
+    "version": "KJV",
+    "description": "The classic King James Version, one of the most influential and beautiful works of art in the English language, continues to be the standard translation for numerous churches and millions of Christians. This bestselling Bible translation has helped inspire, encourage, and strengthen people from all walks of life.\n\nInvite your eyes to linger and engage God’s Word with new, easy-to-read Comfort Print® KJV Bibles from Thomas Nelson. Blending modern technology with old-world craftsmanship, Comfort Print® KJV Bibles are designed with exclusive fonts, reflecting the beautiful and timeless character of the King James translation, to enhance your scripture reading experience.\n\nFeatures:\n• Words of Christ in red help you quickly identify Jesus’ teachings and statements\n• Miracles and parables of Jesus call out important events during Jesus’ earthly ministry\n• Easy-to-read 12.5-point KJV Comfort Print",
+    "format": "Hardcover",
+    "images": [
+      "https://m.media-amazon.com/images/I/71gYH6YWY+L._SL1500_.jpg",
+      "https://m.media-amazon.com/images/I/81CR9XG0s9L._SL1500_.jpg",
+      "https://m.media-amazon.com/images/I/A1W2JNtC2qL._SL1500_.jpg"
+    ],
+    "offers": [
+      {
+        "country": "US",
+        "currency": "USD",
+        "price": 10.7,
+        "retailer": "Thomas Nelson (Amazon) ",
+        "productUrl": "https://link.amazon/B0fOEo7zt"
       }
     ]
   },
@@ -66,14 +86,15 @@
     ]
   },
   {
-    "id": "kjv-classic-hardcover",
+    "id": "kjv-diglot-hardcover",
     "title": "KJV 1611 BIBLE DIGLOT ENGLISH-TAGALOG ANG BIBLIA",
     "version": "KJV 1611 BIBLE DIGLOT ENGLISH-TAGALOG ANG BIBLIA",
     "description": "Parallel Bible English–Tagalog\n\n- Gold edge\n- Very readable in both English and Tagalog\n- Length: 8.5 inches\n- Width: 5.75 inches\n- Thickness: 1.25 inches\n- Weight: 0.8 kg\n- Old and New Testaments\n- KJV 1611\n- Soft leatherette cover\n- For bilingual readers\n- With thumb index\n- Available in brown and black",
     "format": "Hardcover",
     "images": [
       "https://down-ph.img.susercontent.com/file/ph-11134207-7r990-lvzdvy34yp29e2.webp",
-      "https://down-ph.img.susercontent.com/file/ph-11134207-81zth-mkrqcxyjsfeu4e.webp"
+      "https://down-ph.img.susercontent.com/file/ph-11134207-81zth-mkrqcxyjsfeu4e.webp",
+      "https://m.media-amazon.com/images/I/91HBtuBeD2L._SL1500_.jpg"
     ],
     "offers": [
       {
@@ -82,6 +103,31 @@
         "price": 849,
         "retailer": "CONQUERORS BOOK SHOP",
         "productUrl": "https://s.shopee.ph/8V9r4p3xyx"
+      },
+      {
+        "country": "US",
+        "currency": "USD",
+        "price": 125,
+        "retailer": "American Bible Society (Amazon)",
+        "productUrl": "https://link.amazon/B07u3d9N9"
+      }
+    ]
+  },
+
+  {
+    "id": "purpose-driven-life-rick-warren",
+    "title": "The Purpose-Driven Life: What on Earth Am I Here For?",
+    "version": "Christian Living",
+    "description": "You are not an accident. Even before the universe was created, God had you in mind, and he planned you for his purposes. These purposes will extend far beyond the few years you will spend on earth. You were made to last forever! Self-help books often suggest that you try to discover the meaning and purpose of your life by looking within yourself, but Rick Warren says that is the wrong place to start. You must begin with God, your Creator, and his reasons for creating you. You were made by God and for God, and until you understand that, life will never make sense. This book will help you understand why you are alive and God's amazing plan for you---both here and now, and for eternity. Rick Warren will guide you through a personal 40-day spiritual journey that will transform your answer to life's most important question: What on earth am I here for? Knowing God's purpose for creating you will reduce your stress, focus your energy, simplify your decisions, give meaning to your life, and, most importantly, prepare you for eternity. The Purpose Driven Life is a blueprint for Christian living in the 21st century---a lifestyle based on God's eternal purposes, not cultural values. Using over 1,200 scriptural quotes and references, it challenges the conventional definitions of worship, fellowship, discipleship, ministry, and evangelism. In the tradition of Oswald Chambers, Rick Warren offers distilled wisdom on the essence of what life is all about. This is a book of hope and challenge that you will read and re-read, and it will be a classic treasured by generations to come.",
+    "format": "Hardcover",
+    "images": ["https://m.media-amazon.com/images/I/91WhuCH3dFL._SL1500_.jpg"],
+    "offers": [
+      {
+        "country": "US",
+        "currency": "USD",
+        "price": 15.92,
+        "retailer": "Rick Warren (Amazon)",
+        "productUrl": "https://link.amazon/B02JlqBum"
       }
     ]
   }

@@ -76,11 +76,22 @@ export class StorePage {
   }
 
   public render(): string {
-    return `
+    return /* html */ `
       <div class="store-container" id="store-page-root">
-        <header class="store-header">
+       <header class="store-header">
           <h1>Bible Store Catalog</h1>
-          <p>Discover physical Bibles and find retailer options for your region.</p>
+          <p class="store-subtitle">Discover physical Bibles and find retailer options for your region.</p>
+
+          <p class="store-motto">
+            Let Us Bring a Bible to Every Home
+          </p>
+
+          <blockquote class="store-quote">
+            “Thy word is a lamp unto my feet, and a light unto my path.”
+            <footer class="store-quote-author">
+              — Psalm 119:105 (KJV)
+            </footer>
+          </blockquote>
         </header>
 
         <section class="store-controls" aria-label="Catalog Filters">
@@ -103,12 +114,22 @@ export class StorePage {
           </select>
 
           <select class="store-select" id="store-version">
-            <option value="ALL">All Translations</option>
-            <option value="KJV">KJV</option>
-            <option value="NIV">NIV</option>
-            <option value="ESV">ESV</option>
-            <option value="NKJV">NKJV</option>
-          </select>
+  <option value="ALL">All Books</option>
+
+  <optgroup label="Bible Translations">
+    <option value="KJV">KJV</option>
+    <option value="NIV">NIV</option>
+    <option value="ESV">ESV</option>
+    <option value="NKJV">NKJV</option>
+  </optgroup>
+
+  <optgroup label="Christian Books">
+    <option value="CHRISTIAN_LIVING">Christian Living</option>
+    <option value="DEVOTIONAL">Devotionals</option>
+    <option value="BIBLE_STUDY">Bible Study</option>
+    <option value="CHURCH_LEADERSHIP">Church & Leadership</option>
+  </optgroup>
+</select>
 
           <select class="store-select" id="store-format">
             <option value="ALL">All Formats</option>
@@ -246,7 +267,7 @@ export class StorePage {
 
         const primaryImage = product.images[0] || FALLBACK_IMAGE;
 
-        return `
+        return /* html */ `
         <article class="product-card" data-id="${product.id}">
           <div class="product-img-wrapper view-details-img" data-id="${product.id}" style="cursor: pointer;">
             <img 
@@ -318,7 +339,7 @@ export class StorePage {
                 id="modal-main-img" 
                 src="${images[0]}" 
                 alt="${product.title}" 
-                style="width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 6px;"
+                style="width: 100%; aspect-ratio: 4/3; object-fit: contain; border-radius: 6px;"
                 onerror="this.onerror=null;this.src='${FALLBACK_IMAGE}';"
               />
               ${

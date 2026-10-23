@@ -136,7 +136,7 @@ export class SupportPage implements Page {
           <div class="grid payments-grid">
             ${paymentCard({
               id: "ph-card",
-              title: "GCash (Philippines)",
+              title: "GCash",
               description: "Support locally using GCash.",
               qrPath: CONFIG.phQrPath,
               qrAlt: "GCash payment QR code",
@@ -216,7 +216,7 @@ export class SupportPage implements Page {
 
         if (recommendation) {
           recommendation.textContent =
-            "GCash is available for supporters in the Philippines.";
+            "GCash is available.";
         }
       } else {
         // Outside the Philippines: hide GCash.

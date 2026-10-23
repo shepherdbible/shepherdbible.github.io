@@ -10,6 +10,8 @@
   },
   "devDependencies": {
     "@types/qrcode": "^1.5.6",
+    "prettier": "^3.9.10",
+    "prettier-plugin-organize-attributes": "^1.0.0",
     "typescript": "~6.0.2",
     "vite": "^8.3.0",
     "vite-plugin-singlefile": "^2.3.3"

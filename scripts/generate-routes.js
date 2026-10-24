@@ -14,7 +14,7 @@ const routes = [
   "books",
   "support",
   "store",
-  "unity",
+  "brotherly",
 ];
 
 if (!fs.existsSync(sourceFile)) {

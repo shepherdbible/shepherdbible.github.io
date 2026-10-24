@@ -1,6 +1,6 @@
-import type { ChangelogEntry } from "../types";
-
-export const changelogs: ChangelogEntry[] = [
+import type { ChangelogEntry } from "../types/ChangelogEntry";
+    
+export const Webchangelogs: ChangelogEntry[] = [
   {
     id: "v1.1.420.0",
     version: "1.1.420.0",
@@ -8,6 +8,7 @@ export const changelogs: ChangelogEntry[] = [
     title: "Shepherd Bible Improvements",
     description:
       "Continued improvements to Shepherd Bible with a focus on reliability, Bible study, and a better reading experience.",
+    platforms: ["web"],
     changes: [
       "Improved application stability",
       "Improved handling of Bible data and local storage",
@@ -22,10 +23,11 @@ export const changelogs: ChangelogEntry[] = [
   {
     id: "v1.1.416.0",
     version: "1.1.416.0",
-    date: "2026-09-XX",
+    date: "2026-09-XX", // You might want to update this to a specific day if known
     title: "Bible Study Improvements",
     description:
       "Improvements to Bible reading and personal study features.",
+    platforms: ["web"],
     changes: [
       "Improved Bible reading experience",
       "Improved Bible search",
@@ -39,10 +41,11 @@ export const changelogs: ChangelogEntry[] = [
   {
     id: "v1.1.405.0",
     version: "1.1.405.0",
-    date: "2026-09-XX",
+    date: "2026-09-XX", // You might want to update this to a specific day if known
     title: "Stability and Compatibility",
     description:
       "Focused on compatibility, stability, and improving the reliability of Bible study data.",
+    platforms: ["web"],
     changes: [
       "Improved application compatibility",
       "Improved local data handling",
@@ -60,6 +63,7 @@ export const changelogs: ChangelogEntry[] = [
     title: "Shepherd Bible Community",
     description:
       "Introducing the Shepherd Bible community experience, created to give Bible readers a place to connect, encourage one another, and share their journey.",
+    platforms: ["web"],
     changes: [
       "Added Bible discussion areas",
       "Added encouragement posts",
@@ -79,6 +83,7 @@ export const changelogs: ChangelogEntry[] = [
     title: "Create Scripture Images",
     description:
       "A new creative experience for turning Bible verses into beautiful shareable images.",
+    platforms: ["web"],
     changes: [
       "Added Bible verse image editor",
       "Added customizable text",

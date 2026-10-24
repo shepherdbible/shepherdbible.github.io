@@ -125,6 +125,26 @@ export const Navbar = {
 
           <a href="/changelog" data-route>Changelog</a>
 
+          
+<a href="/support" data-route class="donate-button">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8z"/>
+  </svg>
+  <span>DONATE</span>
+</a>
+
+
           <!-- Theme -->
           <button
             id="theme-toggle"
@@ -194,8 +214,8 @@ export const Navbar = {
       dropdown?.classList.toggle("open", !isOpen);
     });
 
-    
-    
+
+
     /*
      * ---------------------------------------------------------
      * Close Features menu outside click

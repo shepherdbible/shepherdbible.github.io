@@ -450,6 +450,44 @@
 }
 
 
+.donate-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 1px 8px;
+  border: 1px solid #800020;
+  border-radius: 8px;
+  background: #800020;
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+  white-space: nowrap;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.donate-button:hover {
+  background: #650019;
+  border-color: #650019;
+  color: #fff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgb(128 0 32 / 20%);
+}
+
+.donate-button:focus-visible {
+  outline: 3px solid #D4AF37;
+  outline-offset: 3px;
+}
+
+.donate-button svg {
+  flex-shrink: 0;
+}
+
 /* =========================================================
    Small Phones
    ========================================================= */

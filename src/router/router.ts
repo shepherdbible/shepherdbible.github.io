@@ -1,7 +1,7 @@
 import { HomePage } from "../pages/HomePage";
 import { FaqPage } from "../pages/FaqPage";
 import { CommunityPage } from "../pages/CommunityPage";
-import { ChangelogPage } from "../pages/ChangelogPage";
+import { ChangelogPage } from "../pages/changelog/ChangelogPage";
 import { AboutPage } from "../pages/AboutPage";
 import { PrivacyPage } from "../pages/PrivacyPage";
 import { VerseImagePage } from "../pages/VerseImagePage";

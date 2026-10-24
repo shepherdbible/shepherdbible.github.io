@@ -15,6 +15,7 @@ const routes = [
   "support",
   "store",
   "brotherly",
+  "stories",
 ];
 
 if (!fs.existsSync(sourceFile)) {

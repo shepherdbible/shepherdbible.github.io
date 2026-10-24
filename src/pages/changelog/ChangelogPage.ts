@@ -2,7 +2,7 @@ import type { Page } from '../../types';
 import "../changelog/changelog.css";
 import { WindowsChangelogs } from './data/Windows';
 import { AndroidChangelogs } from './data/Android';
-import { Webchangelogs } from './data/web';
+import { Webchangelogs } from './data/Web';
 
 // ---------------------------------------------------------
 // THIS IS PURE TYPESCRIPT

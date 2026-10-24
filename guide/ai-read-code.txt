@@ -1,5 +1,5 @@
 
-$root = "C:\Users\Robel\Documents\GitHub\shepherdbible.github.io\src\features\store"
+$root = "C:\Users\Robel\Documents\GitHub\shepherdbible.github.io\src\pages\stories"
 $output = "$env:USERPROFILE\Desktop\source_code.txt"
 
 if (-not (Test-Path $root)) {
@@ -7,7 +7,7 @@ if (-not (Test-Path $root)) {
     return
 }
 
-$extensions = @(".ts", ".tsx", ".js", ".jsx", ".css", ".scss", ".html", ".json", ".md")
+$extensions = @(".ts", ".tsx", ".js", ".jsx", ".css", ".scss", ".html", ".json", ".md", ".cs", ".xaml")
 $excluded = '\\(node_modules|\.git|dist|build|coverage|\.vite)\\'
 
 $files = Get-ChildItem -Path $root -Recurse -File |

@@ -114,10 +114,11 @@ export class SupportPage implements Page {
 
         <section class="hero-section">
           <h1>Support Shepherd Bible</h1>
+         
           <p class="text-muted hero-subtitle">
-            Help us continue building free Bible-reading tools
-            and a welcoming community.
+             Support ongoing development, more Bible translations, new features, and bug fixes to make Shepherd Bible better for everyone.
           </p>
+          
           <p class="reassurance-text">
             <span aria-hidden="true">♥</span>
             Every contribution is voluntary.
@@ -135,34 +136,34 @@ export class SupportPage implements Page {
 
           <div class="grid payments-grid">
             ${paymentCard({
-              id: "ph-card",
-              title: "GCash",
-              description: "Support locally using GCash.",
-              qrPath: CONFIG.phQrPath,
-              qrAlt: "GCash payment QR code",
-              url: CONFIG.phUrl,
-              linkLabel: "Open GCash payment link",
-            })}
+      id: "ph-card",
+      title: "GCash",
+      description: "Support locally using GCash.",
+      qrPath: CONFIG.phQrPath,
+      qrAlt: "GCash payment QR code",
+      url: CONFIG.phUrl,
+      linkLabel: "Open GCash payment link",
+    })}
 
             ${paymentCard({
-              id: "paypal-card",
-              title: "PayPal",
-              description: "Support Shepherd Bible internationally.",
-              qrPath: CONFIG.paypalQrPath,
-              qrAlt: "PayPal QR code",
-              url: CONFIG.paypalUrl,
-              linkLabel: "Open PayPal",
-            })}
+      id: "paypal-card",
+      title: "PayPal",
+      description: "Support Shepherd Bible internationally.",
+      qrPath: CONFIG.paypalQrPath,
+      qrAlt: "PayPal QR code",
+      url: CONFIG.paypalUrl,
+      linkLabel: "Open PayPal",
+    })}
 
             ${paymentCard({
-              id: "bmc-card",
-              title: "Buy Me a Coffee",
-              description: "Contribute through our creator page.",
-              qrPath: CONFIG.buyMeACoffeeQrPath,
-              qrAlt: "Buy Me a Coffee QR code",
-              url: CONFIG.buyMeACoffeeUrl,
-              linkLabel: "Open Buy Me a Coffee",
-            })}
+      id: "bmc-card",
+      title: "Buy Me a Coffee",
+      description: "Contribute through our creator page.",
+      qrPath: CONFIG.buyMeACoffeeQrPath,
+      qrAlt: "Buy Me a Coffee QR code",
+      url: CONFIG.buyMeACoffeeUrl,
+      linkLabel: "Open Buy Me a Coffee",
+    })}
           </div>
         </section>
 
@@ -199,9 +200,9 @@ export class SupportPage implements Page {
         page.dataset.country = "unknown";
 
         if (recommendation) {
-          recommendation.textContent =
-            "Choose the payment option that works best for you.";
-        }
+  recommendation.textContent =
+    "Choose the donation method that works best for you to support Shepherd Bible.";
+}
 
         return;
       }
@@ -214,10 +215,7 @@ export class SupportPage implements Page {
 
         phCard?.classList.add("payment-preferred");
 
-        if (recommendation) {
-          recommendation.textContent =
-            "GCash is available.";
-        }
+        
       } else {
         // Outside the Philippines: hide GCash.
         if (phCard) phCard.hidden = true;
@@ -226,9 +224,9 @@ export class SupportPage implements Page {
         bmcCard?.classList.add("payment-preferred");
 
         if (recommendation) {
-          recommendation.textContent =
-            "Choose PayPal or Buy Me a Coffee to support Shepherd Bible.";
-        }
+  recommendation.textContent =
+    "Choose the donation method that works best for you to support Shepherd Bible.";
+}
       }
     });
   }

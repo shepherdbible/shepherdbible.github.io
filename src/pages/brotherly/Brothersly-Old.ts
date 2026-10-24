@@ -1,5 +1,5 @@
+import type { Page } from "../../types";
 
-import type { Page } from "../types";
 
 const section = (number: number, title: string, content: string) => `
   <section class="suggestions-section">

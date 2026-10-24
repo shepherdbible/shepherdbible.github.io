@@ -131,7 +131,7 @@ export class SupportPage implements Page {
             class="text-muted text-center recommendation-text"
             aria-live="polite"
           >
-            Choose the payment option that works best for you.
+            Choose the donation method that works best for you to support Shepherd Bible.
           </p>
 
           <div class="grid payments-grid">
@@ -200,9 +200,9 @@ export class SupportPage implements Page {
         page.dataset.country = "unknown";
 
         if (recommendation) {
-  recommendation.textContent =
-    "Choose the donation method that works best for you to support Shepherd Bible.";
-}
+          recommendation.textContent =
+            "Choose the donation method that works best for you to support Shepherd Bible.";
+        }
 
         return;
       }
@@ -215,7 +215,7 @@ export class SupportPage implements Page {
 
         phCard?.classList.add("payment-preferred");
 
-        
+
       } else {
         // Outside the Philippines: hide GCash.
         if (phCard) phCard.hidden = true;
@@ -224,9 +224,9 @@ export class SupportPage implements Page {
         bmcCard?.classList.add("payment-preferred");
 
         if (recommendation) {
-  recommendation.textContent =
-    "Choose the donation method that works best for you to support Shepherd Bible.";
-}
+          recommendation.textContent =
+            "Choose the donation method that works best for you to support Shepherd Bible.";
+        }
       }
     });
   }

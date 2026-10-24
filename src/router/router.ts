@@ -8,7 +8,7 @@ import { VerseImagePage } from "../pages/VerseImagePage";
 import { OsisIdentifiersPage } from "../pages/OsisIdentifiersPage";
 import { SupportPage } from "../pages/SupportPage";
 import { StorePage } from "../features/store/StorePage";
-import { BrotherlyPage } from "../pages/BrotherlyPage";
+import { BrotherlyPage } from "../pages/brotherly/BrotherlyPage";
 import { StoriesPage } from "../pages/stories/StoriesPage";
 
 

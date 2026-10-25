@@ -3,7 +3,7 @@ import "../styles/SupportPage.css";
 
 const CONFIG = {
   phQrPath:
-    import.meta.env.VITE_PH_QR_PATH || "/assets/images/support/gcash-qr.png",
+    import.meta.env.VITE_PH_QR_PATH || "/assets/images/support/phqr.png",
   phUrl: import.meta.env.VITE_PH_URL || "",
 
   paypalQrPath:
@@ -15,6 +15,15 @@ const CONFIG = {
     import.meta.env.VITE_BUY_ME_A_COFFEE_QR_PATH ||
     "/assets/images/support/buymeacoffee-qr.png",
   buyMeACoffeeUrl: import.meta.env.VITE_BUY_ME_A_COFFEE_URL || "",
+
+  wiseQrPath:
+    import.meta.env.VITE_WISE_QR_PATH ||
+    "/assets/images/support/wise-qr.jpg",
+  wiseUrl: import.meta.env.VITE_WISE_URL || "",
+
+  phqUrl: import.meta.env.VITE_PHQ_URL || "",
+  phQPath: import.meta.env.VITE_PH_Q_PATH || "/assets/images/support/qr-p.jpg",
+
 };
 
 function isValidDonationUrl(url: string): boolean {
@@ -138,7 +147,7 @@ export class SupportPage implements Page {
             ${paymentCard({
       id: "ph-card",
       title: "GCash",
-      description: "Support locally using GCash.",
+      description: "Support using GCash.",
       qrPath: CONFIG.phQrPath,
       qrAlt: "GCash payment QR code",
       url: CONFIG.phUrl,
@@ -164,6 +173,15 @@ export class SupportPage implements Page {
       url: CONFIG.buyMeACoffeeUrl,
       linkLabel: "Open Buy Me a Coffee",
     })}
+     ${paymentCard({
+      id: "wise-card",
+      title: "Wise",
+      description: "Support Shepherd Bible via Wise.",
+      qrPath: CONFIG.wiseQrPath,
+      qrAlt: "Wise QR code",
+      url: CONFIG.wiseUrl,
+      linkLabel: "Open Wise",
+    })}
           </div>
         </section>
 
@@ -182,6 +200,7 @@ export class SupportPage implements Page {
     `;
   }
 
+
   mount() {
     const page = document.querySelector<HTMLElement>(".support-page");
     const recommendation = document.getElementById(
@@ -193,35 +212,35 @@ export class SupportPage implements Page {
     const phCard = document.getElementById("ph-card");
     const paypalCard = document.getElementById("paypal-card");
     const bmcCard = document.getElementById("bmc-card");
+    const wiseCard = document.getElementById("wise-card");
+
+    // Hide GCash until the visitor's country is confirmed.
+    if (phCard) phCard.hidden = true;
 
     void detectCountry().then((country) => {
-      if (!country) {
-        // Country detection failed: keep all options visible.
-        page.dataset.country = "unknown";
+      page.dataset.country = country ?? "unknown";
+
+      // Reset preferred styling before applying country-specific styling.
+      [phCard, paypalCard, bmcCard, wiseCard].forEach((card) => {
+        card?.classList.remove("payment-preferred");
+      });
+
+      if (country === "PH") {
+        // Philippines: show and highlight GCash.
+        if (phCard) phCard.hidden = false;
+        phCard?.classList.add("payment-preferred");
 
         if (recommendation) {
           recommendation.textContent =
             "Choose the donation method that works best for you to support Shepherd Bible.";
         }
-
-        return;
-      }
-
-      page.dataset.country = country;
-
-      if (country === "PH") {
-        // Philippines: show and highlight GCash.
-        if (phCard) phCard.hidden = false;
-
-        phCard?.classList.add("payment-preferred");
-
-
       } else {
-        // Outside the Philippines: hide GCash.
+        // Outside PH, or country detection failed: hide GCash.
         if (phCard) phCard.hidden = true;
 
         paypalCard?.classList.add("payment-preferred");
         bmcCard?.classList.add("payment-preferred");
+        wiseCard?.classList.add("payment-preferred");
 
         if (recommendation) {
           recommendation.textContent =
@@ -230,4 +249,5 @@ export class SupportPage implements Page {
       }
     });
   }
+
 }

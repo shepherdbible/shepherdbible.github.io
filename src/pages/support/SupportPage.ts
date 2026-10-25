@@ -162,7 +162,7 @@ export class SupportPage implements Page {
 
           <div class="grid payments-grid">
             ${paymentCard({
-      id: "ph-card",
+      id: "gcash-card",
       title: "GCash",
       description: "Support using GCash.",
       qrPath: CONFIG.gcashQrPath,
@@ -172,7 +172,7 @@ export class SupportPage implements Page {
     })}
 
      ${paymentCard({
-      id: "phq-card",
+      id: "qrph-card",
       title: "QR ph",
       description: "Support using QR ph.",
       qrPath: CONFIG.qrphQrPath,
@@ -343,13 +343,7 @@ export class SupportPage implements Page {
       your transfer.
     </p>
 
-    <button
-      type="button"
-      id="bdo-copy-account"
-      class="bdo-copy-button"
-    >
-      Copy Account Number
-    </button>
+    
 
     <p
       id="bdo-copy-status"
@@ -413,18 +407,15 @@ export class SupportPage implements Page {
       });
 
       if (country === "PH") {
-        // Reveal Philippine methods only after PH is confirmed.
         localCards.forEach((card) => {
           if (card) card.hidden = false;
           card?.classList.add("payment-preferred");
         });
       } else {
-        // Other countries or detection failure: keep local methods hidden.
         localCards.forEach((card) => {
           if (card) card.hidden = true;
         });
 
-        // Keep international methods available.
         internationalCards.forEach((card) => {
           card?.classList.add("payment-preferred");
         });
@@ -432,7 +423,9 @@ export class SupportPage implements Page {
 
       if (recommendation) {
         recommendation.textContent =
-          "Choose the donation method that works best for you to support Shepherd Bible.";
+          country === "PH"
+            ? "Choose a local or international donation method."
+            : "Choose the international donation method that works best for you.";
       }
     });
 
@@ -442,7 +435,7 @@ export class SupportPage implements Page {
     const accountName = document.getElementById("bdo-account-name");
     const accountNumber = document.getElementById("bdo-account-number");
     const accountBankSwiftCode = document.getElementById("bdo-swift-code");
-    const copyButton = document.getElementById("bdo-copy-account");
+   
     const copyStatus = document.getElementById("bdo-copy-status");
 
     if (
@@ -451,7 +444,7 @@ export class SupportPage implements Page {
       !dialog ||
       !accountName ||
       !accountNumber ||
-      !copyButton ||
+     
       !copyStatus ||
       !accountBankSwiftCode
     ) {
@@ -510,16 +503,7 @@ export class SupportPage implements Page {
 
     document.addEventListener("keydown", handleEscape);
 
-    copyButton.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(CONFIG.bdoAccountNumber.trim());
-        copyStatus.textContent = "Account number copied.";
-        copyButton.textContent = "Copied!";
-      } catch {
-        copyStatus.textContent =
-          "Unable to copy automatically. Please select and copy the account number above.";
-      }
-    });
+    
 
 
     async function copyText(value: string): Promise<boolean> {

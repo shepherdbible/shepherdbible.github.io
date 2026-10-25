@@ -2,9 +2,15 @@ import type { Page } from "../types";
 import "../styles/SupportPage.css";
 
 const CONFIG = {
-  phQrPath:
-    import.meta.env.VITE_PH_QR_PATH || "/assets/images/support/phqr.png",
-  phUrl: import.meta.env.VITE_PH_URL || "",
+  gcashQrPath:
+    import.meta.env.VITE_GCASH_PATH ||
+    "/assets/images/support/gcash-qr.jpg",
+  gcashUrl: import.meta.env.VITE_GCASH_URL || "",
+
+  qrphQrPath:
+    import.meta.env.VITE_QRPH_PATH ||
+    "/assets/images/support/qrph-qr.jpg",
+  qrphUrl: import.meta.env.VITE_QRPH_URL || "",
 
   paypalQrPath:
     import.meta.env.VITE_PAYPAL_QR_PATH ||
@@ -20,10 +26,6 @@ const CONFIG = {
     import.meta.env.VITE_WISE_QR_PATH ||
     "/assets/images/support/wise-qr.jpg",
   wiseUrl: import.meta.env.VITE_WISE_URL || "",
-
-  phqUrl: import.meta.env.VITE_PHQ_URL || "",
-  phQPath: import.meta.env.VITE_PH_Q_PATH || "/assets/images/support/qr-p.jpg",
-
 };
 
 function isValidDonationUrl(url: string): boolean {
@@ -148,11 +150,22 @@ export class SupportPage implements Page {
       id: "ph-card",
       title: "GCash",
       description: "Support using GCash.",
-      qrPath: CONFIG.phQrPath,
+      qrPath: CONFIG.gcashQrPath,
       qrAlt: "GCash payment QR code",
-      url: CONFIG.phUrl,
+      url: CONFIG.gcashUrl,
       linkLabel: "Open GCash payment link",
     })}
+
+     ${paymentCard({
+      id: "phq-card",
+      title: "PHQ",
+      description: "Support using PHQ.",
+      qrPath: CONFIG.qrphQrPath,
+      qrAlt: "PHQ payment QR code",
+      url: CONFIG.qrphUrl,
+      linkLabel: "Open PHQ payment link",
+    })}
+
 
             ${paymentCard({
       id: "paypal-card",
@@ -202,52 +215,57 @@ export class SupportPage implements Page {
 
 
   mount() {
-    const page = document.querySelector<HTMLElement>(".support-page");
-    const recommendation = document.getElementById(
-      "support-payment-recommendation",
-    );
+  const page = document.querySelector<HTMLElement>(".support-page");
+  const recommendation = document.getElementById(
+    "support-payment-recommendation",
+  );
 
-    if (!page) return;
+  if (!page) return;
 
-    const phCard = document.getElementById("ph-card");
-    const paypalCard = document.getElementById("paypal-card");
-    const bmcCard = document.getElementById("bmc-card");
-    const wiseCard = document.getElementById("wise-card");
+  const gcashCard = document.getElementById("gcash-card");
+  const qrphCard = document.getElementById("qrph-card");
+  const paypalCard = document.getElementById("paypal-card");
+  const bmcCard = document.getElementById("bmc-card");
+  const wiseCard = document.getElementById("wise-card");
 
-    // Hide GCash until the visitor's country is confirmed.
-    if (phCard) phCard.hidden = true;
+  const localCards = [gcashCard, qrphCard];
+  const internationalCards = [paypalCard, bmcCard, wiseCard];
 
-    void detectCountry().then((country) => {
-      page.dataset.country = country ?? "unknown";
+  // Hide Philippine payment methods immediately, before detection completes.
+  localCards.forEach((card) => {
+    if (card) card.hidden = true;
+  });
 
-      // Reset preferred styling before applying country-specific styling.
-      [phCard, paypalCard, bmcCard, wiseCard].forEach((card) => {
-        card?.classList.remove("payment-preferred");
+  void detectCountry().then((country) => {
+    page.dataset.country = country ?? "unknown";
+
+    [...localCards, ...internationalCards].forEach((card) => {
+      card?.classList.remove("payment-preferred");
+    });
+
+    if (country === "PH") {
+      // Reveal Philippine methods only after PH is confirmed.
+      localCards.forEach((card) => {
+        if (card) card.hidden = false;
+        card?.classList.add("payment-preferred");
+      });
+    } else {
+      // Other countries or detection failure: keep local methods hidden.
+      localCards.forEach((card) => {
+        if (card) card.hidden = true;
       });
 
-      if (country === "PH") {
-        // Philippines: show and highlight GCash.
-        if (phCard) phCard.hidden = false;
-        phCard?.classList.add("payment-preferred");
+      // Keep international methods available.
+      internationalCards.forEach((card) => {
+        card?.classList.add("payment-preferred");
+      });
+    }
 
-        if (recommendation) {
-          recommendation.textContent =
-            "Choose the donation method that works best for you to support Shepherd Bible.";
-        }
-      } else {
-        // Outside PH, or country detection failed: hide GCash.
-        if (phCard) phCard.hidden = true;
-
-        paypalCard?.classList.add("payment-preferred");
-        bmcCard?.classList.add("payment-preferred");
-        wiseCard?.classList.add("payment-preferred");
-
-        if (recommendation) {
-          recommendation.textContent =
-            "Choose the donation method that works best for you to support Shepherd Bible.";
-        }
-      }
-    });
-  }
+    if (recommendation) {
+      recommendation.textContent =
+        "Choose the donation method that works best for you to support Shepherd Bible.";
+    }
+  });
+}
 
 }

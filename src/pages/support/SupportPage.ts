@@ -2,13 +2,6 @@ import type { Page } from "../../types";
 import "../support/SupportPage.css";
 
 const CONFIG = {
-  gcashQrPath:
-    import.meta.env.VITE_GCASH_PATH || "/assets/images/support/gcash-qr.jpg",
-  gcashUrl: import.meta.env.VITE_GCASH_URL || "",
-
-  qrphQrPath:
-    import.meta.env.VITE_QRPH_PATH || "/assets/images/support/qrph-qr.jpg",
-  qrphUrl: import.meta.env.VITE_QRPH_URL || "",
 
   paypalQrPath:
     import.meta.env.VITE_PAYPAL_QR_PATH ||
@@ -28,6 +21,7 @@ const CONFIG = {
   bdoAccountNumber: import.meta.env.VITE_BDO_ACCOUNT_NUMBER || "",
 
   bdoSwiftCode: import.meta.env.VITE_BDO_SWIFT_CODE || "",
+  bdoPath: import.meta.env.VITE_BDO_PATH || "/assets/images/support/bdo-qr.jpg",
 };
 
 function isValidDonationUrl(url: string): boolean {
@@ -41,7 +35,7 @@ function isValidDonationUrl(url: string): boolean {
 
 function paymentLink(url: string, label: string): string {
   if (!isValidDonationUrl(url)) {
-    return `<p class="text-muted text-small">Payment link coming soon.</p>`;
+    return ``;
   }
 
   return `
@@ -86,6 +80,7 @@ function escapeHtml(value: string): string {
   });
 }
 
+
 function paymentCard(options: {
   id: string;
   title: string;
@@ -95,21 +90,42 @@ function paymentCard(options: {
   url: string;
   linkLabel: string;
 }): string {
+  const title = escapeHtml(options.title);
+  const description = escapeHtml(options.description);
+  const qrPath = escapeHtml(options.qrPath);
+  const qrAlt = escapeHtml(options.qrAlt);
+
   return `
     <div
-      id="${options.id}"
+      id="${escapeHtml(options.id)}"
       class="card payment-card text-center"
     >
-      <h3>${options.title}</h3>
-      <p class="text-muted text-small">
-        ${options.description}
-      </p>
+      <h3>${title}</h3>
+      <p class="text-muted text-small">${description}</p>
 
-      ${qrCode(options.qrPath, options.qrAlt)}
+      ${qrCode(qrPath, qrAlt)}
 
       <p class="text-small qr-instruction">
         Scan the QR code.
       </p>
+
+      <button
+        type="button"
+        class="qr-enlarge-button"
+        data-qr-open
+        data-qr-title="${title}"
+        data-qr-description="${description}"
+        data-qr-src="${qrPath}"
+        data-qr-alt="${qrAlt}"
+        data-qr-url="${escapeHtml(
+    isValidDonationUrl(options.url) ? options.url : ""
+  )}"
+        data-qr-link-label="${escapeHtml(options.linkLabel)}"
+        aria-haspopup="dialog"
+        aria-controls="qr-enlarge-modal"
+      >
+        Enlarge QR code
+      </button>
 
       <div class="payment-link-wrapper">
         ${paymentLink(options.url, options.linkLabel)}
@@ -117,6 +133,7 @@ function paymentCard(options: {
     </div>
   `;
 }
+
 
 async function detectCountry(): Promise<string | null> {
   try {
@@ -162,25 +179,14 @@ export class SupportPage implements Page {
 
           <div class="grid payments-grid">
             ${paymentCard({
-      id: "gcash-card",
-      title: "GCash",
-      description: "Support using GCash.",
-      qrPath: CONFIG.gcashQrPath,
-      qrAlt: "GCash payment QR code",
-      url: CONFIG.gcashUrl,
-      linkLabel: "Open GCash payment link",
+      id: "bdo-card-qr",
+      title: "BDO",
+      description: "Support using BDO.",
+      qrPath: CONFIG.bdoPath,
+      qrAlt: "BDO payment QR code",
+      url: "",
+      linkLabel: "",
     })}
-
-     ${paymentCard({
-      id: "qrph-card",
-      title: "QR ph",
-      description: "Support using QR ph.",
-      qrPath: CONFIG.qrphQrPath,
-      qrAlt: "QR-ph payment QR code",
-      url: CONFIG.qrphUrl,
-      linkLabel: "Open QR ph payment link",
-    })}
-
 
             ${paymentCard({
       id: "paypal-card",
@@ -360,6 +366,71 @@ export class SupportPage implements Page {
       Done
     </button>
   </section>
+
+  
+
+
+</div>
+<div id="qr-enlarge-modal" class="qr-enlarge-modal" hidden>
+  <div class="qr-enlarge-backdrop" data-qr-close></div>
+
+  <section
+    class="qr-enlarge-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="qr-enlarge-title"
+    aria-describedby="qr-enlarge-description"
+    tabindex="-1"
+  >
+    <button
+      type="button"
+      class="qr-enlarge-close"
+      data-qr-close
+      aria-label="Close enlarged QR code"
+    >
+      &times;
+    </button>
+
+    <h2 id="qr-enlarge-title">Donation QR code</h2>
+
+    <p
+      id="qr-enlarge-description"
+      class="text-muted text-small"
+    >
+      Scan this QR code using your payment app to contribute to Shepherd Bible.
+    </p>
+
+    <div class="qr-enlarge-image-wrap">
+      <img id="qr-enlarge-image" src="" alt="" />
+      <p id="qr-enlarge-error" hidden>
+        QR code unavailable. Please try the donation link instead.
+      </p>
+    </div>
+
+    <p class="qr-enlarge-instruction">
+      Open your payment app, scan the QR code, and verify the recipient
+      details before confirming your contribution.
+    </p>
+
+    <a
+      id="qr-enlarge-link"
+      class="payment-direct-link qr-enlarge-link"
+      href="#"
+      target="_blank"
+      rel="noopener noreferrer"
+      hidden
+    >
+      Open donation page
+    </a>
+
+    <button
+      type="button"
+      class="qr-enlarge-done"
+      data-qr-close
+    >
+      Done
+    </button>
+  </section>
 </div>
 
         <section class="section split-bottom-section">
@@ -385,13 +456,109 @@ export class SupportPage implements Page {
 
     if (!page) return;
 
-    const gcashCard = document.getElementById("gcash-card");
-    const qrphCard = document.getElementById("qrph-card");
+
+    const qrModal = document.getElementById("qr-enlarge-modal");
+    const qrDialog = qrModal?.querySelector<HTMLElement>(
+      ".qr-enlarge-dialog"
+    );
+    const qrTitle = document.getElementById("qr-enlarge-title");
+    const qrDescription = document.getElementById("qr-enlarge-description");
+    const qrImage = document.getElementById(
+      "qr-enlarge-image"
+    ) as HTMLImageElement | null;
+    const qrError = document.getElementById("qr-enlarge-error");
+    const qrLink = document.getElementById(
+      "qr-enlarge-link"
+    ) as HTMLAnchorElement | null;
+
+    let previousQrFocus: HTMLElement | null = null;
+
+    const closeQrModal = () => {
+      if (!qrModal || qrModal.hidden) return;
+
+      qrModal.hidden = true;
+      document.body.classList.remove("qr-enlarge-open");
+      previousQrFocus?.focus();
+    };
+
+    page.querySelectorAll<HTMLButtonElement>("[data-qr-open]")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          if (
+            !qrModal ||
+            !qrDialog ||
+            !qrTitle ||
+            !qrDescription ||
+            !qrImage ||
+            !qrError ||
+            !qrLink
+          ) {
+            return;
+          }
+
+          previousQrFocus =
+            document.activeElement instanceof HTMLElement
+              ? document.activeElement
+              : null;
+
+          qrTitle.textContent = button.dataset.qrTitle || "Donation QR code";
+          qrDescription.textContent =
+            button.dataset.qrDescription ||
+            "Scan this QR code to support Shepherd Bible.";
+
+          qrImage.hidden = false;
+          qrError.hidden = true;
+          qrImage.alt = button.dataset.qrAlt || "Donation QR code";
+          qrImage.src = button.dataset.qrSrc || "";
+
+          const donationUrl = button.dataset.qrUrl || "";
+
+          if (isValidDonationUrl(donationUrl)) {
+            qrLink.href = donationUrl;
+            qrLink.textContent =
+              button.dataset.qrLinkLabel || "Open donation page";
+            qrLink.hidden = false;
+          } else {
+            qrLink.removeAttribute("href");
+            qrLink.hidden = true;
+          }
+
+          qrModal.hidden = false;
+          document.body.classList.add("qr-enlarge-open");
+          qrDialog.focus();
+        });
+      });
+
+    qrImage?.addEventListener("error", () => {
+      qrImage.hidden = true;
+      if (qrError) qrError.hidden = false;
+    });
+
+    qrImage?.addEventListener("load", () => {
+      qrImage.hidden = false;
+      if (qrError) qrError.hidden = true;
+    });
+
+    qrModal?.querySelectorAll<HTMLElement>("[data-qr-close]")
+      .forEach((button) => {
+        button.addEventListener("click", closeQrModal);
+      });
+
+    const handleQrEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeQrModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleQrEscape);
+
+
+    const bdoCardQr = document.getElementById("bdo-card-qr");
     const paypalCard = document.getElementById("paypal-card");
     const bmcCard = document.getElementById("bmc-card");
     const wiseCard = document.getElementById("wise-card");
 
-    const localCards = [gcashCard, qrphCard];
+    const localCards = [bdoCardQr];
     const internationalCards = [paypalCard, bmcCard, wiseCard];
 
     // Hide Philippine payment methods immediately, before detection completes.
@@ -435,7 +602,7 @@ export class SupportPage implements Page {
     const accountName = document.getElementById("bdo-account-name");
     const accountNumber = document.getElementById("bdo-account-number");
     const accountBankSwiftCode = document.getElementById("bdo-swift-code");
-   
+
     const copyStatus = document.getElementById("bdo-copy-status");
 
     if (
@@ -444,7 +611,7 @@ export class SupportPage implements Page {
       !dialog ||
       !accountName ||
       !accountNumber ||
-     
+
       !copyStatus ||
       !accountBankSwiftCode
     ) {
@@ -503,7 +670,7 @@ export class SupportPage implements Page {
 
     document.addEventListener("keydown", handleEscape);
 
-    
+
 
 
     async function copyText(value: string): Promise<boolean> {

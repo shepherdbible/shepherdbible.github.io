@@ -1,0 +1,620 @@
+/* COMPACT SUPPORT PAGE STYLES */
+
+.support-page {
+  padding-top: 2rem;
+  padding-bottom: 2rem; /* Reduced bottom padding */
+  max-width: 900px; /* Slightly wider to fit 3 columns beautifully */
+  margin: 0 auto;
+}
+
+/* Reduced spacing between sections to prevent scrolling */
+.support-page .section {
+  margin-bottom: 2.5rem;
+}
+
+/* Hero Section */
+.hero-section {
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+.hero-section h1 {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text);
+}
+.hero-subtitle {
+  font-size: 1.05rem;
+  max-width: 550px;
+  margin: 0 auto 0.75rem auto;
+  line-height: 1.5;
+}
+.reassurance-text {
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+/* Typography & Layout */
+.support-page h2 {
+  font-family: var(--font-sans);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.4rem;
+}
+.recommendation-text {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+/* Unified Payments Grid (3 Columns) */
+.payments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Base Card Styles */
+.support-page .card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Flex utilities for card alignment */
+.flex-col-between {
+  justify-content: space-between;
+  height: 100%;
+}
+.btn-wrapper {
+  margin-top: 1rem;
+}
+.full-width {
+  width: 100%;
+  display: block;
+}
+
+/* Compact GCash QR Code */
+.qr-container {
+  margin: 1rem auto;
+  display: flex;
+  justify-content: center;
+}
+.qr-image {
+  max-width: 150px; /* Reduced from 250px to save vertical space */
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  padding: 0.5rem;
+  background-color: white;
+}
+.qr-placeholder {
+  width: 150px;
+  height: 150px;
+  background-color: var(--color-surface-muted);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Compact Bottom Split Section */
+.split-grid {
+  gap: 2rem;
+  align-items: stretch;
+}
+.benefits-list {
+  padding-left: 1.2rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+.benefits-list li {
+  margin-bottom: 0.75rem;
+}
+
+.thank-you-compact {
+  background-color: var(--color-surface-muted);
+  justify-content: center;
+}
+.thank-you-compact h3 {
+  margin-bottom: 0.5rem;
+}
+.thank-you-compact p {
+  margin-bottom: 1rem;
+}
+
+/* Highlight specifically the cards now, not the whole section */
+.payment-card.payment-preferred {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -1px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.support-page img[hidden],
+.support-page [hidden] {
+  display: none !important;
+}
+
+/* Payment card layout */
+.payments-grid {
+  align-items: stretch;
+  gap: 1.5rem;
+}
+
+.payment-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  min-width: 0;
+}
+
+.payment-card h3 {
+  margin-bottom: 0.5rem;
+}
+
+.payment-card > p {
+  margin-top: 0;
+}
+
+/* Large QR area with a clean white background */
+.qr-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 1rem auto 0.5rem;
+  padding: 0.75rem;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 0.75rem;
+  box-sizing: border-box;
+}
+
+.qr-image {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  image-rendering: auto;
+}
+
+.qr-instruction {
+  margin-bottom: 0.75rem;
+}
+
+.payment-link-wrapper {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.payment-direct-link {
+  display: inline-block;
+  padding: 0.5rem 0.25rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+/* Preferred payment cards */
+.payment-card.payment-preferred {
+  border: 2px solid var(--color-primary, #800020);
+}
+
+/* Missing image fallback */
+.qr-placeholder {
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+
+.qr-placeholder[hidden] {
+  display: none;
+}
+.support-page:not([data-country="PH"]) #gcash-card {
+  display: none;
+}
+
+
+/* BDO bank transfer card */
+.bdo-card-icon,
+.bdo-bank-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem auto;
+  color: var(--color-primary, #800020);
+}
+
+.bdo-open-modal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1rem;
+  border: 1px solid currentColor;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.bdo-open-modal:hover {
+  opacity: 0.8;
+}
+
+/* Compact modal overlay */
+.bdo-modal[hidden] {
+  display: none !important;
+}
+
+.bdo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  overflow-y: auto;
+}
+
+.bdo-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / 60%);
+  cursor: pointer;
+}
+
+.bdo-modal-dialog {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 440px);
+  max-height: calc(100dvh - 1rem);
+  overflow-y: auto;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 0.85rem;
+  background: var(--surface-color, #fff);
+  color: var(--text-color, #222);
+  box-shadow: 0 20px 60px rgb(0 0 0 / 25%);
+}
+
+.bdo-modal-close {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.bdo-modal-heading {
+  padding: 0 1.5rem 0.65rem;
+  text-align: center;
+}
+
+.bdo-bank-icon {
+  margin: 0.1rem auto 0.3rem;
+}
+
+.bdo-bank-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.bdo-modal-heading h2 {
+  margin: 0.2rem 0;
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+.bdo-modal-heading p {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+/* Account details: labels and values share each row */
+.bdo-account-details {
+  display: grid;
+  gap: 0;
+  padding: 0.2rem 0.75rem;
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 0.65rem;
+}
+
+.bdo-detail-row {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr);
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+}
+
+.bdo-detail-row:last-child {
+  border-bottom: none;
+}
+
+.bdo-detail-label {
+  color: var(--muted-color, #666);
+  font-size: 0.75rem;
+  line-height: 1.3;
+}
+
+.bdo-detail-value {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.bdo-detail-value strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+
+.bdo-account-number {
+  font-size: 0.9rem !important;
+  letter-spacing: 0.02em;
+}
+
+.bdo-copy-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 7px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.bdo-copy-icon:hover {
+  background: var(--hover-bg, #f3f4f6);
+}
+
+.bdo-copy-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Smaller transfer note */
+.bdo-transfer-instructions {
+  margin: 0.6rem 0;
+  color: var(--muted-color, #666);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* Compact action buttons */
+.bdo-copy-button,
+.bdo-modal-done {
+  display: block;
+  width: 100%;
+  min-height: 38px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.45rem;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bdo-copy-button {
+  border: 1px solid var(--color-primary, #800020);
+  background: var(--color-primary, #800020);
+  color: #fff;
+}
+
+.bdo-modal-done {
+  margin-top: 0.35rem;
+  border: 1px solid var(--border-color, #ddd);
+  background: transparent;
+  color: inherit;
+}
+
+.bdo-copy-status {
+  min-height: 0;
+  margin: 0.25rem 0;
+  font-size: 0.72rem;
+  line-height: 1.3;
+  text-align: center;
+}
+
+body.bdo-modal-open {
+  overflow: hidden;
+}
+
+.bdo-open-modal:focus-visible,
+.bdo-modal button:focus-visible {
+  outline: 2px solid var(--color-primary, #800020);
+  outline-offset: 2px;
+}
+
+/* Narrow screens */
+@media (max-width: 380px) {
+  .bdo-modal-dialog {
+    padding: 0.85rem;
+  }
+
+  .bdo-account-details {
+    padding-inline: 0.55rem;
+  }
+
+  .bdo-detail-row {
+    grid-template-columns: 84px minmax(0, 1fr);
+    gap: 0.35rem;
+  }
+
+  .bdo-detail-value strong {
+    font-size: 0.78rem;
+  }
+}
+
+/* Bank transfer donation card */
+#bdo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+#bdo-card h3 {
+  margin: 0.25rem 0 0;
+  line-height: 1.35;
+}
+
+#bdo-card > p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+#bdo-card .bdo-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 88px;
+  margin: 0.75rem auto;
+  border-radius: 50%;
+  color: var(--color-primary, #800020);
+  background: color-mix(
+    in srgb,
+    var(--color-primary, #800020) 8%,
+    transparent
+  );
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease;
+}
+
+#bdo-card .bdo-card-icon svg {
+  display: block;
+  width: 52px;
+  height: 52px;
+  stroke-width: 1.5;
+}
+
+#bdo-card:hover .bdo-card-icon {
+  transform: translateY(-3px);
+  background: color-mix(
+    in srgb,
+    var(--color-primary, #800020) 13%,
+    transparent
+  );
+}
+
+#bdo-card .bdo-open-modal {
+  margin-top: 0.25rem;
+}
+
+/* Reduce vertical spacing in payment cards only */
+.payment-card {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.payment-card h3 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.35rem;
+}
+
+.payment-card > p {
+  margin-top: 0.25rem;
+  margin-bottom: 0.35rem;
+}
+
+.payment-card .qr-container {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.payment-card .qr-instruction {
+  margin-top: 0.25rem;
+  margin-bottom: 0.4rem;
+}
+
+.payment-card .payment-link-wrapper {
+  margin-top: 0.25rem;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  #bdo-card .bdo-card-icon {
+    transition: none;
+  }
+
+  #bdo-card:hover .bdo-card-icon {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .bdo-modal-dialog {
+    padding: 1.25rem;
+  }
+}
+
+
+/* Mobile sizing */
+@media (max-width: 600px) {
+  .payments-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-card {
+    padding: 1.25rem;
+  }
+
+  .qr-container {
+    max-width: 320px;
+  }
+
+  .qr-image {
+    max-width: 280px;
+  }
+  .hero-section h1 {
+    font-size: 1.8rem;
+  }
+  .split-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}

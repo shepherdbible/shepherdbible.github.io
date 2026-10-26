@@ -126,7 +126,7 @@ export const Navbar = {
           <a href="/changelog" data-route>Changelog</a>
 
           
-<!-- <a href="/support" data-route class="donate-button">
+<a href="/support" data-route class="donate-button">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="18"
@@ -142,7 +142,7 @@ export const Navbar = {
     <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8z"/>
   </svg>
   <span>DONATE</span>
-</a> -->
+</a>
 
 
           <!-- Theme -->

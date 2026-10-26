@@ -12,6 +12,7 @@ git commit -m "Configure single-file Vite deployment"
 git branch -M main
 git push -u origin main
 
+https://shepherherdbible.discourse.group/
 
 npm run build
 git add .

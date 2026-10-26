@@ -23,15 +23,22 @@ const routes: Record<string, PageFactory> = {
   "/": () => HomePage,
   "/about": () => AboutPage,
   "/faq": () => FaqPage,
-  "/community": () => CommunityPage,
+  "/community": () => {
+  window.open(
+    "https://shepherherdbible.discourse.group/",
+    "_blank",
+    "noopener,noreferrer"
+  );
+  return HomePage;
+},
   "/changelog": () => ChangelogPage,
   "/privacy": () => PrivacyPage,
   "/editor": () => new VerseImagePage(),
   "/books": () => new OsisIdentifiersPage(),
   "/support": () => new SupportPage(),
   "/store": () => new StorePage(),
-  "/brotherly": () =>  BrotherlyPage,
-  "/stories": () =>   StoriesPage,
+  "/brotherly": () => BrotherlyPage,
+  "/stories": () => StoriesPage,
 };
 
 function normalizePath(pathname: string): string {

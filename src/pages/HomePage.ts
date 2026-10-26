@@ -132,7 +132,14 @@ export const HomePage: Page = {
         <h2>"Share a piece of your journey to inspire another."</h2>
         <p class="banner-subtext">Join our growing reader community to suggest features, get support, and share testimony.</p>
         <div class="banner-actions">
-          <a href="/community" class="btn btn-primary">Visit Community Hub</a>
+         <a
+  href="https://shepherherdbible.discourse.group/"
+  class="btn btn-primary"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Visit Community Hub
+</a>
           <a href="/faq" class="btn btn-secondary">Help & FAQ</a>
         </div>
       </div>

@@ -20,6 +20,7 @@ git commit -m "Update"
 git branch -M main
 git push -u origin main
 
+https://docs.discourse.org/
 
 shepherd-bible-community/
 ├── .github/

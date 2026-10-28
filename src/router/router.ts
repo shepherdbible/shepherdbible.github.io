@@ -23,14 +23,15 @@ const routes: Record<string, PageFactory> = {
   "/": () => HomePage,
   "/about": () => AboutPage,
   "/faq": () => FaqPage,
-  "/community": () => {
-  window.open(
-    "https://shepherherdbible.discourse.group/",
-    "_blank",
-    "noopener,noreferrer"
-  );
-  return HomePage;
-},
+  //   "/community": () => {
+  //   window.open(
+  //     "https://shepherherdbible.discourse.group/",
+  //     "_blank",
+  //     "noopener,noreferrer"
+  //   );
+  //   return HomePage;
+  // },
+  "/community": () => CommunityPage,
   "/changelog": () => ChangelogPage,
   "/privacy": () => PrivacyPage,
   "/editor": () => new VerseImagePage(),

@@ -14,6 +14,8 @@ git push -u origin main
 
 https://shepherherdbible.discourse.group/
 
+https://shepherdbiblecommunity.com/
+
 npm run build
 git add .
 git commit -m "Update"

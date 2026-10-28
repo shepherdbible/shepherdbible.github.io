@@ -121,7 +121,7 @@ export const Navbar = {
 
           </div>
 
-          <a href="/community" data-route>Community</a>
+          <a href="/trivia" data-route>Trivia</a>
 
           <a href="/changelog" data-route>Changelog</a>
 

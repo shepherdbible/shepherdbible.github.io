@@ -184,7 +184,7 @@ export const StoriesPage: Page = {
 
             </div>
         `;
-       
+
     },
 
     mount: () => {

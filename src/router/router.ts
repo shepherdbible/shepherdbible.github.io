@@ -1,4 +1,5 @@
 import { HomePage } from "../pages/HomePage";
+import { QuizPage } from "../pages/trivia/QuizPage";
 import { FaqPage } from "../pages/FaqPage";
 import { CommunityPage } from "../pages/CommunityPage";
 import { ChangelogPage } from "../pages/changelog/ChangelogPage";
@@ -40,6 +41,7 @@ const routes: Record<string, PageFactory> = {
   "/store": () => new StorePage(),
   "/brotherly": () => BrotherlyPage,
   "/stories": () => StoriesPage,
+   "/trivia": () => QuizPage,
 };
 
 function normalizePath(pathname: string): string {

@@ -1,152 +1,10 @@
 import type { Page } from "../../types";
 import triviaData from "./data/quizes.json";
 import versesData from "./data/verses.json";
+import "./QuizPage.css";
 
 export const QuizPage: Page = {
     render: () => /* html */ `
-    <style>
-      .quiz-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-  padding: 24px;
-  border-radius: var(--radius-md, 12px);
-  box-shadow: var(--shadow-md);
-}
-
-.quiz-card h3 {
-  color: var(--color-text);
-  font-family: var(--font-serif, serif);
-  font-size: 1.3rem;
-  line-height: 1.5;
-  margin-bottom: 24px;
-}
-
-.quiz-card h3 i,
-.quiz-card h3 em {
-  color: var(--color-text-muted);
-}
-
-.score-display {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 16px;
-  color: var(--color-accent);
-}
-
-.quiz-btn {
-  display: block;
-  width: 100%;
-  padding: 14px;
-  margin-bottom: 12px;
-  background: var(--color-surface-muted);
-  border: 2px solid var(--color-border);
-  color: var(--color-text);
-  border-radius: var(--radius-md, 8px);
-  font-size: 1.1rem;
-  font-family: var(--font-sans, system-ui, sans-serif);
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  text-align: left;
-}
-
-.quiz-btn:hover:not(:disabled) {
-  background: var(--color-surface);
-  border-color: var(--color-accent);
-  transform: translateY(-2px);
-}
-
-.quiz-btn:disabled {
-  cursor: default;
-}
-
-.quiz-btn.correct {
-  background: rgba(40, 167, 69, 0.2) !important;
-  border-color: #28a745 !important;
-  color: var(--color-text) !important;
-}
-
-.quiz-btn.wrong {
-  background: rgba(220, 53, 69, 0.2) !important;
-  border-color: #dc3545 !important;
-  color: var(--color-text) !important;
-}
-
-.next-btn {
-  padding: 10px 24px;
-  background: var(--color-primary);
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  font-size: 1.1rem;
-  font-family: var(--font-sans, system-ui, sans-serif);
-  cursor: pointer;
-  margin-top: 16px;
-  display: none;
-  transition: background 0.2s ease-in-out;
-}
-
-.next-btn:hover {
-  background: var(--color-primary-dark);
-}
-
-.fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
-}
-
-.fade-out {
-  animation: fadeOut 0.3s ease-in forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeOut {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(-10px); }
-}
-
-/* Celebration Canvas & Floating Balloons CSS */
-#celebration-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 9999;
-}
-
-.balloon {
-  position: fixed;
-  bottom: -100px;
-  width: 40px;
-  height: 55px;
-  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-  animation: floatUp 3.5s ease-in forwards;
-  pointer-events: none;
-  z-index: 9998;
-}
-
-.balloon::after {
-  content: "";
-  position: absolute;
-  bottom: -12px;
-  left: 50%;
-  width: 2px;
-  height: 14px;
-  background: rgba(0, 0, 0, 0.2);
-  transform: translateX(-50%);
-}
-
-@keyframes floatUp {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(-115vh) rotate(20deg); opacity: 0; }
-}
-    </style>
-
     <canvas id="celebration-canvas"></canvas>
 
     <div class="section">
@@ -193,7 +51,7 @@ export const QuizPage: Page = {
         const playCorrectSound = () => {
             initAudio();
             if (!audioCtx) return;
-            const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 arpeggio
+            const notes = [523.25, 659.25, 783.99, 1046.50];
             notes.forEach((freq, idx) => {
                 const osc = audioCtx!.createOscillator();
                 const gain = audioCtx!.createGain();
@@ -224,7 +82,7 @@ export const QuizPage: Page = {
             osc.stop(audioCtx.currentTime + 0.3);
         };
 
-        // --- Visual Celebration Effects (Confetti, Fireworks & Balloons) ---
+        // --- Visual Celebration Effects ---
         const triggerCelebration = () => {
             const canvas = document.getElementById('celebration-canvas') as HTMLCanvasElement;
             if (!canvas) return;
@@ -234,7 +92,6 @@ export const QuizPage: Page = {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
-            // 1. Spawn Balloons
             const colors = ['#ff4d4d', '#4da6ff', '#5cd65c', '#ffcc00', '#ff66cc', '#9966ff'];
             for (let i = 0; i < 12; i++) {
                 const balloon = document.createElement('div');
@@ -246,7 +103,6 @@ export const QuizPage: Page = {
                 setTimeout(() => balloon.remove(), 4000);
             }
 
-            // 2. Confetti & Fireworks Particles
             interface Particle {
                 x: number; y: number; vx: number; vy: number;
                 color: string; size: number; alpha: number; gravity: number;
@@ -254,7 +110,6 @@ export const QuizPage: Page = {
 
             const particles: Particle[] = [];
 
-            // Burst Confetti from Top
             for (let i = 0; i < 80; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
@@ -268,7 +123,6 @@ export const QuizPage: Page = {
                 });
             }
 
-            // Firework Shell Explosion from Center
             const fireworkX = canvas.width / 2;
             const fireworkY = canvas.height / 3;
             for (let i = 0; i < 60; i++) {
@@ -336,15 +190,69 @@ export const QuizPage: Page = {
 
         // --- 2. Game State ---
         const gameState = {
-            trivia: { data: [] as any[], index: 0, score: 0, container: document.getElementById('trivia-container') },
-            verses: { data: [] as any[], index: 0, score: 0, container: document.getElementById('verses-container') }
+            trivia: { data: [] as any[], order: [] as number[], index: 0, score: 0, container: document.getElementById('trivia-container') },
+            verses: { data: [] as any[], order: [] as number[], index: 0, score: 0, container: document.getElementById('verses-container') }
         };
 
-        // --- 3. UI Renderer for Quizzes ---
+        // --- 3. Reliable Index-Based LocalStorage Helpers ---
+        const getStorageKey = (type: 'trivia' | 'verses') => `bible_quiz_save_${type}`;
+
+        const saveProgress = (type: 'trivia' | 'verses') => {
+            const state = gameState[type];
+            const payload = {
+                index: state.index,
+                score: state.score,
+                order: state.order
+            };
+            localStorage.setItem(getStorageKey(type), JSON.stringify(payload));
+        };
+
+        const loadProgress = (type: 'trivia' | 'verses', rawData: any[]) => {
+            const savedStr = localStorage.getItem(getStorageKey(type));
+            if (savedStr) {
+                try {
+                    const parsed = JSON.parse(savedStr);
+                    if (Array.isArray(parsed.order) && parsed.order.length === rawData.length) {
+                        return {
+                            data: parsed.order.map((idx: number) => rawData[idx]),
+                            order: parsed.order,
+                            index: parsed.index || 0,
+                            score: parsed.score || 0
+                        };
+                    }
+                } catch (e) {
+                    console.error(`Failed to load saved progress for ${type}`, e);
+                }
+            }
+
+            // Fresh start: Create index array and shuffle
+            const order = rawData.map((_, i) => i).sort(() => 0.5 - Math.random());
+            const freshState = {
+                data: order.map(i => rawData[i]),
+                order,
+                index: 0,
+                score: 0
+            };
+            localStorage.setItem(getStorageKey(type), JSON.stringify({ index: 0, score: 0, order }));
+            return freshState;
+        };
+
+        const resetProgress = (type: 'trivia' | 'verses', rawData: any[]) => {
+            localStorage.removeItem(getStorageKey(type));
+            const order = rawData.map((_, i) => i).sort(() => 0.5 - Math.random());
+            gameState[type].order = order;
+            gameState[type].data = order.map(i => rawData[i]);
+            gameState[type].index = 0;
+            gameState[type].score = 0;
+            saveProgress(type);
+        };
+
+        // --- 4. UI Renderer for Quizzes ---
         const renderQuestion = (type: 'trivia' | 'verses') => {
             const state = gameState[type];
             if (!state.container) return;
 
+            // Completion Screen
             if (state.index >= state.data.length && state.data.length > 0) {
                 state.container.innerHTML = `
           <div class="quiz-card fade-in" style="text-align: center;">
@@ -354,7 +262,9 @@ export const QuizPage: Page = {
           </div>
         `;
                 document.getElementById(`restart-${type}`)?.addEventListener('click', () => {
-                    state.index = 0; state.score = 0; renderQuestion(type);
+                    const rawData = type === 'trivia' ? triviaData : versesData;
+                    resetProgress(type, rawData);
+                    renderQuestion(type);
                 });
                 return;
             }
@@ -373,7 +283,6 @@ export const QuizPage: Page = {
                 try { options = typeof item.options === 'string' ? JSON.parse(item.options) : item.options; }
                 catch { options = item.options || []; }
             } else {
-                // Updated to use item.words instead of item.text
                 const verseText = item.words || item.text || "";
                 questionText = `"${verseText}"<br><br><i>Which reference is this verse from?</i>`;
                 correctAnswer = item.book;
@@ -421,6 +330,7 @@ export const QuizPage: Page = {
                         });
                     }
 
+                    saveProgress(type);
                     optionBtns.forEach(b => (b as HTMLButtonElement).disabled = true);
                     if (nextBtn) nextBtn.style.display = 'inline-block';
                 });
@@ -432,18 +342,30 @@ export const QuizPage: Page = {
                     card.classList.add('fade-out');
                     setTimeout(() => {
                         state.index++;
+                        saveProgress(type);
                         renderQuestion(type);
                     }, 300);
                 }
             });
         };
-        // --- 4. Load JSON Data ---
+
+        // --- 5. Load Progress or Initialize ---
         const loadData = () => {
             try {
-                gameState.trivia.data = [...triviaData].sort(() => 0.5 - Math.random());
+                // Trivia Progress
+                const triviaProgress = loadProgress('trivia', triviaData);
+                gameState.trivia.data = triviaProgress.data;
+                gameState.trivia.order = triviaProgress.order;
+                gameState.trivia.index = triviaProgress.index;
+                gameState.trivia.score = triviaProgress.score;
                 renderQuestion('trivia');
 
-                gameState.verses.data = [...versesData].sort(() => 0.5 - Math.random());
+                // Verses Progress
+                const versesProgress = loadProgress('verses', versesData);
+                gameState.verses.data = versesProgress.data;
+                gameState.verses.order = versesProgress.order;
+                gameState.verses.index = versesProgress.index;
+                gameState.verses.score = versesProgress.score;
                 renderQuestion('verses');
             } catch (error) {
                 console.error("Error loading JSON data:", error);

@@ -2,6 +2,28 @@ import type { ChangelogEntry } from "../types/ChangelogEntry";
 
 export const WindowsChangelogs: ChangelogEntry[] = [
   {
+    id: "v1.1.435.0",
+    version: "1.1.436.0",
+    date: "2026-11-04",
+    title: "Faster Reading & a Unified Study Workspace",
+    description: "Faster Bible and hymn loading, a shared study side pane, automatic note saving, and more reliable translation switching and feature unlocking.",
+    platforms: ["windows"],
+    changes: [
+      "The Bible reader now loads one chapter at a time for faster loading and lower memory use, while restoring your last opened book and chapter.",
+      "Added compact previous and next chapter arrows with the Bible version centered between them. Select the version name to open your installed translations.",
+      "The active translation now has a clear checkmark. Improved translation switching and fixed duplicate loading and incorrect selection markers.",
+      "Hymns and praise songs now load one song at a time and remember your selection. Fixed the empty page that could appear when first opening Hymns.",
+      "Removed duplicate praise-song suggestions, including repeated songs in related lists.",
+      "The study side pane now brings Notes, Ebooks, Highlights, and Bookmarks together in four tabs, with clearer selected-tab styling.",
+      "Read imported PDFs beside the Bible using an integrated reader. The ebook library now uses modern cards with titles and file-type icons.",
+      "Notes now save automatically after a short pause and when switching tabs, navigating away, leaving the editor, or closing the app. Title changes and cleared note text are also saved.",
+      "Search saved highlights and bookmark notes in the side pane, open their references in the Bible, and manage them without leaving your study workspace.",
+      "Fixed purchased features remaining locked after payment or when restoring cached purchases. Added purchase restoration and improved updates to feature access and the Shell menu.",
+      "Improved subscription status handling while preserving access for users with a lifetime purchase."
+    ],
+    type: "improvement"
+  },
+  {
     id: "v1.1.433.0",
     version: "1.1.433.0",
     date: "2026-10-23",

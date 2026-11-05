@@ -1,0 +1,112 @@
+          # ========================================
+# SETTINGS - EDIT THESE ONLY
+# ========================================
+
+$source = "C:\Users\Robel\Documents\AppBundle"
+$dest = "$source\Msix"
+
+# Output bundle filename
+$bundleName = "Shepherd_Bible_WinUI3_1.1.436.0.msixbundle"
+
+# ========================================
+# FIND LATEST MAKEAPPX
+# ========================================
+
+$makeAppx = Get-ChildItem "C:\Program Files (x86)\Windows Kits\10\bin" `
+    -Recurse -Filter "makeappx.exe" -File |
+    Where-Object { $_.FullName -match "\\x64\\makeappx\.exe$" } |
+    Sort-Object FullName -Descending |
+    Select-Object -First 1
+
+if (-not $makeAppx) {
+    Write-Error "MakeAppx.exe was not found."
+    exit 1
+}
+
+$makeAppx = $makeAppx.FullName
+$bundlePath = "$source\$bundleName"
+
+Write-Host ""
+Write-Host "MakeAppx:"
+Write-Host $makeAppx
+
+Write-Host ""
+Write-Host "Output bundle:"
+Write-Host $bundlePath
+
+# ========================================
+# CREATE / CLEAN MSIX STAGING FOLDER
+# ========================================
+
+New-Item -ItemType Directory -Force -Path $dest | Out-Null
+
+Remove-Item "$dest\*" `
+    -Recurse `
+    -Force `
+    -ErrorAction SilentlyContinue
+
+# ========================================
+# FIND *_TEST FOLDERS
+# ========================================
+
+$testFolders = @(Get-ChildItem $source -Directory -Filter "*_Test")
+
+if ($testFolders.Count -eq 0) {
+    Write-Error "No *_Test folders were found."
+    exit 1
+}
+
+# ========================================
+# COPY ONLY APPLICATION MSIX FILES
+# ========================================
+
+foreach ($testFolder in $testFolders) {
+
+    Get-ChildItem $testFolder.FullName -File -Filter "*.msix" |
+        Copy-Item -Destination $dest -Force
+}
+
+# ========================================
+# GET SELECTED MSIX FILES
+# ========================================
+
+$msixFiles = @(Get-ChildItem $dest -File -Filter "*.msix")
+
+if ($msixFiles.Count -eq 0) {
+    Write-Error "No application MSIX files were found."
+    exit 1
+}
+
+Write-Host ""
+Write-Host "MSIX files selected for bundle:"
+Write-Host ""
+
+$msixFiles |
+    Select-Object Name, Length |
+    Format-Table -AutoSize
+
+# ========================================
+# CREATE MSIX BUNDLE
+# ========================================
+
+Write-Host ""
+Write-Host "Creating bundle:"
+Write-Host $bundlePath
+Write-Host ""
+
+& $makeAppx bundle `
+    /d $dest `
+    /p $bundlePath
+
+# ========================================
+# RESULT
+# ========================================
+
+if ($LASTEXITCODE -eq 0) {
+
+    Write-Host ""
+    Write-Host "========================================"
+    Write-Host "SUCCESS: MSIX bundle created"
+    Write-Host "========================================"
+    Write-Host $bundlePath
+}                                                

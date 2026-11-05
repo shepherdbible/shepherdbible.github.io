@@ -2,7 +2,32 @@ import type { ChangelogEntry } from "../types/ChangelogEntry";
 
 export const WindowsChangelogs: ChangelogEntry[] = [
   {
-    id: "v1.1.435.0",
+    id: "v1.1.438.0",
+    version: "1.1.438.0",
+    date: "2026-11-06",
+    title: "A Better Study Workspace & Expanded Translations",
+    description: "Improved notes, ebooks, highlights, bookmarks, verse images, and interface translations, with more reliable language restoration.",
+    platforms: ["windows"],
+    changes: [
+      "Read PDF, Word (.docx), and HTML (.html/.htm) documents beside the Bible. Added a full-screen reader with an easy return to the study pane.",
+      "Improved ebook cards, file-type icons, importing, and local document rendering. Word documents render on your device, and HTML documents can include local images and styles.",
+      "Highlights now have a rounded color-group picker. Select a color to load its verses, with book references and verse text from the active Bible translation.",
+      "Refreshed bookmark cards with readable verse previews and up to three lines of notes. Longer notes remain available when editing.",
+      "Redesigned the Notes tab with searchable cards, Markdown previews, clearer notebook actions, and a cleaner editor. New notes open directly for editing.",
+      "Improved note autosaving for title changes, cleared text, navigation, focus changes, and app closing. Added clear local-save status and a retry option when saving fails.",
+      "Added a dedicated translation selector displaying the full selected Bible name, with installed translations and selection checkmarks. The chapter navigation button continues to open the book picker.",
+      "Improved verse-image text resizing so text fits its resized box. Added superscript-style verse numbers when composing verse images.",
+      "The wallpaper browser now loads its catalog from an embedded resource for faster browsing without a catalog download.",
+      "Moved hardcoded interface labels into the English localization catalog, improved English wording, and regenerated the documented string properties.",
+      "Updated all supported app language catalogs and retained English as the fallback for unavailable translations, including labels shown during startup.",
+      "Fixed language restoration after restarting, improved regional language matching, and made language loading recover from missing or unreadable catalogs.",
+      "Fixed a MenuFlyout binding error affecting the Read aloud action.",
+      "Improved hidden startup in the system tray and verse-notification handling while the main window is hidden."
+    ],
+    type: "improvement"
+  },
+  {
+    id: "v1.1.436.0",
     version: "1.1.436.0",
     date: "2026-11-04",
     title: "Faster Reading & a Unified Study Workspace",
@@ -10,8 +35,12 @@ export const WindowsChangelogs: ChangelogEntry[] = [
     platforms: ["windows"],
     changes: [
       "The Bible reader now loads one chapter at a time for faster loading and lower memory use, while restoring your last opened book and chapter.",
-      "Added compact previous and next chapter arrows with the Bible version centered between them. Select the version name to open your installed translations.",
+      "Added compact previous and next chapter arrows with the current book name and chapter centered between them. Select the chapter title to open the book, chapter, and verse picker. Book names follow the active Bible language.",
       "The active translation now has a clear checkmark. Improved translation switching and fixed duplicate loading and incorrect selection markers.",
+      "New Verse image studio with a Fluent workspace, a modern image picker, and independently styled text and image overlays.",
+      "Added story-style text highlights, hollow outlines, and adjustable colored shadows for each text object. Restored the wallpaper browser with searchable thumbnails and background selection.",
+      "Move, resize, rotate, duplicate, reorder, hide, or lock image-creator layers. Added Undo/Redo, background opacity and blur controls, and canvas size presets.",
+      "Fixed clipped verse-image text with automatic fitting and consistent PNG/JPEG export dimensions. Image-creator drafts and styles save automatically, and editable projects include their images.",
       "Hymns and praise songs now load one song at a time and remember your selection. Fixed the empty page that could appear when first opening Hymns.",
       "Removed duplicate praise-song suggestions, including repeated songs in related lists.",
       "The study side pane now brings Notes, Ebooks, Highlights, and Bookmarks together in four tabs, with clearer selected-tab styling.",

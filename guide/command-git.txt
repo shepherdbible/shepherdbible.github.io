@@ -8,3 +8,6 @@ package.json to generate static site scripts\generate-routes.js
 
 vite.config.ts to generate on docx
 
+cd "C:\Users\Robel\Documents\GitHub\github-nextcode\apps\qr_scan.android"
+graphify .
+

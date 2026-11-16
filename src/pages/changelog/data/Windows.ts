@@ -2,6 +2,25 @@ import type { ChangelogEntry } from "../types/ChangelogEntry";
 
 export const WindowsChangelogs: ChangelogEntry[] = [
   {
+    id: "v1.1.440.0",
+    version: "1.1.440.0",
+    date: "2026-11-16",
+    title: "Red Letters, Verse Copy Formats & Reader Fixes",
+    description: "Style the words of Jesus, copy verses in more formats, and enjoy smoother chapter swipes and PDF reading on Windows.",
+    platforms: ["windows"],
+    changes: [
+      "Added red letters for the King James Version (KJV), with a Bible settings option to show Jesus’ words in red text or with a soft red background. Support varies by translation.",
+      "Added Copy options for selected verses, including plain text, text with a reference, numbered verses, references only, Markdown, and styled HTML with superscript verse numbers.",
+      "Classic swipe loads neighboring chapters in the background and reuses recently loaded verses to reduce blank pages when swiping back and forth.",
+      "Put the book and chapter picker on the left and the current translation code in the command bar. The reader toolbar now blends into the page background.",
+      "Refreshed the default dark palette and added a Pure Black preset. Improved black backgrounds in Pure Black and High Contrast Black.",
+      "Made the theme picker more compact and let its cards wrap in narrow windows. The first three presets in each theme group are free. A purchase or active subscription unlocks the remaining presets.",
+      "Improved PDF fullscreen transitions by keeping the reader in place. Use the ebook header’s fullscreen button to avoid the PDF toolbar and scrollbar disappearing in the built-in viewer’s fullscreen mode.",
+      "Fixed the automatic Ctrl+F hint appearing over the main page. Ctrl+F still opens search."
+    ],
+    type: "improvement"
+  },
+  {
     id: "v1.1.438.0",
     version: "1.1.438.0",
     date: "2026-11-06",

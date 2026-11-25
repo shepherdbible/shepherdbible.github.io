@@ -116,14 +116,17 @@ function handleNavigation(event: MouseEvent): void {
 
   event.preventDefault();
 
+  const nextUrl = new URL(href, window.location.origin);
   const currentPath = normalizePath(window.location.pathname);
-  const nextPath = normalizePath(href);
+  const nextPath = normalizePath(nextUrl.pathname);
+  const currentLocation = `${currentPath}${window.location.search}${window.location.hash}`;
+  const nextLocation = `${nextPath}${nextUrl.search}${nextUrl.hash}`;
 
-  if (currentPath === nextPath) {
+  if (currentLocation === nextLocation) {
     return;
   }
 
-  history.pushState({}, "", nextPath);
+  history.pushState({}, "", nextLocation);
 
   renderRoute();
 }

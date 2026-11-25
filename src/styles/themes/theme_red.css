@@ -29,6 +29,12 @@
   --font-sans: "Inter", system-ui, sans-serif;
   --font-serif: "Merriweather", Georgia, serif;
 
+  /* Bible reader type scale: adjust these once to tune desktop and mobile. */
+  --bible-reader-font-size: clamp(1.02rem, 1.2vw, 1.12rem);
+  --bible-reader-font-size-mobile: 1.04rem;
+  --bible-reader-heading-size: clamp(1.2rem, 1.7vw, 1.4rem);
+  --bible-reader-heading-size-mobile: 1.15rem;
+
   /* Shadows */
   --shadow-sm: 0 2px 8px rgba(90, 32, 32, 0.06);
   --shadow-md: 0 8px 24px rgba(90, 32, 32, 0.10);

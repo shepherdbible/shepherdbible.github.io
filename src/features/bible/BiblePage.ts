@@ -4,7 +4,7 @@ import { bibleBookOrder } from "../books/books";
 type Testament = "OT" | "NT";
 type BibleBook = { osis: string; name: string; testament: Testament; chapters: Record<string, number> };
 type BibleManifest = { translation: string; name: string; verseCount: number; pathTemplate: string; headingsPath: string; books: BibleBook[] };
-type BibleVerse = { id: string; osis: string; human: string; chapter: number; verse: number; code: string; is_nt: number; reference: string; text: string };
+type BibleVerse = { id: string; osis: string; human: string; chapter: number; verse: number; code: string; is_nt: number; reference: string; text: string; red: { start_offset: number; length: number }[] };
 type BibleHeading = { title: string; reference: string; osis: string; chapter: number; verse: number };
 type SavedHighlight = { id: string; osis: string; bookName: string; chapter: number; verse: number; text: string };
 
@@ -244,7 +244,8 @@ export class BiblePage {
       token.setAttribute("role", "button"); token.setAttribute("tabindex", "0"); token.setAttribute("aria-pressed", String(highlighted));
       token.setAttribute("aria-label", `${verse.reference}. ${verse.text}. ${highlighted ? "Highlighted." : "Not highlighted."} Activate to ${highlighted ? "remove" : "save"} highlight.`);
       const number = document.createElement("sup"); number.className = "bible-verse__number"; number.textContent = String(verse.verse);
-      const text = document.createElement("span"); text.className = "bible-verse__text"; text.textContent = verse.text;
+      const text = document.createElement("span"); text.className = "bible-verse__text";
+      this.appendVerseText(text, verse);
       token.append(number, document.createTextNode(" "), text);
       token.addEventListener("click", () => this.toggleHighlight(verse, token));
       token.addEventListener("keydown", (event) => {
@@ -252,6 +253,24 @@ export class BiblePage {
       });
       paragraph.append(token, document.createTextNode(" "));
     });
+  }
+
+  private appendVerseText(container: HTMLElement, verse: BibleVerse): void {
+    let cursor = 0;
+    const ranges = verse.is_nt ? [...(verse.red ?? [])].sort((a, b) => a.start_offset - b.start_offset) : [];
+    ranges.forEach((range) => {
+      const start = Math.max(cursor, Math.min(verse.text.length, range.start_offset));
+      const end = Math.max(start, Math.min(verse.text.length, range.start_offset + range.length));
+      if (start > cursor) container.appendChild(document.createTextNode(verse.text.slice(cursor, start)));
+      if (end > start) {
+        const redLetter = document.createElement("span");
+        redLetter.className = "bible-verse__red-letter";
+        redLetter.textContent = verse.text.slice(start, end);
+        container.appendChild(redLetter);
+      }
+      cursor = end;
+    });
+    if (cursor < verse.text.length) container.appendChild(document.createTextNode(verse.text.slice(cursor)));
   }
 
   private toggleHighlight(verse: BibleVerse, button: HTMLElement): void {

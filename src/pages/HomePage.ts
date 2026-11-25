@@ -43,6 +43,7 @@ export const HomePage: Page = {
 
         <!-- App Preview Device Mockup -->
         <div class="hero-visual">
+          <a href="/bible?book=Ps&amp;chapter=23" data-route class="home-bible-preview" aria-label="Open Psalm 23 in the Bible reader">
           <div class="mockup-container">
             <div class="mockup-topbar">
               <div class="mockup-dots">
@@ -73,7 +74,9 @@ export const HomePage: Page = {
                 </div>
               </main>
             </div>
+            <div class="home-bible-preview__cta"><span>Open Psalm 23 in the reader</span><span aria-hidden="true">→</span></div>
           </div>
+          </a>
         </div>
       </div>
     </section>

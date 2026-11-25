@@ -5,7 +5,8 @@ export default defineConfig({
 
   build: {
     outDir: "docs",
-    emptyOutDir: true,
+    // docs also holds the large static Bible JSON tree; preserve it between builds.
+    emptyOutDir: false,
     assetsDir: "assets",
   },
 });

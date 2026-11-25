@@ -36,6 +36,9 @@ export const HomePage: Page = {
           <a href="/store" class="btn btn-secondary">
             Visit Store
           </a>
+          <a href="/bible" data-route class="btn btn-secondary">
+            Read the Bible
+          </a>
         </div>
 
         <!-- App Preview Device Mockup -->

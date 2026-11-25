@@ -11,6 +11,7 @@ import { SupportPage } from "../pages/support/SupportPage";
 import { StorePage } from "../features/store/StorePage";
 import { BrotherlyPage } from "../pages/brotherly/BrotherlyPage";
 import { StoriesPage } from "../pages/stories/StoriesPage";
+import { BiblePage } from "../features/bible/BiblePage";
 
 
 type PageInstance = {
@@ -37,6 +38,7 @@ const routes: Record<string, PageFactory> = {
   "/privacy": () => PrivacyPage,
   "/editor": () => new VerseImagePage(),
   "/books": () => new OsisIdentifiersPage(),
+  "/bible": () => new BiblePage(),
   "/support": () => new SupportPage(),
   "/store": () => new StorePage(),
   "/brotherly": () => BrotherlyPage,

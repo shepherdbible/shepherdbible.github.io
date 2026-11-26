@@ -12,6 +12,7 @@ import { StorePage } from "../features/store/StorePage";
 import { BrotherlyPage } from "../pages/brotherly/BrotherlyPage";
 import { StoriesPage } from "../pages/stories/StoriesPage";
 import { BiblePage } from "../features/bible/BiblePage";
+import { AudioReadingPage } from "../features/reading/AudioReadingPage";
 
 
 type PageInstance = {
@@ -38,7 +39,9 @@ const routes: Record<string, PageFactory> = {
   "/privacy": () => PrivacyPage,
   "/editor": () => new VerseImagePage(),
   "/books": () => new OsisIdentifiersPage(),
-  "/bible": () => new BiblePage(),
+  "/bible": () => new BiblePage("kjv"),
+  "/bible/kjv": () => new BiblePage("kjv"),
+  "/reading/kjv": () => new AudioReadingPage("kjv"),
   "/support": () => new SupportPage(),
   "/store": () => new StorePage(),
   "/brotherly": () => BrotherlyPage,
@@ -62,8 +65,21 @@ function renderRoute(): void {
     return;
   }
 
-  const path = normalizePath(window.location.pathname);
-  const createPage = routes[path] ?? routes["/"];
+  let path = normalizePath(window.location.pathname);
+  if (path === "/bible") {
+    path = "/bible/kjv";
+    history.replaceState({}, "", `${path}${window.location.search}${window.location.hash}`);
+  } else if (path === "/reading") {
+    path = "/reading/kjv";
+    history.replaceState({}, "", `${path}${window.location.search}${window.location.hash}`);
+  }
+  const bibleVersionRoute = path.match(/^\/bible\/([a-z0-9-]+)$/i);
+  const readingVersionRoute = path.match(/^\/reading\/([a-z0-9-]+)$/i);
+  const createPage = bibleVersionRoute
+    ? () => new BiblePage(bibleVersionRoute[1])
+    : readingVersionRoute
+      ? () => new AudioReadingPage(readingVersionRoute[1])
+      : routes[path] ?? routes["/"];
   const page = createPage();
 
   window.scrollTo({

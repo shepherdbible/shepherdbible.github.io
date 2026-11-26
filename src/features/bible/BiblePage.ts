@@ -13,6 +13,7 @@ const LAST_READ_KEY = "sb-bible-last-read-v1";
 
 export class BiblePage {
   public container: HTMLElement;
+  private readonly versionCode: string;
   private manifest: BibleManifest | null = null;
   private bookIndex = 0;
   private chapter = 1;
@@ -29,7 +30,8 @@ export class BiblePage {
     highlightsPanel: HTMLElement; highlightsList: HTMLElement; highlightsEmpty: HTMLElement; live: HTMLElement;
   };
 
-  constructor() {
+  constructor(versionCode = "kjv") {
+    this.versionCode = /^[a-z0-9-]+$/i.test(versionCode) ? versionCode.toLowerCase() : "kjv";
     this.container = document.createElement("main");
     this.container.className = "bible-reader";
     this.container.innerHTML = `
@@ -45,7 +47,7 @@ export class BiblePage {
         <div class="bible-reader__body">
           <section class="bible-reading" aria-labelledby="bible-chapter-title">
             <div class="bible-reading__topline"><span class="bible-reading__section-label">TODAY, IN SCRIPTURE</span><span class="bible-reading__chapter-count"></span></div>
-            <div class="bible-reading__heading"><div><h2 id="bible-chapter-title">Genesis 1</h2><p class="bible-reading__subtitle">King James Version</p></div><div class="bible-reading__tools"><button class="bible-tool-button" type="button" data-action="copy-link" aria-label="Copy link to this chapter" title="Copy link"><span aria-hidden="true">↗</span><span>Share</span></button><button class="bible-tool-button" type="button" data-action="copy-chapter" aria-label="Copy chapter text" title="Copy chapter"><span aria-hidden="true">▢</span><span>Copy</span></button></div></div>
+            <div class="bible-reading__heading"><div><h2 id="bible-chapter-title">Genesis 1</h2><p class="bible-reading__subtitle">King James Version</p></div><div class="bible-reading__tools"><a class="bible-tool-button" data-route data-action="audio-mode" aria-label="Open continuous audio reading mode" title="Audio mode"><span aria-hidden="true">♫</span><span>Audio mode</span></a><button class="bible-tool-button" type="button" data-action="copy-link" aria-label="Copy link to this chapter" title="Copy link"><span aria-hidden="true">↗</span><span>Share</span></button><button class="bible-tool-button" type="button" data-action="copy-chapter" aria-label="Copy chapter text" title="Copy chapter"><span aria-hidden="true">▢</span><span>Copy</span></button></div></div>
             <div class="bible-reading__search-row"><label class="bible-search"><span class="bible-search__icon" aria-hidden="true">⌕</span><input type="search" placeholder="Find in this chapter" aria-label="Find text in this chapter"></label><button type="button" class="bible-highlights-toggle" data-action="toggle-highlights" aria-expanded="false"><span aria-hidden="true">✧</span> Highlights <span class="bible-highlights-toggle__count">0</span></button></div>
             <div class="bible-search-count" aria-live="polite"></div>
             <div class="bible-highlight-panel" hidden><div class="bible-highlight-panel__heading"><strong>Your saved verses</strong><span>Only you can see these on this device.</span></div><div class="bible-highlight-list"></div><p class="bible-highlight-empty" hidden>No highlights yet. Tap a verse while you read to save it here.</p></div>
@@ -101,30 +103,38 @@ export class BiblePage {
   }
 
   private async loadManifest(): Promise<void> {
-    this.setStatus("Loading the King James Version…", "loading");
+    this.setStatus("Loading Bible text…", "loading");
     try {
-      const response = await fetch("/bible/kjv/index.json");
+      const response = await fetch(`/bible/${this.versionCode}/index.json`);
       if (!response.ok) throw new Error(`Manifest request failed (${response.status})`);
       const manifest = await response.json() as BibleManifest;
       if (!Array.isArray(manifest.books) || manifest.books.length !== 66) throw new Error("The Bible book index is incomplete.");
       this.manifest = manifest;
+      const versionLabel = this.container.querySelector<HTMLElement>(".bible-reader__version-pill > span:nth-child(2)");
+      const versionName = this.container.querySelector<HTMLElement>(".bible-reader__version-name");
+      if (versionLabel) versionLabel.textContent = manifest.translation.toUpperCase();
+      if (versionName) versionName.textContent = manifest.name;
+      const footerVersion = this.container.querySelector<HTMLElement>(".bible-reading__footer > span:first-child");
+      if (footerVersion) footerVersion.textContent = manifest.name;
+      const footnote = this.container.querySelector<HTMLElement>(".bible-reader__footnote");
+      if (footnote) footnote.textContent = `Scripture text: ${manifest.name}.`;
       try {
-        const headingsResponse = await fetch("/bible/kjv/headings.json");
+        const headingsResponse = await fetch(`/bible/${this.versionCode}/headings.json`);
         if (headingsResponse.ok) this.headings = await headingsResponse.json() as BibleHeading[];
       } catch (error) {
         console.warn("Bible: section headings could not be loaded.", error);
       }
       const params = new URLSearchParams(window.location.search);
       const saved = this.readLastRead();
-      const requestedBook = params.get("book") ?? saved?.osis ?? "Gen";
-      const requestedChapter = Number(params.get("chapter") ?? saved?.chapter ?? 1);
-      const initial = manifest.books.find((book) => book.osis === requestedBook) ?? manifest.books[0];
+      const requestedBook = params.get("book") ?? saved?.osis ?? params.get("defaultBook") ?? "Gen";
+      const requestedChapter = Number(params.get("chapter") ?? saved?.chapter ?? params.get("defaultChapter") ?? 1);
+      const initial = manifest.books.find((book) => book.osis.toLowerCase() === requestedBook.toLowerCase()) ?? manifest.books[0];
       this.bookIndex = manifest.books.indexOf(initial);
       this.renderBookOptions();
       const max = this.chapterCount(initial);
       this.chapter = Number.isInteger(requestedChapter) && requestedChapter > 0 && requestedChapter <= max ? requestedChapter : 1;
       this.syncSelectors();
-      this.writeLastRead();
+      if (params.has("book") || params.has("chapter")) this.writeLastRead();
       await this.renderChapter();
     } catch (error) {
       console.error("Bible: unable to load the static KJV data.", error);
@@ -156,7 +166,9 @@ export class BiblePage {
     this.elements.chapterSelect.value = String(this.chapter);
     this.elements.title.textContent = `${book.name} ${this.chapter}`;
     this.elements.count.textContent = `${this.chapterCount(book)} CHAPTERS`;
-    this.elements.subtitle.textContent = `${book.testament === "OT" ? "Old Testament" : "New Testament"} · King James Version`;
+    this.elements.subtitle.textContent = `${book.testament === "OT" ? "Old Testament" : "New Testament"} · ${this.manifest.name}`;
+    const audioLink = this.container.querySelector<HTMLAnchorElement>("[data-action='audio-mode']");
+    if (audioLink) audioLink.href = `/reading/${this.versionCode}?book=${encodeURIComponent(book.osis)}&chapter=${this.chapter}`;
     const position = this.container.querySelector<HTMLElement>(".bible-chapter-nav__position span:last-child");
     if (position) position.textContent = `Book ${this.bookIndex + 1} of 66 · Chapter ${this.chapter} of ${this.chapterCount(book)}`;
     this.elements.previous.disabled = this.bookIndex === 0 && this.chapter === 1;
@@ -196,7 +208,7 @@ export class BiblePage {
     try {
       const verses = await Promise.all(Array.from({ length: verseCount }, async (_, index) => {
         const verse = index + 1;
-        const response = await fetch(`/bible/kjv/${encodeURIComponent(book.osis)}/${chapter}/${verse}.json`);
+        const response = await fetch(`/bible/${this.versionCode}/${encodeURIComponent(book.osis)}/${chapter}/${verse}.json`);
         if (!response.ok) throw new Error(`${book.osis} ${chapter}:${verse} returned ${response.status}`);
         return await response.json() as BibleVerse;
       }));
@@ -314,17 +326,23 @@ export class BiblePage {
   private currentBook(): BibleBook { return this.manifest!.books[this.bookIndex]; }
   private chapterCount(book: BibleBook): number { return Object.keys(book.chapters).length; }
   private writeLocation(): void {
-    const url = new URL(window.location.href); url.pathname = "/bible"; url.searchParams.set("book", this.currentBook().osis); url.searchParams.set("chapter", String(this.chapter));
+    const url = new URL(window.location.href); url.pathname = `/bible/${this.versionCode}`; url.searchParams.set("book", this.currentBook().osis); url.searchParams.set("chapter", String(this.chapter));
     history.pushState({}, "", `${url.pathname}${url.search}`);
   }
-  private writeHighlights(): void { try { localStorage.setItem(HIGHLIGHT_KEY, JSON.stringify([...this.highlights.values()])); } catch (error) { console.warn("Bible: highlights could not be saved.", error); } }
+  private highlightStorageKey(): string { return this.versionCode === "kjv" ? HIGHLIGHT_KEY : `${HIGHLIGHT_KEY}-${this.versionCode}`; }
+  private lastReadStorageKey(): string { return this.versionCode === "kjv" ? LAST_READ_KEY : `${LAST_READ_KEY}-${this.versionCode}`; }
+  private writeHighlights(): void { try { localStorage.setItem(this.highlightStorageKey(), JSON.stringify([...this.highlights.values()])); } catch (error) { console.warn("Bible: highlights could not be saved.", error); } }
   private readHighlights(): void {
-    try { const saved = JSON.parse(localStorage.getItem(HIGHLIGHT_KEY) ?? "[]") as SavedHighlight[]; if (Array.isArray(saved)) saved.forEach((item) => { if (item && typeof item.id === "string" && typeof item.text === "string") this.highlights.set(item.id, item); }); }
+    try { const saved = JSON.parse(localStorage.getItem(this.highlightStorageKey()) ?? "[]") as SavedHighlight[]; if (Array.isArray(saved)) saved.forEach((item) => { if (item && typeof item.id === "string" && typeof item.text === "string") this.highlights.set(item.id, item); }); }
     catch { this.highlights.clear(); }
   }
-  private writeLastRead(): void { try { localStorage.setItem(LAST_READ_KEY, JSON.stringify({ osis: this.currentBook().osis, chapter: this.chapter })); } catch { /* Reading works if browser storage is unavailable. */ } }
+  private writeLastRead(): void { try { localStorage.setItem(this.lastReadStorageKey(), JSON.stringify({ osis: this.currentBook().osis, chapter: this.chapter, navigated: true })); } catch { /* Reading works if browser storage is unavailable. */ } }
   private readLastRead(): { osis: string; chapter: number } | null {
-    try { const value = JSON.parse(localStorage.getItem(LAST_READ_KEY) ?? "null") as { osis?: unknown; chapter?: unknown } | null; if (value && typeof value.osis === "string" && typeof value.chapter === "number") return { osis: value.osis, chapter: value.chapter }; }
+    try {
+      const value = JSON.parse(localStorage.getItem(this.lastReadStorageKey()) ?? "null") as { osis?: unknown; chapter?: unknown; navigated?: unknown } | null;
+      if (value && value.osis === "Gen" && value.chapter === 1 && value.navigated !== true) return null;
+      if (value && typeof value.osis === "string" && typeof value.chapter === "number") return { osis: value.osis, chapter: value.chapter };
+    }
     catch { /* Ignore damaged storage and start at Genesis 1. */ }
     return null;
   }

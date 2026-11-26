@@ -6,7 +6,7 @@ export const featureMenu: FeatureMenuItem[] = [
     icon: "📖",
     title: "Read the Bible",
     description: "Explore all 66 books in the KJV",
-    route: "/bible",
+    route: "/bible/kjv",
   },
   {
     id: "verse-image",

@@ -17,7 +17,16 @@ const routes = [
   "brotherly",
   "stories",
   "bible",
+  "reading",
 ];
+
+const bibleDataDir = path.resolve("public", "bible");
+const bibleVersions = fs.existsSync(bibleDataDir)
+  ? fs.readdirSync(bibleDataDir, { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => entry.name)
+  : ["kjv"];
+for (const version of bibleVersions) {
+  routes.push(`bible/${version}`, `reading/${version}`);
+}
 
 if (!fs.existsSync(sourceFile)) {
   throw new Error("docs/index.html does not exist.");

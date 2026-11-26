@@ -1,0 +1,186 @@
+.bible-audio-reader {
+  padding-bottom: 54px;
+}
+.bible-audio-reader .bible-reader__intro {
+  margin-bottom: 20px;
+}
+.bible-audio-reader .bible-reader__intro p {
+  max-width: 62ch;
+}
+.bible-audio-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.bible-audio-actions [hidden] {
+  display: none;
+}
+.bible-audio-actions a {
+  text-decoration: none;
+}
+.bible-audio-tip {
+  position: fixed;
+  z-index: 30;
+  inset-inline-start: 50%;
+  bottom: max(14px, env(safe-area-inset-bottom));
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  width: min(760px, calc(100vw - 24px));
+  margin: 0;
+  padding: 13px 16px;
+  transform: translateX(-50%);
+  border: 1px solid
+    color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--color-accent) 11%, var(--color-surface));
+  color: var(--color-text);
+  box-shadow: var(--shadow-md, 0 8px 24px rgba(20, 10, 10, 0.18));
+}
+.bible-audio-tip[hidden] {
+  display: none;
+}
+.bible-audio-tip strong {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--color-primary);
+  font-size: 0.8rem;
+}
+.bible-audio-tip p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+.bible-audio-tip button {
+  flex: 0 0 auto;
+  width: 29px;
+  height: 29px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+.bible-audio-tip button:hover {
+  background: color-mix(in srgb, var(--color-primary) 9%, transparent);
+  color: var(--color-primary);
+}
+.bible-audio-reading {
+  overflow: visible;
+}
+.bible-audio-reading [hidden] {
+  display: none;
+}
+.bible-audio-progress {
+  display: block;
+  width: calc(100% - 60px);
+  height: 5px;
+  margin: 0 30px 16px;
+  accent-color: var(--color-primary);
+}
+.bible-audio-article {
+  padding: 8px 34px 30px;
+}
+.bible-audio-chapter {
+  scroll-margin-top: 20px;
+}
+.bible-audio-chapter + .bible-audio-chapter {
+  margin-top: 1.6rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--bible-border);
+}
+.bible-audio-chapter__title {
+  margin: 0 0 0.5rem;
+  color: var(--bible-ink);
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+.bible-audio-verses {
+  padding: 0;
+}
+.bible-audio-verses .bible-paragraph {
+  margin-bottom: 1.1em;
+}
+.bible-audio-verses .bible-section-heading {
+  break-after: avoid;
+}
+.bible-audio-chapter:first-child
+  .bible-audio-verses
+  > .bible-paragraph:first-child {
+  text-indent: 1.6em;
+}
+.bible-audio-finish {
+  padding: 18px 30px;
+  border-top: 1px solid var(--bible-border);
+  color: var(--bible-muted);
+  font-size: 0.8rem;
+  text-align: center;
+}
+.bible-audio-finish[hidden] {
+  display: none;
+}
+.bible-audio-reader .bible-paragraph {
+  cursor: text;
+}
+.bible-audio-reader .bible-verse {
+  cursor: pointer;
+}
+@media (max-width: 600px) {
+  .bible-audio-reader {
+    padding: 24px 14px 44px;
+  }
+  .bible-audio-actions {
+    justify-content: flex-start;
+  }
+  .bible-audio-tip {
+    padding: 11px 12px;
+  }
+  .bible-audio-progress {
+    width: calc(100% - 28px);
+    margin: 0 14px 12px;
+  }
+  .bible-audio-article {
+    padding: 6px 18px 22px;
+  }
+  .bible-audio-chapter + .bible-audio-chapter {
+    margin-top: 1.2rem;
+    padding-top: 0.9rem;
+  }
+}
+@media print {
+  .bible-audio-reader {
+    min-height: 0;
+    padding: 0;
+    background: #fff;
+    color: #111;
+  }
+  .bible-audio-reader .bible-reader__intro p,
+  .bible-audio-actions,
+  .bible-audio-tip,
+  .bible-audio-progress,
+  .bible-reader__status,
+  .bible-reader__footnote {
+    display: none !important;
+  }
+  .bible-audio-reading {
+    overflow: visible;
+    border: 0;
+    box-shadow: none;
+  }
+  .bible-audio-article {
+    padding: 0;
+  }
+  .bible-audio-chapter + .bible-audio-chapter {
+    break-before: page;
+    border: 0;
+  }
+  .bible-audio-reader .bible-verse.is-highlighted {
+    background: #ffe8a8;
+  }
+}

@@ -36,14 +36,14 @@ export const HomePage: Page = {
           <a href="/store" class="btn btn-secondary">
             Visit Store
           </a>
-          <a href="/bible" data-route class="btn btn-secondary">
+          <a href="/bible/kjv" data-route class="btn btn-secondary">
             Read the Bible
           </a>
         </div>
 
         <!-- App Preview Device Mockup -->
         <div class="hero-visual">
-          <a href="/bible?book=Ps&amp;chapter=23" data-route class="home-bible-preview" aria-label="Open Psalm 23 in the Bible reader">
+          <a href="/bible/kjv?defaultBook=Ps&amp;defaultChapter=23" data-route class="home-bible-preview" aria-label="Resume your last place in the Bible reader, starting at Psalm 23 if you have not read before">
           <div class="mockup-container">
             <div class="mockup-topbar">
               <div class="mockup-dots">

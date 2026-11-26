@@ -49,7 +49,7 @@ function initializeApp(): void {
 
     <nav class="footer-links" aria-label="Footer navigation">
        <a href="/brotherly" data-route>Brotherly</a>
-      <a href="/bible" data-route>Read the Bible</a>
+      <a href="/bible/kjv" data-route>Read the Bible</a>
       <a href="/changelog" data-route>Changelog</a>
       <a href="/faq" data-route>FAQ</a>
       <a href="/books" data-route>Books</a>
